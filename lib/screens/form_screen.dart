@@ -46,7 +46,9 @@ class _FormScreenState extends State<FormScreen> {
                     children: [
                       Text(
                         'Enter your details',
-                        style: TextStyle(color: Colors.blue, fontSize: 24),
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.secondary,
+                            fontSize: 24),
                       ),
                       SizedBox(height: 16),
                       FormBuilderTextField(
