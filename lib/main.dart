@@ -1,6 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_login/flutter_login.dart';
+import 'package:sehatmand/screens/form_screen.dart';
+import 'package:sehatmand/screens/main-srcreen.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -13,6 +20,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        // scaffoldBackgroundColor: Color(0xFF4C3AE2),
+
         // This is the theme of your application.
         //
         // Try running your application with "flutter run". You'll see the
@@ -24,18 +33,67 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      home: LoginScreen(),
+      routes: {
+        MainScreen.routeName: (context) => MainScreen(),
+        FormScreen.routeName: (context) => FormScreen(),
+      },
     );
   }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
-
+class LoginScreen extends StatelessWidget {
+  LoginScreen({Key? key}) : super(key: key);
+  late String mode;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: const Text('Hello World'),
+    return FlutterLogin(
+      title: 'SehatMand',
+      onLogin: (loginData) async {
+        final _auth = await FirebaseAuth.instance;
+
+        try {
+          final user = await _auth.signInWithEmailAndPassword(
+              email: loginData.name, password: loginData.password);
+          if (user != null) {
+            Navigator.pushNamed(context, MainScreen.routeName);
+          }
+        } on FirebaseAuthException catch (e) {
+          print(e.toString());
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(e.message.toString()),
+            ),
+          );
+        }
+      },
+      onSignup: (signupData) async {
+        final _auth = await FirebaseAuth.instance;
+
+        try {
+          final user = await _auth.createUserWithEmailAndPassword(
+              email: signupData.name.toString(),
+              password: signupData.password.toString());
+          if (user != null) {
+            Navigator.pushNamed(context, FormScreen.routeName);
+          }
+        } on FirebaseAuthException catch (e) {
+          print(e.toString());
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(e.message.toString()),
+            ),
+          );
+        }
+      },
+      theme: LoginTheme(
+        primaryColor: Colors.lightBlue,
+        accentColor: Colors.blue,
+        errorColor: Colors.red,
+        pageColorLight: Colors.white,
+        pageColorDark: Colors.blue,
+      ),
+      onRecoverPassword: (String) {},
     );
   }
 }

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "819780673261",
+    "project_id": "sehat-mand",
+    "storage_bucket": "sehat-mand.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:819780673261:android:e2e85dd5b8fea95819f6e4",
+        "android_client_info": {
+          "package_name": "com.example.sehatmand"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "819780673261-mg0akj2jnhr76du641skabdijo6t6out.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLl2TG47cvE98QLzpDVxJDajXUaPH6HY4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "819780673261-mg0akj2jnhr76du641skabdijo6t6out.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
