@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:sehatmand/screens/form_screen.dart';
 import 'package:sehatmand/screens/main-srcreen.dart';
 
@@ -20,7 +21,16 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-          // scaffoldBackgroundColor: Color(0xFF4C3AE2),
+          scaffoldBackgroundColor: Color(0xFF222831),
+          inputDecorationTheme: InputDecorationTheme(
+            enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(2),
+                borderSide: BorderSide(color: Colors.deepPurpleAccent)),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(2),
+              borderSide: BorderSide(color: Colors.deepPurpleAccent, width: 5),
+            ),
+          ),
 
           // This is the theme of your application.
           //
@@ -31,10 +41,28 @@ class MyApp extends StatelessWidget {
           // or simply save your changes to "hot reload" in a Flutter IDE).
           // Notice that the counter didn't reset back to zero; the application
           // is not restarted.
-          primarySwatch: Colors.blue,
-          colorScheme:
-              ColorScheme.light().copyWith(secondary: Colors.deepOrange)),
-      home: LoginScreen(),
+          // primarySwatch: Colors.blue,
+          colorScheme: ColorScheme.dark().copyWith(
+            secondary: Colors.deepPurpleAccent,
+          )),
+      home: StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Scaffold(
+                body: Center(child: CircularProgressIndicator()));
+          }
+
+          if (snapshot.hasData) {
+            print('MainScreen');
+
+            return MainScreen();
+          } else {
+            print('LoginScreen');
+            return LoginScreen();
+          }
+        },
+      ),
       routes: {
         MainScreen.routeName: (context) => MainScreen(),
         FormScreen.routeName: (context) => FormScreen(),
@@ -88,11 +116,35 @@ class LoginScreen extends StatelessWidget {
         }
       },
       theme: LoginTheme(
-        primaryColor: Colors.lightBlue,
-        accentColor: Colors.blue,
+        inputTheme: const InputDecorationTheme(
+          labelStyle: TextStyle(
+            color: Colors.white,
+            fontSize: 15,
+          ),
+          hintStyle: TextStyle(color: Colors.grey),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.deepPurpleAccent),
+            borderRadius: BorderRadius.all(
+              Radius.circular(10.0),
+            ),
+          ),
+        ),
+        primaryColorAsInputLabel: true,
+        accentColor: Colors.deepPurpleAccent,
+        titleStyle: TextStyle(
+          color: Colors.deepPurpleAccent,
+        ),
+
+        buttonTheme: LoginButtonTheme(
+            backgroundColor: Colors.deepPurpleAccent,
+            elevation: 9.0,
+            highlightElevation: 6.0,
+            shape: BeveledRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            )),
         errorColor: Colors.red,
-        pageColorLight: Colors.white,
-        pageColorDark: Colors.blue,
+
+        // pageColorDark: Color(0xFF222831),
       ),
       onRecoverPassword: (String) {},
     );
