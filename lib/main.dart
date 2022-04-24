@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -12,14 +13,40 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool isFirstTime = true;
+  bool isRegistered = false;
+  Future<bool> checkIfRegisteredOrNot() async{
+
+    final id = FirebaseAuth.instance.currentUser!.uid;
+    DocumentSnapshot ds = await FirebaseFirestore.instance.collection("users").doc(id).get();
+    if(isFirstTime){
+      setState(() {
+        isRegistered = ds.exists;
+        isFirstTime = false;
+      });
+    }
+    return Future<bool>.value(isRegistered);
+  }
+
+  @override
+  void initState() {
+    checkIfRegisteredOrNot();
+    super.initState();
+  }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'SehatMand',
       theme: ThemeData(
           scaffoldBackgroundColor: Color(0xFF222831),
           inputDecorationTheme: InputDecorationTheme(
@@ -32,16 +59,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
 
-          // This is the theme of your application.
-          //
-          // Try running your application with "flutter run". You'll see the
-          // application has a blue toolbar. Then, without quitting the app, try
-          // changing the primarySwatch below to Colors.green and then invoke
-          // "hot reload" (press "r" in the console where you ran "flutter run",
-          // or simply save your changes to "hot reload" in a Flutter IDE).
-          // Notice that the counter didn't reset back to zero; the application
-          // is not restarted.
-          // primarySwatch: Colors.blue,
+
           colorScheme: ColorScheme.dark().copyWith(
             secondary: Colors.deepPurpleAccent,
           )),
@@ -55,8 +73,12 @@ class MyApp extends StatelessWidget {
 
           if (snapshot.hasData) {
             print('MainScreen');
+            didChangeDependencies(){
+              checkIfRegisteredOrNot();
+            }
 
-            return MainScreen();
+            return isRegistered?MainScreen():FormScreen();
+
           } else {
             print('LoginScreen');
             return LoginScreen();
@@ -72,6 +94,8 @@ class MyApp extends StatelessWidget {
 }
 
 class LoginScreen extends StatelessWidget {
+
+
   LoginScreen({Key? key}) : super(key: key);
   late String mode;
   @override
@@ -89,13 +113,10 @@ class LoginScreen extends StatelessWidget {
           }
         } on FirebaseAuthException catch (e) {
           print(e.toString());
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(e.message.toString()),
-            ),
-          );
+          return e.message.toString();
         }
       },
+
       onSignup: (signupData) async {
         final _auth = await FirebaseAuth.instance;
 

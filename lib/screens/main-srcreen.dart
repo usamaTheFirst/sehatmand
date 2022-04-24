@@ -53,10 +53,10 @@ class _MainScreenState extends State<MainScreen> {
             icon: Icon(Icons.settings),
             title: Text('Settings'),
           ),
-          FlashyTabBarItem(
-            icon: Icon(Icons.settings),
-            title: Text('한국어'),
-          ),
+          // FlashyTabBarItem(
+          //   icon: Icon(Icons.settings),
+          //   title: Text('한국어'),
+          // ),
         ],
       ),
     );
