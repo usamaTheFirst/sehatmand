@@ -22,7 +22,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool isFirstTime = true;
-  bool isRegistered = false;
+  bool? isRegistered;
   Future<bool> checkIfRegisteredOrNot() async{
 
     final id = FirebaseAuth.instance.currentUser!.uid;
@@ -76,8 +76,14 @@ class _MyAppState extends State<MyApp> {
             didChangeDependencies(){
               checkIfRegisteredOrNot();
             }
+            var nullCheck = isRegistered;                               //isRegistered is a nullable variable and thus cannot be used in condition so we used another variable to check for null value
+            // return nullCheck!=null?MainScreen():FormScreen();
 
-            return isRegistered?MainScreen():FormScreen();
+            if(nullCheck != null){
+              return nullCheck?MainScreen():FormScreen();
+            } else {
+              return const Scaffold(body: Center(child: CircularProgressIndicator()));
+            }
 
           } else {
             print('LoginScreen');
@@ -129,11 +135,7 @@ class LoginScreen extends StatelessWidget {
           }
         } on FirebaseAuthException catch (e) {
           print(e.toString());
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(e.message.toString()),
-            ),
-          );
+          return e.message.toString();
         }
       },
       theme: LoginTheme(
