@@ -20,12 +20,19 @@ class _AuthScreenState extends State<AuthScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(height: 10),
+              SizedBox(height: 30),
               Center(
                 child: SvgPicture.asset(
                   'logo.svg',
                   height: 150,
                   fit: BoxFit.contain,
+                ),
+              ),
+              Text(
+                "SehatMand",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.secondary,
+                  fontSize: 25,
                 ),
               ),
               AuthForm(submitAuthForm: _submitAuthForm, loader: loader),

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
+import 'package:sehatmand/screens/test_screen.dart';
 
 class MainScreen extends StatefulWidget {
   MainScreen({Key? key}) : super(key: key);
@@ -17,14 +18,8 @@ class _MainScreenState extends State<MainScreen> {
     Center(child: Text("Home")),
     Center(child: Text("Social Media")),
     Center(child: Text("Excercies")),
-    Center(child: Text("Profile")),
+    TestScreen(),
   ];
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,20 +39,26 @@ class _MainScreenState extends State<MainScreen> {
           FlashyTabBarItem(
             activeColor: Colors.white,
             inactiveColor: Colors.white.withOpacity(0.7),
-            icon: Icon(Icons.event),
-            title: Text('Events'),
+            icon: Icon(Icons.home),
+            title: Text('Home'),
           ),
           FlashyTabBarItem(
-            icon: Icon(Icons.search),
-            title: Text('Search'),
+            activeColor: Colors.white,
+            inactiveColor: Colors.white.withOpacity(0.7),
+            icon: Icon(Icons.people),
+            title: Text('Friends'),
           ),
           FlashyTabBarItem(
-            icon: Icon(Icons.highlight),
-            title: Text('Highlights'),
+            activeColor: Colors.white,
+            inactiveColor: Colors.white.withOpacity(0.7),
+            icon: Icon(Icons.trending_up),
+            title: Text('Progress'),
           ),
           FlashyTabBarItem(
-            icon: Icon(Icons.settings),
-            title: Text('Settings'),
+            activeColor: Colors.white,
+            inactiveColor: Colors.white.withOpacity(0.7),
+            icon: Icon(Icons.person),
+            title: Text('My profile'),
           ),
           // FlashyTabBarItem(
           //   icon: Icon(Icons.settings),

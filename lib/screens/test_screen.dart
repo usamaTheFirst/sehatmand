@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class TestScreen extends StatefulWidget {
@@ -13,7 +14,13 @@ class _TestScreenState extends State<TestScreen> {
     print('TestScreen build');
     return Scaffold(
       body: Center(
-        child: Text('Test Screen'),
+          child: TextButton(
+            child: Text("Profile"),
+            onPressed: (){
+              FirebaseAuth.instance.signOut();
+              Navigator.of(context).popUntil((route) => route.isFirst);
+            },
+          )
       ),
     );
   }
