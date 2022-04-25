@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:sehatmand/screens/auth-screen.dart';
 import 'package:sehatmand/screens/form_screen.dart';
 import 'package:sehatmand/screens/main-srcreen.dart';
 import 'package:sehatmand/screens/test_screen.dart';
@@ -11,7 +12,7 @@ import 'package:sehatmand/screens/test_screen.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp((MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -72,7 +73,7 @@ class _MyAppState extends State<MyApp> {
             }
           } else {
             print('LoginScreen');
-            return LoginScreen();
+            return AuthScreen();
           }
         },
       ),
