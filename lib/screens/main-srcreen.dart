@@ -21,13 +21,19 @@ class _MainScreenState extends State<MainScreen> {
   ];
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
         child: tabItems[_selectedIndex],
       ),
       bottomNavigationBar: FlashyTabBar(
-        backgroundColor: Theme.of(context).colorScheme.secondary,
+        backgroundColor: Colors.deepPurpleAccent,
         animationCurve: Curves.linear,
         selectedIndex: _selectedIndex,
         showElevation: false, // use this to remove appBar's elevation

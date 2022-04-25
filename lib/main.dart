@@ -6,6 +6,7 @@ import 'package:flutter_login/flutter_login.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sehatmand/screens/form_screen.dart';
 import 'package:sehatmand/screens/main-srcreen.dart';
+import 'package:sehatmand/screens/test_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,23 +24,16 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   bool isFirstTime = true;
   bool? isRegistered;
-  Future<bool> checkIfRegisteredOrNot() async{
-
-    final id = FirebaseAuth.instance.currentUser!.uid;
-    DocumentSnapshot ds = await FirebaseFirestore.instance.collection("users").doc(id).get();
-    if(isFirstTime){
+  checkIfRegisteredOrNot() async {
+    if (isFirstTime && mounted) {
+      final id = FirebaseAuth.instance.currentUser!.uid;
+      DocumentSnapshot ds =
+          await FirebaseFirestore.instance.collection("users").doc(id).get();
       setState(() {
         isRegistered = ds.exists;
         isFirstTime = false;
       });
     }
-    return Future<bool>.value(isRegistered);
-  }
-
-  @override
-  void initState() {
-    checkIfRegisteredOrNot();
-    super.initState();
   }
 
   // This widget is the root of your application.
@@ -58,33 +52,24 @@ class _MyAppState extends State<MyApp> {
               borderSide: BorderSide(color: Colors.deepPurpleAccent, width: 5),
             ),
           ),
-
-
           colorScheme: ColorScheme.dark().copyWith(
             secondary: Colors.deepPurpleAccent,
           )),
       home: StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Scaffold(
-                body: Center(child: CircularProgressIndicator()));
-          }
-
           if (snapshot.hasData) {
-            print('MainScreen');
-            didChangeDependencies(){
-              checkIfRegisteredOrNot();
-            }
-            var nullCheck = isRegistered;                               //isRegistered is a nullable variable and thus cannot be used in condition so we used another variable to check for null value
-            // return nullCheck!=null?MainScreen():FormScreen();
+            Future.delayed(Duration(seconds: 1)).then((value) async {
+              await checkIfRegisteredOrNot();
+            });
 
-            if(nullCheck != null){
-              return nullCheck?MainScreen():FormScreen();
+            if (isRegistered != null) {
+              return isRegistered! ? const TestScreen() : const FormScreen();
             } else {
-              return const Scaffold(body: Center(child: CircularProgressIndicator()));
+              print("isRegistered is null");
+              return const Scaffold(
+                  body: Center(child: CircularProgressIndicator()));
             }
-
           } else {
             print('LoginScreen');
             return LoginScreen();
@@ -100,29 +85,25 @@ class _MyAppState extends State<MyApp> {
 }
 
 class LoginScreen extends StatelessWidget {
-
-
-  LoginScreen({Key? key}) : super(key: key);
-  late String mode;
+  const LoginScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return FlutterLogin(
       title: 'SehatMand',
       onLogin: (loginData) async {
-        final _auth = await FirebaseAuth.instance;
+        final _auth = FirebaseAuth.instance;
 
         try {
           final user = await _auth.signInWithEmailAndPassword(
               email: loginData.name, password: loginData.password);
-          if (user != null) {
-            Navigator.pushNamed(context, MainScreen.routeName);
-          }
+          // if (user != null) {
+          //   Navigator.pushNamed(context, MainScreen.routeName);
+          // }
         } on FirebaseAuthException catch (e) {
           print(e.toString());
           return e.message.toString();
         }
       },
-
       onSignup: (signupData) async {
         final _auth = await FirebaseAuth.instance;
 
@@ -130,9 +111,9 @@ class LoginScreen extends StatelessWidget {
           final user = await _auth.createUserWithEmailAndPassword(
               email: signupData.name.toString(),
               password: signupData.password.toString());
-          if (user != null) {
-            Navigator.pushNamed(context, FormScreen.routeName);
-          }
+          // if (user != null) {
+          //   Navigator.pushNamed(context, FormScreen.routeName);
+          // }
         } on FirebaseAuthException catch (e) {
           print(e.toString());
           return e.message.toString();
@@ -154,7 +135,7 @@ class LoginScreen extends StatelessWidget {
         ),
         primaryColorAsInputLabel: true,
         accentColor: Colors.deepPurpleAccent,
-        titleStyle: TextStyle(
+        titleStyle: const TextStyle(
           color: Colors.deepPurpleAccent,
         ),
 
