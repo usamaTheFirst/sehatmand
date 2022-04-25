@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AuthForm extends StatefulWidget {
@@ -25,12 +26,12 @@ class _AuthFormState extends State<AuthForm> {
         elevation: 20,
         margin: EdgeInsets.all(20),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(30),
         ),
         child: Form(
           key: _formKey,
           child: Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
                 TextFormField(
@@ -50,6 +51,9 @@ class _AuthFormState extends State<AuthForm> {
                   },
                   onSaved: (value) => _email = value,
                 ),
+                SizedBox(
+                  height: 10,
+                ),
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Password'),
                   validator: (value) {
@@ -63,6 +67,9 @@ class _AuthFormState extends State<AuthForm> {
                   },
                   onSaved: (value) => _password = value,
                   obscureText: true,
+                ),
+                SizedBox(
+                  height: 10,
                 ),
                 if (!signinMode)
                   TextFormField(
@@ -84,7 +91,19 @@ class _AuthFormState extends State<AuthForm> {
                 if (widget.loader) CircularProgressIndicator(),
                 if (!widget.loader)
                   ElevatedButton(
-                    child: signinMode ? Text('Sign In') : Text('Sign Up'),
+                    style: ElevatedButton.styleFrom(
+                      primary: Theme.of(context).colorScheme.secondary,
+                      minimumSize: Size.fromHeight(50),
+                    ),
+                    child: signinMode
+                        ? Text(
+                            'Sign In',
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          )
+                        : Text(
+                            'Sign Up',
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
@@ -100,8 +119,7 @@ class _AuthFormState extends State<AuthForm> {
                     },
                   ),
                 if (!widget.loader)
-                  FlatButton(
-                    textColor: Theme.of(context).primaryColor,
+                  TextButton(
                     onPressed: () {
                       setState(() {
                         signinMode = !signinMode;
