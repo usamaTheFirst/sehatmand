@@ -17,7 +17,33 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text('Home'),
       ),
-      body: footCounter(),
+      body: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                  color: Colors.grey,
+                  width: 1,
+                ),
+              ),
+            ),
+            height: 200,
+            padding: const EdgeInsets.symmetric(vertical: 15),
+            child: Row(
+              children: [
+                CalorieWidget(),
+                footCounter(),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Container(
+              height: 200,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
