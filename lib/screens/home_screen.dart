@@ -31,9 +31,11 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 200,
             padding: const EdgeInsets.symmetric(vertical: 15),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              // mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                CalorieWidget(),
-                footCounter(),
+                Flexible(child: CalorieWidget()),
+                Flexible(child: footCounter()),
               ],
             ),
           ),

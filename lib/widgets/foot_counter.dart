@@ -24,37 +24,36 @@ class _footCounterState extends State<footCounter> {
     return Container(
         width: 200,
         height: 200,
-        child: Center(
-          child: StreamBuilder<AccelerometerEvent>(
-            stream: SensorsPlatform.instance.accelerometerEvents,
-            builder: (context, snapshort) {
-              if (snapshort.hasData) {
-                x = snapshort.data!.x;
-                y = snapshort.data!.y;
-                z = snapshort.data!.z;
-                exactDistance = calculateMagnitude(x, y, z);
-                if (exactDistance > 6) {
-                  steps++;
-                }
+        alignment: Alignment.center,
+        child: StreamBuilder<AccelerometerEvent>(
+          stream: SensorsPlatform.instance.accelerometerEvents,
+          builder: (context, snapshort) {
+            if (snapshort.hasData) {
+              x = snapshort.data!.x;
+              y = snapshort.data!.y;
+              z = snapshort.data!.z;
+              exactDistance = calculateMagnitude(x, y, z);
+              if (exactDistance > 6) {
+                steps++;
               }
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    FontAwesomeIcons.walking,
-                    size: 60,
+            }
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  FontAwesomeIcons.walking,
+                  size: 60,
+                ),
+                Text(
+                  steps.toString(),
+                  style: TextStyle(
+                    fontSize: 30,
+                    color: Theme.of(context).colorScheme.secondary,
                   ),
-                  Text(
-                    steps.toString(),
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Theme.of(context).colorScheme.secondary,
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
+                ),
+              ],
+            );
+          },
         ));
   }
 
