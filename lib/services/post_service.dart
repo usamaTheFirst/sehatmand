@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:social_media_app/models/user.dart';
-import 'package:social_media_app/screens/view_image.dart';
-import 'package:social_media_app/services/services.dart';
-import 'package:social_media_app/utils/firebase.dart';
+import 'package:sehatmand/models/user.dart';
+import 'package:sehatmand/screens/view_image.dart';
+import 'package:sehatmand/services/services.dart';
+import 'package:sehatmand/utils/firebase.dart';
 import 'package:uuid/uuid.dart';
 
 class PostService extends Service {
@@ -24,14 +24,14 @@ class PostService extends Service {
   uploadPost(File image, String location, String description) async {
     String link = await uploadImage(posts, image);
     DocumentSnapshot doc =
-        await usersRef.doc(firebaseAuth.currentUser.uid).get();
-    user = UserModel.fromJson(doc.data());
+        await usersRef.doc(firebaseAuth.currentUser!.uid).get();
+    user = UserModel.fromJson(doc.data() as Map<String, dynamic>);
     var ref = postRef.doc();
     ref.set({
       "id": ref.id,
       "postId": ref.id,
       "username": user.username,
-      "ownerId": firebaseAuth.currentUser.uid,
+      "ownerId": firebaseAuth.currentUser!.uid,
       "mediaUrl": link,
       "description": description ?? "",
       "location": location ?? "Wooble",
@@ -45,14 +45,14 @@ class PostService extends Service {
   uploadStory(File image, String description) async {
     String link = await uploadImage(posts, image);
     DocumentSnapshot doc =
-        await usersRef.doc(firebaseAuth.currentUser.uid).get();
-    user = UserModel.fromJson(doc.data());
+        await usersRef.doc(firebaseAuth.currentUser!.uid).get();
+    user = UserModel.fromJson(doc.data() as Map<String, dynamic>);
     var ref = storyRef.doc();
     ref.set({
       "id": ref.id,
       "postId": ref.id,
       "username": user.username,
-      "ownerId": firebaseAuth.currentUser.uid,
+      "ownerId": firebaseAuth.currentUser!.uid,
       "mediaUrl": link,
       "description": description ?? "",
       "timestamp": Timestamp.now(),
@@ -65,7 +65,7 @@ class PostService extends Service {
   uploadComment(String currentUserId, String comment, String postId,
       String ownerId, String mediaUrl) async {
     DocumentSnapshot doc = await usersRef.doc(currentUserId).get();
-    user = UserModel.fromJson(doc.data());
+    user = UserModel.fromJson(doc.data() as Map<String,dynamic>);
     await commentRef.doc(postId).collection("comments").add({
       "username": user.username,
       "comment": comment,
@@ -75,8 +75,8 @@ class PostService extends Service {
     });
     bool isNotMe = ownerId != currentUserId;
     if (isNotMe) {
-      addCommentToNotification("comment", comment, user.username, user.id,
-          postId, mediaUrl, ownerId, user.photoUrl);
+      addCommentToNotification("comment", comment, user.username as String, user.id as String,
+          postId, mediaUrl, ownerId, user.photoUrl as String);
     }
   }
 
@@ -112,7 +112,7 @@ class PostService extends Service {
         .set({
       "type": type,
       "username": username,
-      "userId": firebaseAuth.currentUser.uid,
+      "userId": firebaseAuth.currentUser!.uid,
       "userDp": userDp,
       "postId": postId,
       "mediaUrl": mediaUrl,
@@ -127,7 +127,7 @@ class PostService extends Service {
 
     if (isNotMe) {
       DocumentSnapshot doc = await usersRef.doc(currentUser).get();
-      user = UserModel.fromJson(doc.data());
+      user = UserModel.fromJson(doc.data() as Map<String, dynamic>);
       notificationRef
           .doc(ownerId)
           .collection('notifications')

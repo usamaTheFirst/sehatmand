@@ -59,9 +59,8 @@ class _ActivitiesState extends State<Activities> {
           .limit(20)
           .snapshots(),
       physics: NeverScrollableScrollPhysics(),
-      itemBuilder: (_, DocumentSnapshot snapshot)
-        //TODO: comment
-        ActivityModel activities = ActivityModel.fromJson(snapshot.data());
+      itemBuilder: (_, DocumentSnapshot snapshot) {
+        ActivityModel activities = ActivityModel.fromJson(snapshot.data() as Map<String, dynamic>);
         return ActivityItems(
           activity: activities,
         );
@@ -72,7 +71,7 @@ class _ActivitiesState extends State<Activities> {
   deleteAllItems() async {
 //delete all notifications associated with the authenticated user
     QuerySnapshot notificationsSnap = await notificationRef
-        .doc(firebaseAuth.currentUser.uid)
+        .doc(FirebaseAuth.instance.currentUser!.uid)
         .collection('notifications')
         .get();
     notificationsSnap.docs.forEach(

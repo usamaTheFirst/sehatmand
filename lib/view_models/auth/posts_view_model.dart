@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
@@ -25,13 +26,13 @@ class PostsViewModel extends ChangeNotifier {
   //Variables
   bool loading = false;
   late String username;
-  late File mediaUrl;
+  late File? mediaUrl;
   final picker = ImagePicker();
-  late String location;
+  late String? location;
   late Position position;
   late Placemark placemark;
   late String bio;
-  late String description;
+  late String? description;
   late String email;
   late String commentData;
   late String ownerId;
@@ -39,7 +40,7 @@ class PostsViewModel extends ChangeNotifier {
   late String type;
   late File userDp;
   late String imgLink;
-  bool edit = false;
+  bool? edit = false;
   late String id;
 
   //controllers
@@ -118,7 +119,7 @@ class PostsViewModel extends ChangeNotifier {
       //   ),
       // );
       File? croppedFile;
-      croppedFile = await ImageCropper.cropImage(
+      croppedFile = await ImageCropper().cropImage(
         sourcePath: pickedFile!.path,
         aspectRatioPresets: [
           CropAspectRatioPreset.square,
@@ -165,7 +166,7 @@ class PostsViewModel extends ChangeNotifier {
           await placemarkFromCoordinates(position.latitude, position.longitude);
       placemark = placemarks[0];
       location = " ${placemarks[0].locality}, ${placemarks[0].country}";
-      locationTEC.text = location;
+      locationTEC.text = location!;
       print(location);
     }
     loading = false;
@@ -176,7 +177,7 @@ class PostsViewModel extends ChangeNotifier {
     try {
       loading = true;
       notifyListeners();
-      await postService.uploadPost(mediaUrl, location, description);
+      await postService.uploadPost(mediaUrl!, location!, description!);
       loading = false;
       resetPost();
       notifyListeners();
@@ -197,7 +198,7 @@ class PostsViewModel extends ChangeNotifier {
         loading = true;
         notifyListeners();
         await postService.uploadProfilePicture(
-            mediaUrl, firebaseAuth.currentUser);
+            mediaUrl!, firebaseAuth.currentUser as User);
         loading = false;
         Navigator.of(context)
             .pushReplacement(CupertinoPageRoute(builder: (_) => TabScreen()));

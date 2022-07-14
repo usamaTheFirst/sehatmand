@@ -81,8 +81,8 @@ class Constants {
 
 class ThemeNotifier extends ChangeNotifier {
   final String key = 'theme';
-  SharedPreferences _prefs;
-  bool _darkTheme;
+  late SharedPreferences _prefs;
+  late bool _darkTheme;
   bool get dark => _darkTheme;
 
   ThemeNotifier() {

@@ -77,14 +77,14 @@ class _CreatePostState extends State<CreatePost> {
                     return ListTile(
                       leading: CircleAvatar(
                         radius: 25.0,
-                        backgroundImage: NetworkImage(user.photoUrl),
+                        backgroundImage: NetworkImage(user.photoUrl as String),
                       ),
                       title: Text(
-                        user.username,
+                        user.username as String,
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       subtitle: Text(
-                        user.email,
+                        user.email as String,
                       ),
                     );
                   }
@@ -122,7 +122,7 @@ class _CreatePostState extends State<CreatePost> {
                               ),
                             )
                           : Image.file(
-                              viewModel.mediaUrl,
+                              viewModel.mediaUrl!,
                               width: MediaQuery.of(context).size.width,
                               height: MediaQuery.of(context).size.width - 30,
                               fit: BoxFit.cover,

@@ -3,16 +3,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:social_media_app/auth/register/register.dart';
-import 'package:social_media_app/components/stream_builder_wrapper.dart';
-import 'package:social_media_app/components/stream_grid_wrapper.dart';
-import 'package:social_media_app/models/post.dart';
-import 'package:social_media_app/models/user.dart';
-import 'package:social_media_app/screens/edit_profile.dart';
-import 'package:social_media_app/screens/settings.dart';
-import 'package:social_media_app/utils/firebase.dart';
-import 'package:social_media_app/widgets/post_tiles.dart';
-import 'package:social_media_app/widgets/posts_view.dart';
+import 'package:sehatmand/auth/register/register.dart';
+import 'package:sehatmand/components/stream_builder_wrapper.dart';
+import 'package:sehatmand/components/stream_grid_wrapper.dart';
+import 'package:sehatmand/models/post.dart';
+import 'package:sehatmand/models/user.dart';
+import 'package:sehatmand/screens/edit_profile.dart';
+import 'package:sehatmand/screens/settings.dart';
+import 'package:sehatmand/utils/firebase.dart';
+import 'package:sehatmand/widgets/post_tiles.dart';
+import 'package:sehatmand/widgets/posts_view.dart';
 
 class Profile extends StatefulWidget {
   final profileId;
@@ -24,19 +24,19 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile>  {
-  User user;
+  late User user;
   bool isLoading = false;
   int postCount = 0;
   int followersCount = 0;
   int followingCount = 0;
   bool isToggle = true;
   bool isFollowing = false;
-  UserModel users;
+  late UserModel users;
   final DateTime timestamp = DateTime.now();
   ScrollController controller = ScrollController();
 
   currentUserId() {
-    return firebaseAuth.currentUser?.uid;
+    return FirebaseAuth.instance.currentUser?.uid;
   }
 
   @override
@@ -63,7 +63,7 @@ class _ProfileState extends State<Profile>  {
         centerTitle: true,
         title: Text('WOOBLE'),
         actions: [
-          widget.profileId == firebaseAuth.currentUser.uid
+          widget.profileId == FirebaseAuth.instance.currentUser!.uid
               ? Center(
                   child: Padding(
                     padding: const EdgeInsets.only(right: 25.0),
@@ -98,7 +98,7 @@ class _ProfileState extends State<Profile>  {
                 stream: usersRef.doc(widget.profileId).snapshots(),
                 builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
                   if (snapshot.hasData) {
-                    UserModel user = UserModel.fromJson(snapshot.data.data());
+                    UserModel user = UserModel.fromJson(snapshot.data?.data() as Map<String, dynamic>);
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -108,7 +108,7 @@ class _ProfileState extends State<Profile>  {
                             Padding(
                               padding: const EdgeInsets.only(left: 20.0),
                               child: CircleAvatar(
-                                backgroundImage: NetworkImage(user?.photoUrl),
+                                backgroundImage: NetworkImage(user.photoUrl as String),
                                 radius: 40.0,
                               ),
                             ),
@@ -130,7 +130,7 @@ class _ProfileState extends State<Profile>  {
                                         Container(
                                           width: 130.0,
                                           child: Text(
-                                            user?.username,
+                                            user.username as String,
                                             style: TextStyle(
                                                 fontSize: 15.0,
                                                 fontWeight: FontWeight.w900),
@@ -140,7 +140,7 @@ class _ProfileState extends State<Profile>  {
                                         Container(
                                           width: 130.0,
                                           child: Text(
-                                            user?.country,
+                                            user.country as String,
                                             style: TextStyle(
                                               fontSize: 12.0,
                                               fontWeight: FontWeight.w600,
@@ -156,7 +156,7 @@ class _ProfileState extends State<Profile>  {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              user?.email,
+                                              user.email as String,
                                               style: TextStyle(
                                                 // color: Color(0xff4D4D4D),
                                                 fontSize: 10.0,
@@ -197,12 +197,12 @@ class _ProfileState extends State<Profile>  {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 10.0, left: 20.0),
-                          child: user.bio.isEmpty
+                          child: user.bio!.isEmpty
                               ? Container()
                               : Container(
                                   width: 200,
                                   child: Text(
-                                    user?.bio,
+                                    user.bio as String,
                                     style: TextStyle(
                                       //    color: Color(0xff4D4D4D),
                                       fontSize: 10.0,
@@ -229,8 +229,8 @@ class _ProfileState extends State<Profile>  {
                                   builder: (context,
                                       AsyncSnapshot<QuerySnapshot> snapshot) {
                                     if (snapshot.hasData) {
-                                      QuerySnapshot snap = snapshot.data;
-                                      List<DocumentSnapshot> docs = snap.docs;
+                                      QuerySnapshot? snap = snapshot.data;
+                                      List<DocumentSnapshot> docs = snap!.docs;
                                       return buildCount(
                                           "POSTS", docs?.length ?? 0);
                                     } else {
@@ -254,8 +254,8 @@ class _ProfileState extends State<Profile>  {
                                   builder: (context,
                                       AsyncSnapshot<QuerySnapshot> snapshot) {
                                     if (snapshot.hasData) {
-                                      QuerySnapshot snap = snapshot.data;
-                                      List<DocumentSnapshot> docs = snap.docs;
+                                      QuerySnapshot? snap = snapshot.data;
+                                      List<DocumentSnapshot> docs = snap!.docs;
                                       return buildCount(
                                           "FOLLOWERS", docs?.length ?? 0);
                                     } else {
@@ -279,8 +279,8 @@ class _ProfileState extends State<Profile>  {
                                   builder: (context,
                                       AsyncSnapshot<QuerySnapshot> snapshot) {
                                     if (snapshot.hasData) {
-                                      QuerySnapshot snap = snapshot.data;
-                                      List<DocumentSnapshot> docs = snap.docs;
+                                      QuerySnapshot? snap = snapshot.data;
+                                      List<DocumentSnapshot> docs = snap!.docs;
                                       return buildCount(
                                           "FOLLOWING", docs?.length ?? 0);
                                     } else {
@@ -377,7 +377,7 @@ class _ProfileState extends State<Profile>  {
 
   buildProfileButton(user) {
     //if isMe then display "edit profile"
-    bool isMe = widget.profileId == firebaseAuth.currentUser.uid;
+    bool isMe = widget.profileId == FirebaseAuth.instance.currentUser!.uid;
     if (isMe) {
       return buildButton(
           text: "Edit Profile",
@@ -405,10 +405,10 @@ class _ProfileState extends State<Profile>  {
     }
   }
 
-  buildButton({String text, Function function}) {
+  buildButton({required String text, required Function function}) {
     return Center(
       child: GestureDetector(
-        onTap: function,
+        onTap: function as void Function()?,
         child: Container(
           height: 40.0,
           width: 200.0,
@@ -436,7 +436,7 @@ class _ProfileState extends State<Profile>  {
 
   handleUnfollow() async {
     DocumentSnapshot doc = await usersRef.doc(currentUserId()).get();
-    users = UserModel.fromJson(doc.data());
+    users = UserModel.fromJson(doc.data() as Map<String, dynamic>);
     setState(() {
       isFollowing = false;
     });
@@ -477,7 +477,7 @@ class _ProfileState extends State<Profile>  {
 
   handleFollow() async {
     DocumentSnapshot doc = await usersRef.doc(currentUserId()).get();
-    users = UserModel.fromJson(doc.data());
+    users = UserModel.fromJson(doc.data() as Map<String, dynamic>);
     setState(() {
       isFollowing = true;
     });
@@ -526,7 +526,7 @@ class _ProfileState extends State<Profile>  {
           .snapshots(),
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (_, DocumentSnapshot snapshot) {
-        PostModel posts = PostModel.fromJson(snapshot.data());
+        PostModel posts = PostModel.fromJson(snapshot.data() as Map<String, dynamic>);
         return Padding(
           padding: const EdgeInsets.only(bottom: 15.0),
           child: Posts(
@@ -547,7 +547,7 @@ class _ProfileState extends State<Profile>  {
           .snapshots(),
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (_, DocumentSnapshot snapshot) {
-        PostModel posts = PostModel.fromJson(snapshot.data());
+        PostModel posts = PostModel.fromJson(snapshot.data() as Map<String, dynamic>);
         return PostTile(
           post: posts,
         );

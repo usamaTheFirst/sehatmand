@@ -52,7 +52,7 @@ class Chats extends StatelessWidget {
                           msg: message.content,
                           time: message.time,
                           chatId: chatListSnapshot.id,
-                          type: message?.type,
+                          type: message.type,
                           currentUserId: viewModel.user?.uid ?? "",
                         );
                       } else {

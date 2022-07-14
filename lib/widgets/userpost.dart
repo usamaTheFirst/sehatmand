@@ -4,25 +4,25 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter_icons/flutter_icons.dart';
-import 'package:social_media_app/components/custom_card.dart';
-import 'package:social_media_app/components/custom_image.dart';
-import 'package:social_media_app/models/post.dart';
-import 'package:social_media_app/models/user.dart';
-import 'package:social_media_app/pages/profile.dart';
-import 'package:social_media_app/screens/comment.dart';
-import 'package:social_media_app/screens/view_image.dart';
-import 'package:social_media_app/services/post_service.dart';
-import 'package:social_media_app/utils/firebase.dart';
+import 'package:sehatmand/components/custom_card.dart';
+import 'package:sehatmand/components/custom_image.dart';
+import 'package:sehatmand/models/post.dart';
+import 'package:sehatmand/models/user.dart';
+import 'package:sehatmand/pages/profile.dart';
+import 'package:sehatmand/screens/comment.dart';
+import 'package:sehatmand/screens/view_image.dart';
+import 'package:sehatmand/services/post_service.dart';
+import 'package:sehatmand/utils/firebase.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class UserPost extends StatelessWidget {
   final PostModel post;
 
-  UserPost({this.post});
+  UserPost({required this.post});
   final DateTime timestamp = DateTime.now();
 
   currentUserId() {
-    return firebaseAuth.currentUser.uid;
+    return firebaseAuth.currentUser!.uid;
   }
 
   final PostService services = PostService();
@@ -101,8 +101,8 @@ class UserPost extends StatelessWidget {
                                   builder: (context,
                                       AsyncSnapshot<QuerySnapshot> snapshot) {
                                     if (snapshot.hasData) {
-                                      QuerySnapshot snap = snapshot.data;
-                                      List<DocumentSnapshot> docs = snap.docs;
+                                      QuerySnapshot? snap = snapshot.data;
+                                      List<DocumentSnapshot> docs = snap!.docs;
                                       return buildLikesCount(
                                           context, docs?.length ?? 0);
                                     } else {
@@ -121,8 +121,8 @@ class UserPost extends StatelessWidget {
                               builder: (context,
                                   AsyncSnapshot<QuerySnapshot> snapshot) {
                                 if (snapshot.hasData) {
-                                  QuerySnapshot snap = snapshot.data;
-                                  List<DocumentSnapshot> docs = snap.docs;
+                                  QuerySnapshot? snap = snapshot.data;
+                                  List<DocumentSnapshot> docs = snap!.docs;
                                   return buildCommentsCount(
                                       context, docs?.length ?? 0);
                                 } else {
@@ -141,7 +141,7 @@ class UserPost extends StatelessWidget {
                               '${post?.description ?? ""}',
                               style: TextStyle(
                                 color:
-                                    Theme.of(context).textTheme.caption.color,
+                                    Theme.of(context).textTheme.caption!.color,
                                 fontSize: 15.0,
                               ),
                               maxLines: 2,
@@ -212,9 +212,9 @@ class UserPost extends StatelessWidget {
 
     if (isNotMe) {
       DocumentSnapshot doc = await usersRef.doc(currentUserId()).get();
-      user = UserModel.fromJson(doc.data());
-      services.addLikesToNotification("like", user.username, currentUserId(),
-          post.postId, post.mediaUrl, post.ownerId, user.photoUrl);
+      user = UserModel.fromJson(doc.data() as Map<String, dynamic>);
+      services.addLikesToNotification("like", user.username as String, currentUserId(),
+          post.postId, post.mediaUrl, post.ownerId, user.photoUrl as String);
     }
   }
 
@@ -247,8 +247,8 @@ class UserPost extends StatelessWidget {
       stream: usersRef.doc(post.ownerId).snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          DocumentSnapshot snap = snapshot.data;
-          UserModel user = UserModel.fromJson(snap.data());
+          DocumentSnapshot snap = snapshot.data as DocumentSnapshot<Object?>;
+          UserModel user = UserModel.fromJson(snap.data() as Map<String, dynamic>);
           return Visibility(
             visible: !isMe,
             child: Align(
@@ -263,13 +263,13 @@ class UserPost extends StatelessWidget {
                   ),
                 ),
                 child: GestureDetector(
-                  onTap: () => showProfile(context, profileId: user?.id),
+                  onTap: () => showProfile(context, profileId: user?.id as String),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10.0),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        user.photoUrl.isNotEmpty
+                        user.photoUrl!.isNotEmpty
                             ? CircleAvatar(
                                 radius: 14.0,
                                 backgroundColor: Color(0xff4D4D4D),
@@ -316,7 +316,7 @@ class UserPost extends StatelessWidget {
     );
   }
 
-  showProfile(BuildContext context, {String profileId}) {
+  showProfile(BuildContext context, {required String profileId}) {
     Navigator.push(
       context,
       CupertinoPageRoute(

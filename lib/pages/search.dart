@@ -6,11 +6,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:social_media_app/chats/conversation.dart';
-import 'package:social_media_app/models/user.dart';
-import 'package:social_media_app/pages/profile.dart';
-import 'package:social_media_app/utils/firebase.dart';
-import 'package:social_media_app/widgets/indicators.dart';
+import 'package:sehatmand/chats/conversation.dart';
+import 'package:sehatmand/models/user.dart';
+import 'package:sehatmand/pages/profile.dart';
+import 'package:sehatmand/utils/firebase.dart';
+import 'package:sehatmand/widgets/indicators.dart';
 
 class Search extends StatefulWidget {
   @override
@@ -18,7 +18,7 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
-  User user;
+  User? user;
   TextEditingController searchController = TextEditingController();
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -27,7 +27,7 @@ class _SearchState extends State<Search> {
   bool loading = true;
 
   currentUserId() {
-    return firebaseAuth.currentUser.uid;
+    return firebaseAuth.currentUser!.uid;
   }
 
   getUsers() async {
@@ -45,13 +45,13 @@ class _SearchState extends State<Search> {
       filteredUsers = users;
     } else {
       List userSearch = users.where((userSnap) {
-        Map user = userSnap.data();
+        Map user = userSnap.data() as Map<dynamic,dynamic>;
         String userName = user['username'];
         return userName.toLowerCase().contains(query.toLowerCase());
       }).toList();
 
       setState(() {
-        filteredUsers = userSearch;
+        filteredUsers = userSearch as List<DocumentSnapshot<Object?>>;
       });
     }
   }
@@ -136,7 +136,7 @@ class _SearchState extends State<Search> {
           itemCount: filteredUsers.length,
           itemBuilder: (BuildContext context, int index) {
             DocumentSnapshot doc = filteredUsers[index];
-            UserModel user = UserModel.fromJson(doc.data());
+            UserModel user = UserModel.fromJson(doc.data() as Map<String, dynamic>);
             if (doc.id == currentUserId()) {
               Timer(Duration(milliseconds: 500), () {
                 setState(() {
@@ -147,16 +147,16 @@ class _SearchState extends State<Search> {
             return Column(
               children: [
                 ListTile(
-                  onTap: () => showProfile(context, profileId: user?.id),
+                  onTap: () => showProfile(context, profileId: user.id),
                   contentPadding: EdgeInsets.symmetric(horizontal: 25.0),
                   leading: CircleAvatar(
                     radius: 35.0,
-                    backgroundImage: NetworkImage(user?.photoUrl),
+                    backgroundImage: NetworkImage(user.photoUrl as String),
                   ),
-                  title: Text(user?.username,
+                  title: Text(user.username as String,
                       style: TextStyle(fontWeight: FontWeight.bold)),
                   subtitle: Text(
-                    user?.email,
+                    user.email as String,
                   ),
                   trailing: GestureDetector(
                     onTap: () {
@@ -207,7 +207,7 @@ class _SearchState extends State<Search> {
     }
   }
 
-  showProfile(BuildContext context, {String profileId}) {
+  showProfile(BuildContext context, {String? profileId}) {
     Navigator.push(
       context,
       CupertinoPageRoute(

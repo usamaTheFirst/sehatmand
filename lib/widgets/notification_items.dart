@@ -1,17 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:social_media_app/models/notification.dart';
-import 'package:social_media_app/utils/firebase.dart';
-import 'package:social_media_app/widgets/view_notification_details.dart';
+import 'package:sehatmand/models/notification.dart';
+import 'package:sehatmand/utils/firebase.dart';
+import 'package:sehatmand/widgets/view_notification_details.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-import 'package:social_media_app/widgets/indicators.dart';
+import 'package:sehatmand/widgets/indicators.dart';
 
 class ActivityItems extends StatefulWidget {
   final ActivityModel activity;
 
-  ActivityItems({this.activity});
+  ActivityItems({required this.activity});
 
   @override
   _ActivityItemsState createState() => _ActivityItemsState();
@@ -84,7 +84,7 @@ class _ActivityItemsState extends State<ActivityItems> {
 
   delete() {
     notificationRef
-        .doc(firebaseAuth.currentUser.uid)
+        .doc(firebaseAuth.currentUser!.uid)
         .collection('notifications')
         .doc(widget.activity.postId)
         .get()

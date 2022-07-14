@@ -1,26 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
-  late String username;
-  late String email;
-  late String photoUrl;
-  late String country;
-  late String bio;
-  late String id;
-  late Timestamp signedUpAt;
-  late Timestamp lastSeen;
-  late bool isOnline;
+  late String? username;
+  late String? email;
+  late String? photoUrl;
+  late String? country;
+  late String? bio;
+  late String? id;
+  late Timestamp? signedUpAt;
+  late Timestamp? lastSeen;
+  late bool? isOnline;
 
   UserModel(
-      {required this.username,
-      required this.email,
-      required this.id,
-      required this.photoUrl,
-      required this.signedUpAt,
-      required this.isOnline,
-      required this.lastSeen,
-      required this.bio,
-      required this.country});
+      {this.username,
+      this.email,
+      this.id,
+      this.photoUrl,
+      this.signedUpAt,
+      this.isOnline,
+      this.lastSeen,
+      this.bio,
+      this.country});
 
   UserModel.fromJson(Map<String, dynamic> json) {
     username = json['username'];

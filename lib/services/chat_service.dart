@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:social_media_app/models/message.dart';
-import 'package:social_media_app/utils/firebase.dart';
+import 'package:sehatmand/models/message.dart';
+import 'package:sehatmand/utils/firebase.dart';
 
 class ChatService {
   FirebaseStorage storage = FirebaseStorage.instance;
@@ -20,9 +20,9 @@ class ChatService {
 
 
   Future<String> sendFirstMessage(Message message, String recipient) async {
-    User user = firebaseAuth.currentUser;
+    User? user = firebaseAuth.currentUser;
     DocumentReference ref = await chatRef.add({
-      'users': [recipient, user.uid],
+      'users': [recipient, user!.uid],
     });
     await sendMessage(message, ref.id);
     return ref.id;

@@ -204,7 +204,7 @@ class _ConversationState extends State<Conversation> {
                 Padding(
                   padding: EdgeInsets.only(left: 10.0, right: 10.0),
                   child: Hero(
-                    tag: user.email,
+                    tag: user.email as String,
                     child: CircleAvatar(
                       radius: 25.0,
                       backgroundImage: CachedNetworkImageProvider(
@@ -293,11 +293,11 @@ class _ConversationState extends State<Conversation> {
   }
 
   sendMessage(ConversationViewModel viewModel, var user,
-      {bool isImage = false, int imageType}) async {
+      {bool isImage = false, int? imageType}) async {
     String msg;
     if (isImage) {
       msg = await viewModel.pickImage(
-        source: imageType,
+        source: imageType as int,
         context: context,
         chatId: widget.chatId,
       );
