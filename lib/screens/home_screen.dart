@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:sehatmand/widgets/bmi_widget.dart';
+import 'package:sehatmand/widgets/exercise_widget.dart';
 import 'package:sehatmand/widgets/foot_counter.dart';
 
 import '../widgets/calorie_widget.dart';
@@ -16,9 +17,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home'),
-      ),
       body: Column(
         children: [
           Container(
@@ -30,7 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            height: 200,
+            height: 170,
             padding: const EdgeInsets.symmetric(vertical: 15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -49,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            height: 200,
+            height: 120,
             padding: const EdgeInsets.symmetric(vertical: 15),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -60,8 +58,13 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           Expanded(
-            child: Container(
-              height: 200,
+            child: ListView(
+              children: [
+                ExerciseWidget(),
+                ExerciseWidget(),
+                ExerciseWidget(),
+                ExerciseWidget(),
+              ],
             ),
           ),
         ],

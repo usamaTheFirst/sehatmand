@@ -7,6 +7,7 @@ import 'package:sehatmand/screens/auth-screen.dart';
 import 'package:sehatmand/screens/form_screen.dart';
 import 'package:sehatmand/screens/main-srcreen.dart';
 import 'package:sehatmand/screens/test_screen.dart';
+import 'package:sehatmand/widgets/exercise_widget.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,6 +20,21 @@ class MyApp extends StatefulWidget {
 
   @override
   State<MyApp> createState() => _MyAppState();
+}
+
+class Test extends StatelessWidget {
+  const Test({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        home: Scaffold(
+            body: ListView(children: [
+      ExerciseWidget(),
+      ExerciseWidget(),
+      ExerciseWidget(),
+    ])));
+  }
 }
 
 class _MyAppState extends State<MyApp> {
