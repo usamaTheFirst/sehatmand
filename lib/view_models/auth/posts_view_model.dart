@@ -39,7 +39,7 @@ class PostsViewModel extends ChangeNotifier {
   late String userId;
   late String type;
   late File userDp;
-  late String imgLink;
+  String? imgLink;
   bool? edit = false;
   late String id;
 

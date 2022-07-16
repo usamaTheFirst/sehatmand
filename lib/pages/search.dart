@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
 import 'package:sehatmand/chats/conversation.dart';
 import 'package:sehatmand/models/user.dart';
 import 'package:sehatmand/pages/profile.dart';
@@ -151,7 +151,7 @@ class _SearchState extends State<Search> {
                   contentPadding: EdgeInsets.symmetric(horizontal: 25.0),
                   leading: CircleAvatar(
                     radius: 35.0,
-                    backgroundImage: NetworkImage(user.photoUrl as String),
+                    backgroundImage: NetworkImage(user!.photoUrl as String),
                   ),
                   title: Text(user.username as String,
                       style: TextStyle(fontWeight: FontWeight.bold)),

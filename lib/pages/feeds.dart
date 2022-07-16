@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:sehatmand/chats/recent_chats.dart';
@@ -28,7 +28,7 @@ class _TimelineState extends State<Timeline> {
 
   late DocumentSnapshot lastDocument;
 
-  late ScrollController _scrollController;
+  ScrollController? _scrollController;
 
   getPosts() async {
     if (!hasMore) {
@@ -68,8 +68,8 @@ class _TimelineState extends State<Timeline> {
     super.initState();
     getPosts();
     _scrollController?.addListener(() {
-      double maxScroll = _scrollController.position.maxScrollExtent;
-      double currentScroll = _scrollController.position.pixels;
+      double maxScroll = _scrollController!.position.maxScrollExtent;
+      double currentScroll = _scrollController!.position.pixels;
       double delta = MediaQuery.of(context).size.height * 0.25;
       if (maxScroll - currentScroll <= delta) {
         getPosts();
@@ -127,7 +127,7 @@ class _TimelineState extends State<Timeline> {
   }
 
   internetChecker(context) async {
-    bool result = await DataConnectionChecker().hasConnection;
+    bool result = await InternetConnectionChecker().hasConnection;
     if (result == false) {
       showInSnackBar('No Internet Connection', context);
     }

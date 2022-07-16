@@ -19,8 +19,8 @@ class EditProfileViewModel extends ChangeNotifier {
   late String country;
   late String username;
   late String bio;
-  late File? image;
-  late String imgLink;
+  File? image;
+  String? imgLink;
 
   setUser(UserModel val) {
     user = val;

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
 import 'package:sehatmand/auth/register/register.dart';
 import 'package:sehatmand/components/stream_builder_wrapper.dart';
 import 'package:sehatmand/components/stream_grid_wrapper.dart';
@@ -232,7 +232,7 @@ class _ProfileState extends State<Profile>  {
                                       QuerySnapshot? snap = snapshot.data;
                                       List<DocumentSnapshot> docs = snap!.docs;
                                       return buildCount(
-                                          "POSTS", docs?.length ?? 0);
+                                          "POSTS", docs.length ?? 0);
                                     } else {
                                       return buildCount("POSTS", 0);
                                     }

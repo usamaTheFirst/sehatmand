@@ -40,7 +40,7 @@ class TextFormBuilder extends StatefulWidget {
 }
 
 class _TextFormBuilderState extends State<TextFormBuilder> {
-  late String error;
+  String? error;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +62,7 @@ class _TextFormBuilderState extends State<TextFormBuilder> {
                   initialValue: widget.initialValue,
                   enabled: widget.enabled,
                   onChanged: (val) {
-                    error = widget.validateFunction!(val) as String;
+                    error = widget.validateFunction!(val);
                     setState(() {});
                     widget.onSaved!(val);
                   },
@@ -75,7 +75,7 @@ class _TextFormBuilderState extends State<TextFormBuilder> {
                   keyboardType: widget.textInputType,
                   validator: widget.validateFunction,
                   onSaved: (val) {
-                    error = widget.validateFunction!(val) as String;
+                    error = widget.validateFunction!(val);
                     setState(() {});
                     widget.onSaved!(val as String);
                   },

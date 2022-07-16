@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 import 'package:sehatmand/auth/register/register.dart';
 import 'package:sehatmand/components/password_text_field.dart';
@@ -61,7 +61,8 @@ class _LoginState extends State<Login> {
             buildForm(context, viewModel),
             SizedBox(height: 10.0),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              // mainAxisAlignment: MainAxisAlignment.center,
+              // crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text('Don\'t have an account?'),
                 GestureDetector(
@@ -96,7 +97,7 @@ class _LoginState extends State<Login> {
             prefix: Feather.mail,
             hintText: "Email",
             textInputAction: TextInputAction.next,
-            validateFunction: Validations.validateEmail as String Function(String?)?,
+            validateFunction: Validations.validateEmail,
             onSaved: (String val) {
               viewModel.setEmail(val);
             },
@@ -110,7 +111,7 @@ class _LoginState extends State<Login> {
             suffix: Feather.eye,
             hintText: "Password",
             textInputAction: TextInputAction.done,
-            validateFunction: Validations.validatePassword as String? Function(String?),
+            validateFunction: Validations.validatePassword,
             submitAction: () => viewModel.login(context),
             obscureText: true,
             onSaved: (String val) {

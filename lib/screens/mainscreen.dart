@@ -19,25 +19,25 @@ class _TabScreenState extends State<TabScreen> {
   List pages = [
     {
       'title': 'Home',
-      'icon': Icon(Icons.home),
+      'icon': Icons.home,
       'page': Timeline(),
       'index': 0,
     },
     {
       'title': 'Search',
-      'icon': Icon(Icons.search),
+      'icon': Icons.search,
       'page': Search(),
       'index': 1,
     },
     {
       'title': 'unsee',
-      'icon': Icon(Icons.add_circle),
+      'icon': Icons.add_circle,
       'page': Text('nes'),
       'index': 2,
     },
     {
       'title': 'Notification',
-      'icon': Icon(Icons.notifications),
+      'icon': Icons.notifications,
       'page': Activities(),
       'index': 3,
     },
@@ -102,7 +102,7 @@ class _TabScreenState extends State<TabScreen> {
       width: 45.0,
       // ignore: missing_required_param
       child: FabContainer(
-        page: pages[_page],
+        page: pages[_page]['page'],
         icon: Icons.add_circle,
         mini: true,
       ),

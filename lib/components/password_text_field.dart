@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
 import 'package:sehatmand/components/custom_card.dart';
 
 class PasswordFormBuilder extends StatefulWidget {
@@ -43,7 +43,7 @@ class PasswordFormBuilder extends StatefulWidget {
 }
 
 class _PasswordFormBuilderState extends State<PasswordFormBuilder> {
-  late String error;
+  String? error;
   bool obscureText = false;
 
   @override
@@ -65,7 +65,7 @@ class _PasswordFormBuilderState extends State<PasswordFormBuilder> {
                   initialValue: widget.initialValue,
                   enabled: widget.enabled,
                   onChanged: (val) {
-                    error = widget.validateFunction(val) as String;
+                    error = widget.validateFunction(val);
                     setState(() {});
                     widget.onSaved(val);
                   },
@@ -79,7 +79,7 @@ class _PasswordFormBuilderState extends State<PasswordFormBuilder> {
                   keyboardType: widget.textInputType,
                   validator: widget.validateFunction,
                   onSaved: (val) {
-                    error = widget.validateFunction(val) as String;
+                    error = widget.validateFunction(val);
                     setState(() {});
                     widget.onSaved(val as String);
                   },

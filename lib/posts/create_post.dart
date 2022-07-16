@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 import 'package:sehatmand/components/custom_image.dart';
 import 'package:sehatmand/models/user.dart';
@@ -107,7 +107,7 @@ class _CreatePostState extends State<CreatePost> {
                   ),
                   child: viewModel.imgLink != null
                       ? CustomImage(
-                          imageUrl: viewModel.imgLink,
+                          imageUrl: viewModel.imgLink as String,
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.width - 30,
                           fit: BoxFit.cover,

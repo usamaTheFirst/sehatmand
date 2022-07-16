@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 import 'package:sehatmand/auth/login/login.dart';
 import 'package:sehatmand/components/password_text_field.dart';
@@ -76,7 +76,7 @@ class _RegisterState extends State<Register> {
             prefix: Feather.user,
             hintText: "Username",
             textInputAction: TextInputAction.next,
-            validateFunction: Validations.validateName as String? Function(String?),
+            validateFunction: Validations.validateName,
             onSaved: (String val) {
               viewModel.setName(val);
             },

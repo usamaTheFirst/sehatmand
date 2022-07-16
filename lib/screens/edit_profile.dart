@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:provider/provider.dart';
 import 'package:sehatmand/components/text_form_builder.dart';
 import 'package:sehatmand/models/user.dart';
@@ -82,7 +82,7 @@ class _EditProfileState extends State<EditProfile> {
                           padding: const EdgeInsets.all(1.0),
                           child: CircleAvatar(
                             radius: 65.0,
-                            backgroundImage: NetworkImage(viewModel.imgLink),
+                            backgroundImage: NetworkImage(viewModel.imgLink as String),
                           ),
                         )
                       : viewModel.image == null
