@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModel {
-  late String? username;
+  late String username;
   late String? email;
-  late String? photoUrl;
+  late String photoUrl;
   late String? country;
   late String? bio;
   late String? id;
@@ -12,10 +12,10 @@ class UserModel {
   late bool? isOnline;
 
   UserModel(
-      {this.username,
+      {required this.username,
       this.email,
       this.id,
-      this.photoUrl,
+      required this.photoUrl,
       this.signedUpAt,
       this.isOnline,
       this.lastSeen,

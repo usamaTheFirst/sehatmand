@@ -26,13 +26,13 @@ class PostsViewModel extends ChangeNotifier {
   //Variables
   bool loading = false;
   late String username;
-  late File? mediaUrl;
+  File? mediaUrl;
   final picker = ImagePicker();
   late String? location;
   late Position position;
   late Placemark placemark;
   late String bio;
-  late String? description;
+  String? description;
   late String email;
   late String commentData;
   late String ownerId;
@@ -98,28 +98,7 @@ class PostsViewModel extends ChangeNotifier {
       PickedFile? pickedFile = await picker.getImage(
         source: camera ? ImageSource.camera : ImageSource.gallery,
       );
-      // File? croppedFile = await ImageCropper.cropImage(
-      //   sourcePath: pickedFile!.path,
-      //   aspectRatioPresets: [
-      //     CropAspectRatioPreset.square,
-      //     CropAspectRatioPreset.ratio3x2,
-      //     CropAspectRatioPreset.original,
-      //     CropAspectRatioPreset.ratio4x3,
-      //     CropAspectRatioPreset.ratio16x9
-      //   ],
-      //   androidUiSettings: AndroidUiSettings(
-      //     toolbarTitle: 'Crop Image',
-      //     toolbarColor: Constants.lightAccent,
-      //     toolbarWidgetColor: Colors.white,
-      //     initAspectRatio: CropAspectRatioPreset.original,
-      //     lockAspectRatio: false,
-      //   ),
-      //   iosUiSettings: IOSUiSettings(
-      //     minimumAspectRatio: 1.0,
-      //   ),
-      // );
-      File? croppedFile;
-      croppedFile = await ImageCropper().cropImage(
+      File? croppedFile = await ImageCropper().cropImage(
         sourcePath: pickedFile!.path,
         aspectRatioPresets: [
           CropAspectRatioPreset.square,

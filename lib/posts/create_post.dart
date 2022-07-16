@@ -73,14 +73,14 @@ class _CreatePostState extends State<CreatePost> {
                 stream: usersRef.doc(currentUserId()).snapshots(),
                 builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
                   if (snapshot.hasData) {
-                    UserModel user = UserModel();
+                    UserModel user = UserModel.fromJson(snapshot.data!.data() as Map<String, dynamic>);
                     return ListTile(
                       leading: CircleAvatar(
                         radius: 25.0,
-                        backgroundImage: NetworkImage(user.photoUrl as String),
+                        backgroundImage: NetworkImage(user.photoUrl),
                       ),
                       title: Text(
-                        user.username as String,
+                        user.username,
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       subtitle: Text(
@@ -92,7 +92,7 @@ class _CreatePostState extends State<CreatePost> {
                 },
               ),
               InkWell(
-                onTap: () => showImageChoices(context, viewModel),
+                onTap: () => {print("upload button"), showImageChoices(context, viewModel)},
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.width - 30,
