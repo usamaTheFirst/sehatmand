@@ -9,7 +9,7 @@ class CalorieWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 200,
+      width: 150,
       height: 170,
       child: Column(mainAxisSize: MainAxisSize.min, children: [
         Flexible(

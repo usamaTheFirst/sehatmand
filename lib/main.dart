@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
+import 'package:sehatmand/providers/excercise_provider.dart';
 import 'package:sehatmand/screens/auth-screen.dart';
 import 'package:sehatmand/screens/form_screen.dart';
 import 'package:sehatmand/screens/main-srcreen.dart';
@@ -12,7 +14,9 @@ import 'package:sehatmand/widgets/exercise_widget.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp((MyApp()));
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider.value(value: FetchPreviousExcercise()),
+  ], child: (MyApp())));
 }
 
 class MyApp extends StatefulWidget {
@@ -22,20 +26,14 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-class Test extends StatelessWidget {
-  const Test({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-        home: Scaffold(
-            body: ListView(children: [
-      ExerciseWidget(),
-      ExerciseWidget(),
-      ExerciseWidget(),
-    ])));
-  }
-}
+// class Test extends StatelessWidget {
+//   const Test({Key? key}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(home: Scaffold(body: ListView(children: [])));
+//   }
+// }
 
 class _MyAppState extends State<MyApp> {
   bool isFirstTime = true;

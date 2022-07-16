@@ -22,7 +22,7 @@ class _footCounterState extends State<footCounter> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: 200,
+        width: 110,
         height: 200,
         child: Center(
           child: StreamBuilder<AccelerometerEvent>(

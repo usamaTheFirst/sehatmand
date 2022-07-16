@@ -8,7 +8,7 @@ class BMIWidget extends StatelessWidget {
     if (_bmi >= 25) {
       _bmiCategory = 'Overweight';
     } else if (_bmi > 18.5) {
-      _bmiCategory = 'Healthy.';
+      _bmiCategory = 'Healthy';
     } else {
       _bmiCategory = "underweight";
     }
@@ -22,6 +22,7 @@ class BMIWidget extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.secondary,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Column(
@@ -30,23 +31,24 @@ class BMIWidget extends StatelessWidget {
           Text(
             'BMI',
             style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.secondary),
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           Text(
             '${_bmi.toStringAsFixed(1)}',
             style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.secondary),
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           Text(
             '$_bmiCategory',
             style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).colorScheme.secondary),
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              // color: Theme.of(context).colorScheme.secondary
+            ),
           ),
         ],
       ),
