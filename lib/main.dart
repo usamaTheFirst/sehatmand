@@ -8,6 +8,7 @@ import 'package:sehatmand/services/user_service.dart';
 import 'package:sehatmand/utils/config.dart';
 import 'package:sehatmand/utils/constants.dart';
 import 'package:sehatmand/utils/providers.dart';
+import 'package:sehatmand/screens/main-srcreen2.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,7 +47,7 @@ class _MyAppState extends State<MyApp> {
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {
                 if (snapshot.hasData) {
-                  return TabScreen();
+                  return MainScreen();
                 } else
                   return Landing();
               },
