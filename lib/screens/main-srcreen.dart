@@ -7,6 +7,8 @@ import 'package:sehatmand/screens/past_exercises_screen.dart';
 import 'package:sehatmand/screens/test_screen.dart';
 import 'package:sehatmand/pages/profile.dart';
 
+import '../pages/profile.dart';
+
 class MainScreen extends StatefulWidget {
   MainScreen({Key? key}) : super(key: key);
   static const String routeName = '/main';
