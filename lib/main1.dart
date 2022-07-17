@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sehatmand/screens/auth-screen.dart';
 import 'package:sehatmand/screens/form_screen.dart';
-import 'package:sehatmand/screens/main-srcreen.dart';
+import 'package:sehatmand/screens/main-srcreen2.dart';
 import 'package:sehatmand/screens/test_screen.dart';
 import 'package:sehatmand/screens/mainscreen.dart';
 
