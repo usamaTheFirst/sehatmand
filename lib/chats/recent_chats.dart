@@ -15,13 +15,14 @@ class Chats extends StatelessWidget {
     viewModel.setUser();
     return Scaffold(
       appBar: AppBar(
-        leading: InkWell(
-          onTap: (){
-            Navigator.pop(context);
-          },
-          child: Icon(Icons.keyboard_backspace),
-        ),
+        // leading: InkWell(
+        //   onTap: (){
+        //     Navigator.pop(context);
+        //   },
+        //   child: Icon(Icons.keyboard_backspace),
+        // ),
         title: Text("Chats"),
+        centerTitle: true,
       ),
       body: StreamBuilder(
         stream: userChatsStream('${viewModel.user?.uid ?? ""}'),

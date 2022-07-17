@@ -9,6 +9,7 @@ import 'package:sehatmand/models/post.dart';
 import 'package:sehatmand/utils/firebase.dart';
 import 'package:sehatmand/widgets/indicators.dart';
 import 'package:sehatmand/widgets/userpost.dart';
+import 'package:sehatmand/components/fab_container.dart';
 
 class Timeline extends StatefulWidget {
   @override
@@ -86,28 +87,28 @@ class _TimelineState extends State<Timeline> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(
-          'Wooble',
+          'Sehatmand',
           style: TextStyle(fontWeight: FontWeight.w900),
         ),
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: Icon(
-              CupertinoIcons.chat_bubble_2_fill,
-              size: 30.0,
-              color: Theme.of(context).accentColor,
-            ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                CupertinoPageRoute(
-                  builder: (_) => Chats(),
-                ),
-              );
-            },
-          ),
-          SizedBox(width: 20.0),
-        ],
+        // actions: [
+          // IconButton(
+          //   icon: Icon(
+          //     CupertinoIcons.chat_bubble_2_fill,
+          //     size: 30.0,
+          //     color: Theme.of(context).accentColor,
+          //   ),
+          //   onPressed: () {
+          //     Navigator.push(
+          //       context,
+          //       CupertinoPageRoute(
+          //         builder: (_) => Chats(),
+          //       ),
+          //     );
+          //   },
+          // ),
+          // SizedBox(width: 20.0),
+        // ],
       ),
       body: isLoading
           ? circularProgress(context)
@@ -125,6 +126,7 @@ class _TimelineState extends State<Timeline> {
                 );
               },
             ),
+      floatingActionButton: new FabContainer(page: Text("nes"), icon:  CupertinoIcons.add),
     );
   }
 

@@ -7,6 +7,7 @@ import 'package:sehatmand/pages/notification.dart';
 import 'package:sehatmand/pages/profile.dart';
 import 'package:sehatmand/pages/search.dart';
 import 'package:sehatmand/pages/feeds.dart';
+import 'package:sehatmand/chats/recent_chats.dart';
 
 class TabScreen extends StatefulWidget {
   @override
@@ -30,9 +31,9 @@ class _TabScreenState extends State<TabScreen> {
       'index': 1,
     },
     {
-      'title': 'unsee',
-      'icon': Icons.add_circle,
-      'page': Text('nes'),
+      'title': 'Profile',
+      'icon': CupertinoIcons.chat_bubble_2,
+      'page': Chats(),
       'index': 2,
     },
     {
@@ -70,8 +71,8 @@ class _TabScreenState extends State<TabScreen> {
             pages[0]['page'],
             pages[1]['page'],
             // buildFab(),
-            FabContainer(page: pages[2]['page'], icon: Icons.add_circle),
-            // pages[2]['page'],
+            // FabContainer(page: pages[2]['page'], icon: Icons.add_circle),
+            pages[2]['page'],
             pages[3]['page'],
             pages[4]['page'],
           ],

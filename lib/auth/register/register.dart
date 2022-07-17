@@ -29,7 +29,7 @@ class _RegisterState extends State<Register> {
           children: [
             SizedBox(height: 10.0),
             Text(
-              'Welcome to Wooble Social App..\nCreate a new account and connect with friends',
+              'Welcome to SEHATMAND Social App..\nCreate a new account and connect with friends',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18.0,
