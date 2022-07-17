@@ -62,7 +62,7 @@ class EditProfileViewModel extends ChangeNotifier {
         notifyListeners();
         bool success = await userService.updateProfile(
         //  user: user,
-          image: image!,
+          image: image,
           username: username,
           bio: bio,
           country: country,

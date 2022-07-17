@@ -136,7 +136,7 @@ class _SearchState extends State<Search> {
           itemCount: filteredUsers.length,
           itemBuilder: (BuildContext context, int index) {
             DocumentSnapshot doc = filteredUsers[index];
-            UserModel user = UserModel.fromJson(doc.data() as Map<String, dynamic>);
+            UserModel user = UserModel.fromJson(doc?.data() as Map<String?, dynamic>);
             if (doc.id == currentUserId()) {
               Timer(Duration(milliseconds: 500), () {
                 setState(() {

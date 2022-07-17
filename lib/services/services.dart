@@ -8,6 +8,7 @@ abstract class Service {
 
   //function to upload images to firebase storage and retrieve the url.
   Future<String> uploadImage(Reference ref, File file) async {
+    print("uploading image");
     String ext = FileUtils.getFileExtension(file);
     Reference storageReference = ref.child("${uuid.v4()}.$ext");
     UploadTask uploadTask = storageReference.putFile(file);

@@ -31,6 +31,7 @@ class _TimelineState extends State<Timeline> {
   ScrollController? _scrollController;
 
   getPosts() async {
+    print("get posts called");
     if (!hasMore) {
       print('No New Posts');
     }
@@ -40,6 +41,7 @@ class _TimelineState extends State<Timeline> {
     setState(() {
       isLoading = true;
     });
+    print("######### $lastDocument");
     QuerySnapshot querySnapshot;
     if (lastDocument == null) {
       querySnapshot = await postRef
@@ -114,9 +116,9 @@ class _TimelineState extends State<Timeline> {
               itemCount: post.length,
               itemBuilder: (context, index) {
                 internetChecker(context);
-                //TODO: I commented this
-                // PostModel posts = PostModel.fromJson(post[index].data());
-                PostModel posts = PostModel.fromJson(json.decode(post[index].data().toString()));
+                //TODO: I commented this old
+                PostModel posts = PostModel.fromJson(post[index].data() as Map<String, dynamic>);
+                // PostModel posts = PostModel.fromJson(json.decode(post[index].data().toString()));
                 return Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: UserPost(post: posts),

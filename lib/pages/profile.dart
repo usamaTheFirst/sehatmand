@@ -98,7 +98,7 @@ class _ProfileState extends State<Profile>  {
                 stream: usersRef.doc(widget.profileId).snapshots(),
                 builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
                   if (snapshot.hasData) {
-                    UserModel user = UserModel.fromJson(snapshot.data?.data() as Map<String, dynamic>);
+                    UserModel user = UserModel.fromJson(snapshot.data?.data() as Map<String?, dynamic>);
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -156,7 +156,7 @@ class _ProfileState extends State<Profile>  {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              user.email as String,
+                                              user.email,
                                               style: TextStyle(
                                                 // color: Color(0xff4D4D4D),
                                                 fontSize: 10.0,

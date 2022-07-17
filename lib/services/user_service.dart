@@ -25,7 +25,7 @@ class UserService extends Service {
 
 //updates user profile in the Edit Profile Screen
   updateProfile(
-      {required File image, required String username, required String bio, required String country}) async {
+      {required File? image, required String username, required String bio, required String country}) async {
     DocumentSnapshot doc = await usersRef.doc(currentUid()).get();
     var users = UserModel.fromJson(doc.data() as Map<String,dynamic>);
     users?.username = username;
@@ -34,6 +34,7 @@ class UserService extends Service {
     if (image != null) {
       users?.photoUrl = await uploadImage(profilePic, image);
     }
+    print("ID: $currentUid()");
     await usersRef.doc(currentUid()).update({
       'username': username,
       'bio': bio,

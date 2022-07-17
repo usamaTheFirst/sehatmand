@@ -95,7 +95,7 @@ class PostsViewModel extends ChangeNotifier {
     loading = true;
     notifyListeners();
     try {
-      PickedFile? pickedFile = await picker.getImage(
+      XFile? pickedFile = await picker.pickImage(
         source: camera ? ImageSource.camera : ImageSource.gallery,
       );
       File? croppedFile = await ImageCropper().cropImage(
@@ -119,6 +119,8 @@ class PostsViewModel extends ChangeNotifier {
         ),
       );
       mediaUrl = File(croppedFile!.path);
+      // mediaUrl = File(pickedFile!.path);
+      // print(croppedFile.path);
       loading = false;
       notifyListeners();
     } catch (e) {
