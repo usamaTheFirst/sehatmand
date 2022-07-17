@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
+import 'package:sehatmand/screens/home_screen.dart';
 import 'package:sehatmand/screens/test_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -15,7 +16,7 @@ class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
   List<Widget> tabItems = [
-    Center(child: Text("Home")),
+    HomeScreen(),
     Center(child: Text("Social Media")),
     Center(child: Text("Excercies")),
     TestScreen(),
