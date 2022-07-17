@@ -58,14 +58,17 @@ dependencies:
   image_picker: ^0.8.1+1
   image_cropper: ^1.3.1
   flutter_spinkit: ^5.0.0
+<<<<<<< HEAD
 #  syncfusion_flutter_gauges: ^20.2.38
   syncfusion_flutter_gauges: ^20.1.51
   shared_preferences: ^2.0.12
   sensors_plus: ^1.2.1
-  font_awesome_flutter: ^10.1.0
+  font_awesome_flutter: ^9.1.0
   provider: ^6.0.3
 
 
+=======
+>>>>>>> parent of 2293d33 (before merging 2)
 
 
 dev_dependencies:

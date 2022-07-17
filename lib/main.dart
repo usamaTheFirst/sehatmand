@@ -8,15 +8,6 @@ import 'package:sehatmand/services/user_service.dart';
 import 'package:sehatmand/utils/config.dart';
 import 'package:sehatmand/utils/constants.dart';
 import 'package:sehatmand/utils/providers.dart';
-import 'package:sehatmand/screens/main-srcreen2.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:provider/provider.dart';
-import 'package:sehatmand/providers/excercise_provider.dart';
-import 'package:sehatmand/screens/auth-screen.dart';
-import 'package:sehatmand/screens/form_screen.dart';
-import 'package:sehatmand/screens/main-srcreen.dart';
-import 'package:sehatmand/screens/test_screen.dart';
-import 'package:sehatmand/widgets/exercise_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -68,7 +59,7 @@ class _MyAppState extends State<MyApp> {
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {
                 if (snapshot.hasData) {
-                  return MainScreen();
+                  return TabScreen();
                 } else
                   return Landing();
               },

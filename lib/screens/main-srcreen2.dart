@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:sehatmand/screens/home_screen.dart';
 import 'package:sehatmand/screens/past_exercises_screen.dart';
 import 'package:sehatmand/screens/test_screen.dart';
-import 'package:sehatmand/screens/mainscreen.dart';
 
 class MainScreen extends StatefulWidget {
   MainScreen({Key? key}) : super(key: key);
