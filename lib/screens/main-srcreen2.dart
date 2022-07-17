@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
 import 'package:sehatmand/screens/home_screen.dart';
+import 'package:sehatmand/screens/past_exercises_screen.dart';
 import 'package:sehatmand/screens/test_screen.dart';
 import 'package:sehatmand/screens/mainscreen.dart';
 
@@ -19,7 +20,7 @@ class _MainScreenState extends State<MainScreen> {
   List<Widget> tabItems = [
     HomeScreen(),
     TabScreen(),
-    Center(child: Text("Excercies")),
+    PastExercisesScreen(),
     TestScreen(),
   ];
 

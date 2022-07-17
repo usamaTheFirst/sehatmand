@@ -56,6 +56,7 @@ class _AuthFormState extends State<AuthForm> {
                 ),
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Password'),
+                  onChanged: (value) => _password = value,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your password';
@@ -65,7 +66,9 @@ class _AuthFormState extends State<AuthForm> {
 
                     return null;
                   },
-                  onSaved: (value) => _password = value,
+                  onSaved: (value) {
+                    _password = value;
+                  },
                   obscureText: true,
                 ),
                 SizedBox(
@@ -78,6 +81,9 @@ class _AuthFormState extends State<AuthForm> {
                       if (value == null) {
                         return 'Please enter your password';
                       } else if (value != _password) {
+                        print(_password);
+
+                        print(value);
                         return 'Passwords do not match';
                       }
                       return null;
