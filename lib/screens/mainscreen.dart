@@ -51,52 +51,78 @@ class _TabScreenState extends State<TabScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: PageTransitionSwitcher(
-        transitionBuilder: (
-          Widget child,
-          Animation<double> animation,
-          Animation<double> secondaryAnimation,
-        ) {
-          return FadeThroughTransition(
-            animation: animation,
-            secondaryAnimation: secondaryAnimation,
-            child: child,
-          );
-        },
-        child: pages[_page]['page'],
-      ),
-      bottomNavigationBar: BottomAppBar(
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
+    return DefaultTabController(
+      length: 5,
+      child: Scaffold(
+        appBar: AppBar(
+          title: TabBar(
+            tabs: [
+              Tab(icon: Icon(pages[0]['icon']),),
+              Tab(icon: Icon(pages[1]['icon']),),
+              Tab(icon: Icon(pages[2]['icon']),),
+              Tab(icon: Icon(pages[3]['icon']),),
+              Tab(icon: Icon(pages[4]['icon']),),
+            ],
+          ),
+        ),
+        body: TabBarView(
           children: [
-            SizedBox(width: 5),
-            for (Map item in pages)
-              item['index'] == 2
-                  ? buildFab()
-                  : Padding(
-                      padding: const EdgeInsets.only(top: 5.0),
-                      child: IconButton(
-                        icon: Icon(
-                          item['icon'],
-                          color: item['index'] != _page
-                              ? Colors.grey
-                              : Theme.of(context).accentColor,
-                          size: 20.0,
-                        ),
-                        onPressed: () => navigationTapped(item['index']),
-                      ),
-                    ),
-            SizedBox(width: 5),
+            pages[0]['page'],
+            pages[1]['page'],
+            // buildFab(),
+            FabContainer(page: pages[2]['page'], icon: Icons.add_circle),
+            // pages[2]['page'],
+            pages[3]['page'],
+            pages[4]['page'],
           ],
         ),
+        // body: PageTransitionSwitcher(
+        //   transitionBuilder: (
+        //     Widget child,
+        //     Animation<double> animation,
+        //     Animation<double> secondaryAnimation,
+        //   ) {
+        //     return FadeThroughTransition(
+        //       animation: animation,
+        //       secondaryAnimation: secondaryAnimation,
+        //       child: child,
+        //     );
+        //   },
+        //   child: pages[_page]['page'],
+        // ),
+        // bottomNavigationBar: BottomAppBar(
+        //   child: Row(
+        //     mainAxisSize: MainAxisSize.max,
+        //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //     crossAxisAlignment: CrossAxisAlignment.center,
+        //     children: [
+        //       SizedBox(width: 5),
+        //       for (Map item in pages)
+        //         item['index'] == 2
+        //             ? buildFab()
+        //             : Padding(
+        //                 padding: const EdgeInsets.only(top: 5.0),
+        //                 child: IconButton(
+        //                   icon: Icon(
+        //                     item['icon'],
+        //                     color: item['index'] != _page
+        //                         ? Colors.grey
+        //                         : Theme.of(context).accentColor,
+        //                     size: 20.0,
+        //                   ),
+        //                   onPressed: () => navigationTapped(item['index']),
+        //                 ),
+        //               ),
+        //       SizedBox(width: 5),
+        //     ],
+        //   ),
+        // ),
       ),
     );
   }
 
   buildFab() {
+    print(_page);
     return Container(
       height: 45.0,
       width: 45.0,
