@@ -53,7 +53,7 @@ class _TabScreenState extends State<TabScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 5,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
           title: TabBar(
@@ -62,7 +62,7 @@ class _TabScreenState extends State<TabScreen> {
               Tab(icon: Icon(pages[1]['icon']),),
               Tab(icon: Icon(pages[2]['icon']),),
               Tab(icon: Icon(pages[3]['icon']),),
-              Tab(icon: Icon(pages[4]['icon']),),
+              // Tab(icon: Icon(pages[4]['icon']),),
             ],
           ),
         ),
@@ -74,7 +74,7 @@ class _TabScreenState extends State<TabScreen> {
             // FabContainer(page: pages[2]['page'], icon: Icons.add_circle),
             pages[2]['page'],
             pages[3]['page'],
-            pages[4]['page'],
+            // pages[4]['page'],
           ],
         ),
         // body: PageTransitionSwitcher(

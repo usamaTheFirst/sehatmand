@@ -60,6 +60,25 @@ class _FormScreenState extends State<FormScreen> {
                         // ),
                         hintText: 'Enter your name'),
                   ),
+                  FormBuilderTextField(
+                    name: 'username',
+                    enableSuggestions: false,
+                    keyboardType: TextInputType.text,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your name';
+                      } else if (value.length < 3) {
+                        return 'Name must be at least 3 characters long';
+                      } else if (value.length > 20) {
+                        return 'Name must be 20 characters or less';
+                      } else if (!RegExp(r'^[A-Za-z ]+$').hasMatch(value)) {
+                        return 'Name must contain only alphabetical characters';
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                        hintText: 'Enter name that will display on your profile'),
+                  ),
                   SizedBox(height: 10),
                   FormBuilderTextField(
                     name: 'Height',
@@ -132,6 +151,20 @@ class _FormScreenState extends State<FormScreen> {
                         FormBuilderFieldOption(
                             value: 'Female', child: Text('Female')),
                       ]),
+                  FormBuilderTextField(
+                    name: 'bio',
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your bio';
+                      } else if (double.tryParse(value) == null) {
+                        return 'Please enter a valid bio';
+                      }
+                      return null;
+                    },
+                    keyboardType: TextInputType.text,
+                    decoration:
+                    InputDecoration(hintText: 'Enter info about you'),
+                  ),
                   SizedBox(
                     height: 25,
                   ),

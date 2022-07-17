@@ -9,7 +9,9 @@ import 'package:sehatmand/screens/auth-screen.dart';
 import 'package:sehatmand/screens/form_screen.dart';
 import 'package:sehatmand/screens/main-srcreen.dart';
 import 'package:sehatmand/screens/test_screen.dart';
+import 'package:sehatmand/utils/providers.dart';
 import 'package:sehatmand/view_models/auth/register_view_model.dart';
+import 'package:sehatmand/view_models/profile/edit_profile_view_model.dart';
 import 'package:sehatmand/view_models/user/user_view_model.dart';
 import 'package:sehatmand/widgets/exercise_widget.dart';
 
@@ -18,8 +20,7 @@ Future<void> main() async {
   await Firebase.initializeApp();
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider.value(value: FetchPreviousExcercise()),
-    ChangeNotifierProvider.value(value: UserViewModel()),
-    ChangeNotifierProvider.value(value: RegisterViewModel())
+    ...providers
   ], child: (MyApp())));
 }
 
