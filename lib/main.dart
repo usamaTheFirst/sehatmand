@@ -64,6 +64,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'SehatMand',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
           scaffoldBackgroundColor: Color(0xFF222831),
           inputDecorationTheme: InputDecorationTheme(

@@ -72,7 +72,8 @@ class _ConversationState extends State<Conversation> {
         appBar: AppBar(
           leading: GestureDetector(
             onTap: () {
-              Navigator.pop(context);
+              // Navigator.pop(context);
+              Navigator.of(context).pop();
             },
             child: Icon(
               Icons.keyboard_backspace,
@@ -226,28 +227,28 @@ class _ConversationState extends State<Conversation> {
                         ),
                       ),
                       SizedBox(height: 5.0),
-                      StreamBuilder(
-                        stream: chatRef.doc('${widget.chatId}').snapshots(),
-                        builder: (context, AsyncSnapshot<DocumentSnapshot<Object?>> snapshot) {
-                          if (snapshot.hasData) {
-                            DocumentSnapshot? snap = snapshot.data;
-                            Map data = snap!.data()  as Map<dynamic,dynamic> ?? {};
-                            Map usersTyping = data['typing'] ?? {};
-                            return Text(
-                              _buildOnlineText(
-                                user,
-                                usersTyping[widget.userId] ?? false,
-                              ),
-                              style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 11,
-                              ),
-                            );
-                          } else {
-                            return SizedBox();
-                          }
-                        },
-                      ),
+                      // StreamBuilder(
+                      //   stream: chatRef.doc('${widget.chatId}').snapshots(),
+                      //   builder: (context, AsyncSnapshot<DocumentSnapshot<Object?>> snapshot) {
+                      //     if (snapshot.hasData) {
+                      //       DocumentSnapshot? snap = snapshot.data;
+                      //       Map data = snap!.data()  as Map<dynamic,dynamic> ?? {};
+                      //       Map usersTyping = data['typing'] ?? {};
+                      //       return Text(
+                      //         _buildOnlineText(
+                      //           user,
+                      //           usersTyping[widget.userId] ?? false,
+                      //         ),
+                      //         style: TextStyle(
+                      //           fontWeight: FontWeight.w400,
+                      //           fontSize: 11,
+                      //         ),
+                      //       );
+                      //     } else {
+                      //       return SizedBox();
+                      //     }
+                      //   },
+                      // ),
                     ],
                   ),
                 ),

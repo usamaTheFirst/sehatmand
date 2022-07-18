@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:sehatmand/widgets/bmi_widget.dart';
+import 'package:sehatmand/widgets/bmr_widget.dart';
 import 'package:sehatmand/widgets/exercise_widget.dart';
 import 'package:sehatmand/widgets/foot_counter.dart';
 
@@ -108,9 +109,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       SizedBox(
                         height: 10,
                       ),
-                      BMIWidget(
+                      BMRWidget(
                         height: 170,
                         weight: 70,
+                        age: 12,
                       ),
                     ],
                   ),

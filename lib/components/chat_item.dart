@@ -103,7 +103,8 @@ class ChatItem extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 5),
-                buildCounter(context),
+                //TODO: build counter overflows
+                // buildCounter(context),
               ],
             ),
             onTap: () {

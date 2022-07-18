@@ -31,21 +31,21 @@ class BMIWidget extends StatelessWidget {
           Text(
             'BMI',
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
           ),
           Text(
             '${_bmi.toStringAsFixed(1)}',
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
           ),
           Text(
             '$_bmiCategory',
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 16,
               fontWeight: FontWeight.bold,
               // color: Theme.of(context).colorScheme.secondary
             ),
