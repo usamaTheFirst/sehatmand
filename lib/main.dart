@@ -14,6 +14,7 @@ import 'package:sehatmand/view_models/auth/register_view_model.dart';
 import 'package:sehatmand/view_models/profile/edit_profile_view_model.dart';
 import 'package:sehatmand/view_models/user/user_view_model.dart';
 import 'package:sehatmand/widgets/exercise_widget.dart';
+import 'package:sehatmand/auth/register/profile_pic.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -98,6 +99,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         MainScreen.routeName: (context) => MainScreen(),
         FormScreen.routeName: (context) => FormScreen(),
+        ProfilePicture.routeName: (context) => ProfilePicture(),
       },
     );
   }

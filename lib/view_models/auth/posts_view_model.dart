@@ -8,6 +8,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sehatmand/models/post.dart';
+import 'package:sehatmand/screens/main-srcreen.dart';
 import 'package:sehatmand/screens/mainscreen_social.dart';
 import 'package:sehatmand/services/post_service.dart';
 import 'package:sehatmand/services/user_service.dart';
@@ -181,8 +182,9 @@ class PostsViewModel extends ChangeNotifier {
         await postService.uploadProfilePicture(
             mediaUrl!, firebaseAuth.currentUser as User);
         loading = false;
-        Navigator.of(context)
-            .pushReplacement(CupertinoPageRoute(builder: (_) => TabScreen()));
+        // Navigator.of(context)
+        //     .pushReplacement(CupertinoPageRoute(builder: (_) => MainScreen()));
+        Navigator.pushReplacementNamed(context, MainScreen.routeName);
         notifyListeners();
       } catch (e) {
         print(e);

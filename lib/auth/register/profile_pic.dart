@@ -9,6 +9,7 @@ import 'package:sehatmand/widgets/indicators.dart';
 class ProfilePicture extends StatefulWidget {
   @override
   _ProfilePictureState createState() => _ProfilePictureState();
+  static const String routeName = '/ProfilePic';
 }
 
 class _ProfilePictureState extends State<ProfilePicture> {

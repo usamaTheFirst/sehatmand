@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:intl/intl.dart';
 import 'package:sehatmand/screens/main-srcreen.dart';
 import 'package:sehatmand/utils/firebase.dart';
 import 'package:sehatmand/services/auth_service.dart';
+import '../auth/register/profile_pic.dart';
 
 class FormScreen extends StatefulWidget {
   const FormScreen({Key? key}) : super(key: key);
@@ -206,7 +208,7 @@ class _FormScreenState extends State<FormScreen> {
                         final FirebaseFirestore _firestore =
                             FirebaseFirestore.instance;
                         AuthService auth = AuthService();
-                        auth.saveUserToFirestore(_formKey.currentState?.value['username'], FirebaseAuth.instance.currentUser as User,
+                        await auth.saveUserToFirestore(_formKey.currentState?.value['username'], FirebaseAuth.instance.currentUser as User,
                             FirebaseAuth.instance.currentUser!.email.toString(), _formKey.currentState?.value['country']);
                         await _firestore
                             .collection('users')
@@ -214,7 +216,13 @@ class _FormScreenState extends State<FormScreen> {
                             .update(_formKey.currentState!.value);
                         // print("####################");
                         // print(_formKey.currentState?.value['username']);
-                        Navigator.pushReplacementNamed(context, MainScreen.routeName);
+                        // Navigator.of(context).pushReplacement(
+                        //   CupertinoPageRoute(
+                        //     builder: (_) => ProfilePicture(),
+                        //   ),
+                        // );
+                        // Navigator.pushReplacementNamed(context, MainScreen.routeName);
+                        Navigator.pushReplacementNamed(context, ProfilePicture.routeName);
                       } else {
                         print("validation failed");
                       }
