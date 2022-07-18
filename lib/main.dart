@@ -51,6 +51,7 @@ class _MyAppState extends State<MyApp> {
       DocumentSnapshot ds =
           await FirebaseFirestore.instance.collection("users").doc(id).get();
       setState(() {
+        print(ds.data());
         isRegistered = ds.exists;
 
         isFirstTime = false;
@@ -81,7 +82,7 @@ class _MyAppState extends State<MyApp> {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasData) {
-            Future.delayed(Duration(microseconds: 1)).then((value) async {
+            Future.delayed(Duration(microseconds: 2)).then((value) async {
               await checkIfRegisteredOrNot();
             });
 

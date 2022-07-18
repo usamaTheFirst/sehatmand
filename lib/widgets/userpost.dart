@@ -248,7 +248,7 @@ class UserPost extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           DocumentSnapshot snap = snapshot.data as DocumentSnapshot<Object?>;
-          UserModel user = UserModel.fromJson(snap.data() as Map<String, dynamic>);
+          UserModel user = UserModel.fromJson(snap.data() as Map<String?, dynamic>);
           return Visibility(
             visible: !isMe,
             child: Align(

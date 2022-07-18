@@ -33,6 +33,8 @@ class StreamBuilderWrapper extends StatelessWidget {
     return StreamBuilder<QuerySnapshot>(
       stream: stream as Stream<QuerySnapshot<Object?>>?,
       builder: (context, snapshot) {
+        // print("###########################");
+        // print(snapshot.hasData);
         if (snapshot.hasData) {
           var list = snapshot.data?.docs.toList();
           // var list = snapshot.data.;

@@ -318,12 +318,13 @@ class _ProfileState extends State<Profile> {
                             'All Posts',
                             style: TextStyle(fontWeight: FontWeight.w900),
                           ),
-                          Spacer(),
-                          buildIcons(),
+                          // Spacer(),
+                          SizedBox(height: 40,)
+                          // buildIcons(),
                         ],
                       ),
                     ),
-                    buildPostView()
+                    buildGridPost(),
                   ],
                 );
               },
@@ -511,35 +512,35 @@ class _ProfileState extends State<Profile> {
     });
   }
 
-  buildPostView() {
-    if (isToggle == true) {
-      return buildGridPost();
-    } else if (isToggle == false) {
-      return buildPosts();
-    }
-  }
+  // buildPostView() {
+  //   if (isToggle == true) {
+  //     return buildGridPost();
+  //   } else if (isToggle == false) {
+  //     return buildPosts();
+  //   }
+  // }
 
-  buildPosts() {
-    return StreamBuilderWrapper(
-      shrinkWrap: true,
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-      stream: postRef
-          .where('ownerId', isEqualTo: widget.profileId)
-          .orderBy('timestamp', descending: true)
-          .snapshots(),
-      physics: NeverScrollableScrollPhysics(),
-      itemBuilder: (_, DocumentSnapshot snapshot) {
-        PostModel posts =
-            PostModel.fromJson(snapshot.data() as Map<String, dynamic>);
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 15.0),
-          child: Posts(
-            post: posts,
-          ),
-        );
-      },
-    );
-  }
+  // buildPosts() {
+  //   return StreamBuilderWrapper(
+  //     shrinkWrap: true,
+  //     padding: const EdgeInsets.symmetric(horizontal: 20.0),
+  //     stream: postRef
+  //         .where('ownerId', isEqualTo: widget.profileId)
+  //         .orderBy('timestamp', descending: true)
+  //         .snapshots(),
+  //     physics: NeverScrollableScrollPhysics(),
+  //     itemBuilder: (_, DocumentSnapshot snapshot) {
+  //       PostModel posts =
+  //           PostModel.fromJson(snapshot.data() as Map<String, dynamic>);
+  //       return Padding(
+  //         padding: const EdgeInsets.only(bottom: 15.0),
+  //         child: Posts(
+  //           post: posts,
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
   buildGridPost() {
     return StreamGridWrapper(

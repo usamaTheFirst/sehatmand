@@ -17,9 +17,9 @@ class ActivityModel {
     username = json['username'];
     userId = json['userId']; 
     userDp = json['userDp'];
-    postId = json['postId'];
-    mediaUrl = json['mediaUrl'];
-    commentData = json['commentData'];
+    postId = json['postId'].toString();
+    mediaUrl = json['mediaUrl'].toString();
+    commentData = json['commentData'].toString();
     timestamp = json['timestamp'];
   }
   Map<String, dynamic> toJson() {

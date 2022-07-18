@@ -38,8 +38,8 @@ class ChatItem extends StatelessWidget {
       builder: (context, AsyncSnapshot<DocumentSnapshot<Object?>> snapshot) {
         if (snapshot.hasData) {
           DocumentSnapshot? documentSnapshot = snapshot.data;
-          UserModel user = UserModel.fromJson(jsonDecode(documentSnapshot!.data().toString()));
-
+          // UserModel user = UserModel.fromJson(jsonDecode(documentSnapshot!.data().toString()));
+          UserModel user = UserModel.fromJson(documentSnapshot!.data() as Map<String?, dynamic>);
           return ListTile(
             contentPadding:
                 EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
