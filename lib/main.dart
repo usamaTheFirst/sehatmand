@@ -15,6 +15,7 @@ import 'package:sehatmand/view_models/profile/edit_profile_view_model.dart';
 import 'package:sehatmand/view_models/user/user_view_model.dart';
 import 'package:sehatmand/widgets/exercise_widget.dart';
 import 'package:sehatmand/auth/register/profile_pic.dart';
+import 'package:sehatmand/widgets/invite_exercise_card.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,6 +32,23 @@ class MyApp extends StatefulWidget {
   @override
   State<MyApp> createState() => _MyAppState();
 }
+
+// Future<void> main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await Firebase.initializeApp();
+//   runApp(MultiProvider(
+//       providers: [
+//         ChangeNotifierProvider.value(value: FetchPreviousExcercise()),
+//         ...providers
+//       ],
+//       child: (MaterialApp(
+//         home: Scaffold(
+//           body: ListView(
+//             children: [InvitationCard(), InvitationCard()],
+//           ),
+//         ),
+//       ))));
+// }
 
 // class Test extends StatelessWidget {
 //   const Test({Key? key}) : super(key: key);

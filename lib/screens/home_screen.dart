@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:sehatmand/models/exercises-list.dart';
 import 'package:sehatmand/widgets/bmi_widget.dart';
 import 'package:sehatmand/widgets/bmr_widget.dart';
 import 'package:sehatmand/widgets/exercise_widget.dart';
@@ -70,7 +71,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
                         child: Text("Done"),
                       ),
                     ],
@@ -140,41 +143,16 @@ class _HomeScreenState extends State<HomeScreen> {
             //   ),
             // ),
             Expanded(
-              child: ListView(
-                children: [
-                  ExerciseWidget(
-                    title: "Running",
-                    image:
-                        "https://images.everydayhealth.com/images/how-to-start-working-out-again-derailed-from-covid-1440x810.jpg",
-                    description:
-                        'Running is a method of terrestrial locomotion allowing humans and other animals to move rapidly on foot. Running is a type of gait characterized by an aerial phase in which all feet are above the ground (though there are exceptions)',
-                    calories: 100,
-                  ),
-                  ExerciseWidget(
-                    title: "Running",
-                    image:
-                        "https://images.everydayhealth.com/images/how-to-start-working-out-again-derailed-from-covid-1440x810.jpg",
-                    description:
-                        'Running is a method of terrestrial locomotion allowing humans and other animals to move rapidly on foot. Running is a type of gait characterized by an aerial phase in which all feet are above the ground (though there are exceptions)',
-                    calories: 100,
-                  ),
-                  ExerciseWidget(
-                    title: "Running",
-                    image:
-                        "https://images.everydayhealth.com/images/how-to-start-working-out-again-derailed-from-covid-1440x810.jpg",
-                    description:
-                        'Running is a method of terrestrial locomotion allowing humans and other animals to move rapidly on foot. Running is a type of gait characterized by an aerial phase in which all feet are above the ground (though there are exceptions)',
-                    calories: 100,
-                  ),
-                  ExerciseWidget(
-                    title: "Running",
-                    image:
-                        "https://images.everydayhealth.com/images/how-to-start-working-out-again-derailed-from-covid-1440x810.jpg",
-                    description:
-                        'Running is a method of terrestrial locomotion allowing humans and other animals to move rapidly on foot. Running is a type of gait characterized by an aerial phase in which all feet are above the ground (though there are exceptions)',
-                    calories: 100,
-                  ),
-                ],
+              child: ListView.separated(
+                itemBuilder: (context, index) {
+                  return exercises_list[index];
+                },
+                itemCount: exercises_list.length,
+                separatorBuilder: (BuildContext context, int index) {
+                  return Divider(
+                    color: Colors.grey,
+                  );
+                },
               ),
             ),
           ],
