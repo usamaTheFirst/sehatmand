@@ -53,7 +53,8 @@ class _BMRWidgetState extends State<BMRWidget> {
             ),
           ),
           Text(
-            '${widget._bmi.toStringAsFixed(1)}',
+            // '${widget._bmi.toStringAsFixed(1)}',
+            "67.4",
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.bold,
