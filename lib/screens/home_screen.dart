@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:sehatmand/widgets/bmi_widget.dart';
@@ -17,6 +18,68 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showModalBottomSheet(
+              context: context,
+              builder: (context) {
+                return Container(
+                  height: 300,
+                  color: Theme.of(context).backgroundColor,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "What did you eat?",
+                          style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                      ),
+                      Container(
+                        height: 200,
+                        color: Colors.grey,
+                        child: CupertinoPicker(
+                          useMagnifier: true,
+                          backgroundColor: Colors.white,
+                          itemExtent: 50,
+                          onSelectedItemChanged: (index) {
+                            print(index);
+                          },
+                          children: [
+                            Text("Apple - 16cal"),
+                            Text("Banana - 13cal"),
+                            Text("Orange - 15cal"),
+                            Text("Mango - 17cal"),
+                            Text("Pineapple - 20cal"),
+                            Text("Strawberry - 18cal"),
+                            Text("Watermelon - 21cal"),
+                            Text("Beef - 100cal"),
+                            Text("Chicken - 80cal"),
+                            Text("Mutton - 70cal"),
+                            Text("Fish - 50cal"),
+                            Text("Egg - 10cal"),
+                            Text("Milk - 20cal"),
+                            Text("Cheese - 30cal"),
+                            Text("Yogurt - 40cal"),
+                            Text("Rice - 50cal"),
+                          ],
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {},
+                        child: Text("Done"),
+                      ),
+                    ],
+                  ),
+                );
+              });
+        },
+        child: Icon(Icons.add),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: SafeArea(
         child: Column(
           children: [
@@ -82,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     image:
                         "https://images.everydayhealth.com/images/how-to-start-working-out-again-derailed-from-covid-1440x810.jpg",
                     description:
-                        'lorem fdfdggggggggggggggggggggggd gd ge g dg d gd gd g d gd gd gd g d gd gd gd gd gd g d g',
+                        'Running is a method of terrestrial locomotion allowing humans and other animals to move rapidly on foot. Running is a type of gait characterized by an aerial phase in which all feet are above the ground (though there are exceptions)',
                     calories: 100,
                   ),
                   ExerciseWidget(
@@ -90,7 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     image:
                         "https://images.everydayhealth.com/images/how-to-start-working-out-again-derailed-from-covid-1440x810.jpg",
                     description:
-                        'lorem fdfdggggggggggggggggggggggd gd ge g dg d gd gd g d gd gd gd g d gd gd gd gd gd g d g',
+                        'Running is a method of terrestrial locomotion allowing humans and other animals to move rapidly on foot. Running is a type of gait characterized by an aerial phase in which all feet are above the ground (though there are exceptions)',
                     calories: 100,
                   ),
                   ExerciseWidget(
@@ -98,7 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     image:
                         "https://images.everydayhealth.com/images/how-to-start-working-out-again-derailed-from-covid-1440x810.jpg",
                     description:
-                        'lorem fdfdggggggggggggggggggggggd gd ge g dg d gd gd g d gd gd gd g d gd gd gd gd gd g d g',
+                        'Running is a method of terrestrial locomotion allowing humans and other animals to move rapidly on foot. Running is a type of gait characterized by an aerial phase in which all feet are above the ground (though there are exceptions)',
                     calories: 100,
                   ),
                   ExerciseWidget(
@@ -106,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     image:
                         "https://images.everydayhealth.com/images/how-to-start-working-out-again-derailed-from-covid-1440x810.jpg",
                     description:
-                        'lorem fdfdggggggggggggggggggggggd gd ge g dg d gd gd g d gd gd gd g d gd gd gd gd gd g d g',
+                        'Running is a method of terrestrial locomotion allowing humans and other animals to move rapidly on foot. Running is a type of gait characterized by an aerial phase in which all feet are above the ground (though there are exceptions)',
                     calories: 100,
                   ),
                 ],

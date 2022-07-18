@@ -19,7 +19,7 @@ class ExerciseWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 160,
+      height: 180,
       width: double.infinity,
       margin: const EdgeInsets.all(8),
       padding: const EdgeInsets.all(8),
@@ -76,9 +76,16 @@ class ExerciseWidget extends StatelessWidget {
                   ],
                 ),
                 SizedBox(height: 10),
-                Text(
-                  description,
-                  style: TextStyle(fontSize: 13, color: Colors.green),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Text(
+                      description,
+                      style: TextStyle(
+                        fontSize: 16,
+                      ),
+                      softWrap: true,
+                    ),
+                  ),
                 ),
               ],
             ),
