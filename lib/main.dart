@@ -42,7 +42,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool isFirstTime = true;
-  bool? isRegistered;
+  bool? isRegistered = false;
   checkIfRegisteredOrNot() async {
     if (isFirstTime && mounted) {
       final id = FirebaseAuth.instance.currentUser!.uid;

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:intl/intl.dart';
 import 'package:sehatmand/screens/main-srcreen.dart';
+import 'package:sehatmand/utils/firebase.dart';
+import 'package:sehatmand/services/auth_service.dart';
 
 class FormScreen extends StatefulWidget {
   const FormScreen({Key? key}) : super(key: key);
@@ -60,6 +62,7 @@ class _FormScreenState extends State<FormScreen> {
                         // ),
                         hintText: 'Enter your name'),
                   ),
+                  SizedBox(height: 10),
                   FormBuilderTextField(
                     name: 'username',
                     enableSuggestions: false,
@@ -77,7 +80,7 @@ class _FormScreenState extends State<FormScreen> {
                       return null;
                     },
                     decoration: InputDecoration(
-                        hintText: 'Enter name that will display on your profile'),
+                        hintText: 'Enter username'),
                   ),
                   SizedBox(height: 10),
                   FormBuilderTextField(
@@ -151,19 +154,31 @@ class _FormScreenState extends State<FormScreen> {
                         FormBuilderFieldOption(
                             value: 'Female', child: Text('Female')),
                       ]),
+                  SizedBox(height: 10),
                   FormBuilderTextField(
                     name: 'bio',
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your bio';
-                      } else if (double.tryParse(value) == null) {
-                        return 'Please enter a valid bio';
                       }
                       return null;
                     },
                     keyboardType: TextInputType.text,
                     decoration:
                     InputDecoration(hintText: 'Enter info about you'),
+                  ),
+                  SizedBox(height: 10),
+                  FormBuilderTextField(
+                    name: 'country',
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your country';
+                      }
+                      return null;
+                    },
+                    keyboardType: TextInputType.text,
+                    decoration:
+                    InputDecoration(hintText: 'Enter your country'),
                   ),
                   SizedBox(
                     height: 25,
@@ -190,10 +205,15 @@ class _FormScreenState extends State<FormScreen> {
                         final id = await FirebaseAuth.instance.currentUser?.uid;
                         final FirebaseFirestore _firestore =
                             FirebaseFirestore.instance;
+                        AuthService auth = AuthService();
+                        auth.saveUserToFirestore(_formKey.currentState?.value['username'], FirebaseAuth.instance.currentUser as User,
+                            FirebaseAuth.instance.currentUser!.email.toString(), _formKey.currentState?.value['country']);
                         await _firestore
                             .collection('users')
                             .doc(id)
-                            .set(_formKey.currentState!.value);
+                            .update(_formKey.currentState!.value);
+                        // print("####################");
+                        // print(_formKey.currentState?.value['username']);
                         Navigator.pushReplacementNamed(context, MainScreen.routeName);
                       } else {
                         print("validation failed");

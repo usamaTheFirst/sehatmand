@@ -29,15 +29,21 @@ class AuthService {
 
 //this will save the details inputted by the user to firestore.
   saveUserToFirestore(
-      String name, User user, String email, String country) async {
+      String uname, User user, String email, String country) async {
     await usersRef.doc(user.uid).set({
-      'username': name,
+      'username': uname,
       'email': email,
       'time': Timestamp.now(),
       'id': user.uid,
       'bio': "",
       'country': country,
-      'photoUrl': user.photoURL ?? ''
+      'photoUrl': user.photoURL ?? '',
+
+      'Name': "",
+      'Gender': "",
+      'Height': "",
+      'Weight': "",
+      'dob': "",
     });
   }
 

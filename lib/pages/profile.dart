@@ -8,6 +8,7 @@ import 'package:sehatmand/components/stream_builder_wrapper.dart';
 import 'package:sehatmand/components/stream_grid_wrapper.dart';
 import 'package:sehatmand/models/post.dart';
 import 'package:sehatmand/models/user.dart';
+import 'package:sehatmand/screens/auth-screen.dart';
 import 'package:sehatmand/screens/edit_profile.dart';
 import 'package:sehatmand/screens/settings.dart';
 import 'package:sehatmand/utils/firebase.dart';
@@ -69,9 +70,8 @@ class _ProfileState extends State<Profile>  {
                     padding: const EdgeInsets.only(right: 25.0),
                     child: GestureDetector(
                       onTap: () {
-                        firebaseAuth.signOut();
-                        Navigator.of(context).push(
-                            CupertinoPageRoute(builder: (_) => Register()));
+                        FirebaseAuth.instance.signOut();
+                        Navigator.of(context).popUntil((route) => route.isFirst);
                       },
                       child: Text(
                         'Log Out',
