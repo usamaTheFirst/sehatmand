@@ -8,6 +8,7 @@ import 'package:sehatmand/components/stream_builder_wrapper.dart';
 import 'package:sehatmand/components/stream_grid_wrapper.dart';
 import 'package:sehatmand/models/post.dart';
 import 'package:sehatmand/models/user.dart';
+import 'package:sehatmand/screens/auth-screen.dart';
 import 'package:sehatmand/screens/edit_profile.dart';
 import 'package:sehatmand/screens/settings.dart';
 import 'package:sehatmand/utils/firebase.dart';
@@ -23,7 +24,7 @@ class Profile extends StatefulWidget {
   _ProfileState createState() => _ProfileState();
 }
 
-class _ProfileState extends State<Profile>  {
+class _ProfileState extends State<Profile> {
   late User user;
   bool isLoading = false;
   int postCount = 0;
@@ -69,9 +70,9 @@ class _ProfileState extends State<Profile>  {
                     padding: const EdgeInsets.only(right: 25.0),
                     child: GestureDetector(
                       onTap: () {
-                        firebaseAuth.signOut();
-                        Navigator.of(context).push(
-                            CupertinoPageRoute(builder: (_) => Register()));
+                        FirebaseAuth.instance.signOut();
+                        Navigator.of(context)
+                            .popUntil((route) => route.isFirst);
                       },
                       child: Text(
                         'Log Out',
@@ -98,7 +99,8 @@ class _ProfileState extends State<Profile>  {
                 stream: usersRef.doc(widget.profileId).snapshots(),
                 builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
                   if (snapshot.hasData) {
-                    UserModel user = UserModel.fromJson(snapshot.data?.data() as Map<String?, dynamic>);
+                    UserModel user = UserModel.fromJson(
+                        snapshot.data?.data() as Map<String?, dynamic>);
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -108,7 +110,8 @@ class _ProfileState extends State<Profile>  {
                             Padding(
                               padding: const EdgeInsets.only(left: 20.0),
                               child: CircleAvatar(
-                                backgroundImage: NetworkImage(user.photoUrl as String),
+                                backgroundImage:
+                                    NetworkImage(user.photoUrl as String),
                                 radius: 40.0,
                               ),
                             ),
@@ -526,7 +529,8 @@ class _ProfileState extends State<Profile>  {
           .snapshots(),
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (_, DocumentSnapshot snapshot) {
-        PostModel posts = PostModel.fromJson(snapshot.data() as Map<String, dynamic>);
+        PostModel posts =
+            PostModel.fromJson(snapshot.data() as Map<String, dynamic>);
         return Padding(
           padding: const EdgeInsets.only(bottom: 15.0),
           child: Posts(
@@ -547,7 +551,8 @@ class _ProfileState extends State<Profile>  {
           .snapshots(),
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (_, DocumentSnapshot snapshot) {
-        PostModel posts = PostModel.fromJson(snapshot.data() as Map<String, dynamic>);
+        PostModel posts =
+            PostModel.fromJson(snapshot.data() as Map<String, dynamic>);
         return PostTile(
           post: posts,
         );

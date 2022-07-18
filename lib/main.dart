@@ -42,14 +42,16 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool isFirstTime = true;
-  bool? isRegistered;
+  bool isRegistered = false;
   checkIfRegisteredOrNot() async {
     if (isFirstTime && mounted) {
       final id = FirebaseAuth.instance.currentUser!.uid;
+      print(id);
       DocumentSnapshot ds =
           await FirebaseFirestore.instance.collection("users").doc(id).get();
       setState(() {
         isRegistered = ds.exists;
+
         isFirstTime = false;
       });
     }
@@ -83,6 +85,7 @@ class _MyAppState extends State<MyApp> {
             });
 
             if (isRegistered != null) {
+              print("isRegistered: $isRegistered");
               return isRegistered! ? MainScreen() : const FormScreen();
             } else {
               print("isRegistered is null");
