@@ -48,21 +48,22 @@ class _BMRWidgetState extends State<BMRWidget> {
           Text(
             'BMR',
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
           ),
           Text(
-            '${widget._bmi.toStringAsFixed(1)}',
+            // '${widget._bmi.toStringAsFixed(1)}',
+            "67.4",
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 16,
               fontWeight: FontWeight.bold,
             ),
           ),
           Text(
             '${widget._bmiCategory}',
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 16,
               fontWeight: FontWeight.bold,
               // color: Theme.of(context).colorScheme.secondary
             ),

@@ -46,6 +46,7 @@ class ExerciseWidget extends StatelessWidget {
               // crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Padding(
                       padding: EdgeInsets.all(10.0),
@@ -58,21 +59,23 @@ class ExerciseWidget extends StatelessWidget {
                       ),
                     ),
                     Spacer(),
-                    ElevatedButton(
-                        onPressed: () {
-                          final store = FirebaseFirestore.instance;
-                          final uuid = FirebaseAuth.instance.currentUser?.uid;
-                          store
-                              .collection('users')
-                              .doc(uuid)
-                              .collection('past_exercises')
-                              .add({
-                            'name': title,
-                            'date': DateTime.now().toIso8601String(),
-                            'calories': calories,
-                          });
-                        },
-                        child: const Text("Done")),
+                    FittedBox(
+                      child: ElevatedButton(
+                          onPressed: () {
+                            final store = FirebaseFirestore.instance;
+                            final uuid = FirebaseAuth.instance.currentUser?.uid;
+                            store
+                                .collection('users')
+                                .doc(uuid)
+                                .collection('past_exercises')
+                                .add({
+                              'name': title,
+                              'date': DateTime.now().toIso8601String(),
+                              'calories': calories,
+                            });
+                          },
+                          child: const Text("Done")),
+                    ),
                   ],
                 ),
                 SizedBox(height: 10),

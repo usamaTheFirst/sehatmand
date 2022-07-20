@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
+// import 'package:geocoding/geocoding.dart';
+// import 'package:geolocator/geolocator.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:sehatmand/models/post.dart';
@@ -30,8 +30,8 @@ class PostsViewModel extends ChangeNotifier {
   File? mediaUrl;
   final picker = ImagePicker();
   late String? location;
-  late Position position;
-  late Placemark placemark;
+  // late Position position;
+  // late Placemark placemark;
   late String bio;
   String? description;
   late String email;
@@ -131,29 +131,29 @@ class PostsViewModel extends ChangeNotifier {
     }
   }
 
-  getLocation() async {
-    loading = true;
-    notifyListeners();
-    LocationPermission permission = await Geolocator.checkPermission();
-    print(permission);
-    if (permission == LocationPermission.denied ||
-        permission == LocationPermission.deniedForever) {
-      LocationPermission rPermission = await Geolocator.requestPermission();
-      print(rPermission);
-      await getLocation();
-    } else {
-      position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
-      List<Placemark> placemarks =
-          await placemarkFromCoordinates(position.latitude, position.longitude);
-      placemark = placemarks[0];
-      location = " ${placemarks[0].locality}, ${placemarks[0].country}";
-      locationTEC.text = location!;
-      print(location);
-    }
-    loading = false;
-    notifyListeners();
-  }
+  // getLocation() async {
+  //   loading = true;
+  //   notifyListeners();
+  //   LocationPermission permission = await Geolocator.checkPermission();
+  //   print(permission);
+  //   if (permission == LocationPermission.denied ||
+  //       permission == LocationPermission.deniedForever) {
+  //     LocationPermission rPermission = await Geolocator.requestPermission();
+  //     print(rPermission);
+  //     await getLocation();
+  //   } else {
+  //     position = await Geolocator.getCurrentPosition(
+  //         desiredAccuracy: LocationAccuracy.high);
+  //     List<Placemark> placemarks =
+  //         await placemarkFromCoordinates(position.latitude, position.longitude);
+  //     placemark = placemarks[0];
+  //     location = " ${placemarks[0].locality}, ${placemarks[0].country}";
+  //     locationTEC.text = location!;
+  //     print(location);
+  //   }
+  //   loading = false;
+  //   notifyListeners();
+  // }
 
   uploadPosts(BuildContext context) async {
     try {

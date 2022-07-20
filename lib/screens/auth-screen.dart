@@ -5,6 +5,7 @@ import 'package:sehatmand/widgets/auth_form.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({Key? key}) : super(key: key);
+  static const String routeName = '/authScreen';
 
   @override
   State<AuthScreen> createState() => _AuthScreenState();
@@ -23,7 +24,7 @@ class _AuthScreenState extends State<AuthScreen> {
               SizedBox(height: 30),
               Center(
                 child: SvgPicture.asset(
-                  'logo.svg',
+                  'assets/logo.svg',
                   height: 150,
                   fit: BoxFit.contain,
                 ),

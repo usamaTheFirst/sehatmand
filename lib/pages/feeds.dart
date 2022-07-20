@@ -27,7 +27,7 @@ class _TimelineState extends State<Timeline> {
 
   int documentLimit = 10;
 
-  late DocumentSnapshot lastDocument;
+  DocumentSnapshot? lastDocument;
 
   ScrollController? _scrollController;
 
@@ -42,7 +42,7 @@ class _TimelineState extends State<Timeline> {
     setState(() {
       isLoading = true;
     });
-    print("######### $lastDocument");
+    // print("######### $lastDocument");
     QuerySnapshot querySnapshot;
     if (lastDocument == null) {
       querySnapshot = await postRef
@@ -52,7 +52,7 @@ class _TimelineState extends State<Timeline> {
     } else {
       querySnapshot = await postRef
           .orderBy('timestamp', descending: false)
-          .startAfterDocument(lastDocument)
+          .startAfterDocument(lastDocument!)
           .limit(documentLimit)
           .get();
     }

@@ -169,16 +169,16 @@ class _CreatePostState extends State<CreatePost> {
                     onChanged: (val) => viewModel.setLocation(val),
                   ),
                 ),
-                trailing: IconButton(
-                  tooltip: "Use your current location",
-                  icon: Icon(
-                    CupertinoIcons.map_pin_ellipse,
-                    size: 25.0,
-                  ),
-                  iconSize: 30.0,
-                  color: Theme.of(context).accentColor,
-                  onPressed: () => viewModel.getLocation(),
-                ),
+                // trailing: IconButton(
+                //   tooltip: "Use your current location",
+                //   icon: Icon(
+                //     CupertinoIcons.map_pin_ellipse,
+                //     size: 25.0,
+                //   ),
+                //   iconSize: 30.0,
+                //   color: Theme.of(context).accentColor,
+                //   onPressed: () => viewModel.getLocation(),
+                // ),
               ),
             ],
           ),

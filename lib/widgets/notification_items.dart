@@ -8,6 +8,8 @@ import 'package:timeago/timeago.dart' as timeago;
 
 import 'package:sehatmand/widgets/indicators.dart';
 
+import '../pages/profile.dart';
+
 class ActivityItems extends StatefulWidget {
   final ActivityModel activity;
 
@@ -31,9 +33,15 @@ class _ActivityItemsState extends State<ActivityItems> {
         children: [
           ListTile(
             onTap: () {
-              Navigator.of(context).push(CupertinoPageRoute(
-                builder: (_) => ViewActivityDetails(activity: widget.activity),
-              ));
+              // Navigator.of(context).push(CupertinoPageRoute(
+              //   builder: (_) => ViewActivityDetails(activity: widget.activity),
+              // ));
+              Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                    builder: (_) =>
+                        Profile(profileId: widget.activity.userId),
+                  ));
             },
             leading: CircleAvatar(
               radius: 25.0,
@@ -43,18 +51,18 @@ class _ActivityItemsState extends State<ActivityItems> {
               overflow: TextOverflow.ellipsis,
               text: TextSpan(
                 style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 14.0,
+                  color: Colors.deepPurpleAccent,
+                  fontSize: 24.0,
                 ),
                 children: [
                   TextSpan(
                     text: '${widget.activity.username} ',
                     style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 10.0),
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
                   ),
                   TextSpan(
                     text: buildTextConfiguration(),
-                    style: TextStyle(fontSize: 10.0),
+                    style: TextStyle(fontSize: 15.0),
                   ),
                 ],
               ),

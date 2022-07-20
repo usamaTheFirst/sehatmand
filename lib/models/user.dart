@@ -23,15 +23,15 @@ class UserModel {
       this.country});
 
   UserModel.fromJson(Map<String?, dynamic> json) {
-    username = json['username'];
-    email = json['email'];
+    username = json['username'].toString();
+    email = json['email'].toString();
     country = json['country'];
-    photoUrl = json['photoUrl'];
+    photoUrl = json['photoUrl'].toString();
     signedUpAt = json['signedUpAt'];
     isOnline = json['isOnline'];
     lastSeen = json['lastSeen'];
-    bio = json['bio'];
-    id = json['id'];
+    bio = json['bio'].toString();
+    id = json['id'].toString();
   }
 
   Map<String, dynamic> toJson() {

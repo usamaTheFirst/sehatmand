@@ -38,28 +38,28 @@ class _SettingState extends State<Setting> {
                   fontWeight: FontWeight.w900,
                 ),
               ),
-              subtitle: Text("A Fully Functional Social Media Application Made by CharlyKeleb"),
+              subtitle: Text("A Fully Functional Social Media Application Made by Tayyib and Usama"),
               trailing: Icon(Icons.error)
             ),
             Divider(),
-            ListTile(
-              title: Text(
-                "Dark Mode",
-                style: TextStyle(
-                  fontWeight: FontWeight.w900,
-                ),
-              ),
-              subtitle: Text("Use the dark mode"),
-              trailing: Consumer<ThemeNotifier>(
-                builder: (context, notifier, child) => CupertinoSwitch(
-                  onChanged: (val) {
-                    notifier.toggleTheme();
-                  },
-                  value: notifier.dark,
-                  activeColor: Theme.of(context).accentColor,
-                ),
-              ),
-            ),
+            // ListTile(
+            //   title: Text(
+            //     "Dark Mode",
+            //     style: TextStyle(
+            //       fontWeight: FontWeight.w900,
+            //     ),
+            //   ),
+            //   subtitle: Text("Use the dark mode"),
+            //   trailing: Consumer<ThemeNotifier>(
+            //     builder: (context, notifier, child) => CupertinoSwitch(
+            //       onChanged: (val) {
+            //         notifier.toggleTheme();
+            //       },
+            //       value: notifier.dark,
+            //       activeColor: Theme.of(context).accentColor,
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),
