@@ -2,20 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:sehatmand/auth/register/profile_pic.dart';
 import 'package:sehatmand/providers/excercise_provider.dart';
 import 'package:sehatmand/screens/auth-screen.dart';
 import 'package:sehatmand/screens/form_screen.dart';
 import 'package:sehatmand/screens/main-srcreen.dart';
-import 'package:sehatmand/screens/test_screen.dart';
 import 'package:sehatmand/utils/providers.dart';
-import 'package:sehatmand/view_models/auth/register_view_model.dart';
-import 'package:sehatmand/view_models/profile/edit_profile_view_model.dart';
-import 'package:sehatmand/view_models/user/user_view_model.dart';
-import 'package:sehatmand/widgets/exercise_widget.dart';
-import 'package:sehatmand/auth/register/profile_pic.dart';
-import 'package:sehatmand/widgets/invite_exercise_card.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
