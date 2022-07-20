@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sehatmand/providers/excercise_provider.dart';
@@ -20,6 +21,8 @@ import 'package:sehatmand/widgets/invite_exercise_card.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider.value(value: FetchPreviousExcercise()),
     ...providers
@@ -60,22 +63,6 @@ class MyApp extends StatefulWidget {
 // }
 
 class _MyAppState extends State<MyApp> {
-  bool isFirstTime = true;
-  bool isRegistered = false;
-  checkIfRegisteredOrNot() async {
-    if (isFirstTime && mounted) {
-      final id = FirebaseAuth.instance.currentUser!.uid;
-      print(id);
-      DocumentSnapshot ds =
-          await FirebaseFirestore.instance.collection("users").doc(id).get();
-      setState(() {
-        print(ds.data());
-        isRegistered = ds.exists;
-
-        isFirstTime = false;
-      });
-    }
-  }
 
   // This widget is the root of your application.
   @override
@@ -97,32 +84,66 @@ class _MyAppState extends State<MyApp> {
           colorScheme: ColorScheme.dark().copyWith(
             secondary: Colors.deepPurpleAccent,
           )),
-      home: StreamBuilder(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          if (snapshot.hasData) {
-            Future.delayed(Duration(microseconds: 2)).then((value) async {
-              await checkIfRegisteredOrNot();
-            });
-
-            if (isRegistered != null) {
-              print("isRegistered: $isRegistered");
-              return isRegistered! ? MainScreen() : const FormScreen();
-            } else {
-              print("isRegistered is null");
-              return const Scaffold(
-                  body: Center(child: CircularProgressIndicator()));
-            }
-          } else {
-            print('LoginScreen');
-            return AuthScreen();
-          }
-        },
-      ),
+      home: Rerouter(),
       routes: {
         MainScreen.routeName: (context) => MainScreen(),
         FormScreen.routeName: (context) => FormScreen(),
         ProfilePicture.routeName: (context) => ProfilePicture(),
+        AuthScreen.routeName: (context) => AuthScreen(),
+        Rerouter.routeName: (context) => Rerouter(),
+      },
+    );
+  }
+}
+
+class Rerouter extends StatefulWidget {
+  Rerouter({Key? key}) : super(key: key);
+  static const String routeName = '/router';
+
+  @override
+  State<Rerouter> createState() => _RerouterState();
+}
+
+class _RerouterState extends State<Rerouter> {
+  bool isFirstTime = true;
+  bool? isRegistered = null;
+  checkIfRegisteredOrNot() async {
+    if (isFirstTime && mounted) {
+      final id = FirebaseAuth.instance.currentUser!.uid;
+      print("The id is>>>>>$id");
+      DocumentSnapshot ds =
+      await FirebaseFirestore.instance.collection("users").doc(id).get();
+      setState(() {
+        print(ds.data());
+        isRegistered = ds.exists;
+        print("Is registered vlaue >>>>>>>> $isRegistered");
+        isFirstTime = false;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        if (snapshot.hasData) {
+          Future.delayed(Duration(microseconds: 2)).then((value) async {
+            await checkIfRegisteredOrNot();
+          });
+
+          if (isRegistered != null ) {
+            print("isRegistered: $isRegistered");
+            return isRegistered! ? MainScreen() : const FormScreen();
+          } else {
+            print("isRegistered is null");
+            return const Scaffold(
+                body: Center(child: CircularProgressIndicator()));
+          }
+        } else {
+          print('LoginScreen');
+          return AuthScreen();
+        }
       },
     );
   }

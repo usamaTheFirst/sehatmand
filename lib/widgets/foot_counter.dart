@@ -57,6 +57,19 @@ class _footCounterState extends State<footCounter> {
         ));
   }
 
+  @override
+  void initState() {
+    setSteps();
+    super.initState();
+  }
+
+  void setSteps() async {
+    SharedPreferences _pref = await SharedPreferences.getInstance();
+    setState(() {
+      steps = _pref.getInt("steps") ?? 0;
+    });
+  }
+
   double calculateMagnitude(double x, double y, double z) {
     double distance = sqrt(x * x + y * y + z * z);
     getPreviousValue();
@@ -75,5 +88,13 @@ class _footCounterState extends State<footCounter> {
     setState(() {
       previousDistance = _pref.getDouble("previousDistance") ?? 0;
     });
+  }
+
+  @override
+  @mustCallSuper
+  void dispose() async {
+    SharedPreferences _pref = await SharedPreferences.getInstance();
+    _pref.setInt("steps", steps);
+    super.dispose();
   }
 }

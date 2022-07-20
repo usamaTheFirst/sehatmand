@@ -6,6 +6,7 @@ import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
 import 'package:sehatmand/auth/register/register.dart';
 import 'package:sehatmand/components/stream_builder_wrapper.dart';
 import 'package:sehatmand/components/stream_grid_wrapper.dart';
+import 'package:sehatmand/main.dart';
 import 'package:sehatmand/models/post.dart';
 import 'package:sehatmand/models/user.dart';
 import 'package:sehatmand/screens/auth-screen.dart';
@@ -71,8 +72,7 @@ class _ProfileState extends State<Profile> {
                     child: GestureDetector(
                       onTap: () {
                         FirebaseAuth.instance.signOut();
-                        Navigator.of(context)
-                            .popUntil((route) => route.isFirst);
+                        Navigator.of(context).pushNamedAndRemoveUntil(Rerouter.routeName, (route) => false);
                       },
                       child: Text(
                         'Log Out',
