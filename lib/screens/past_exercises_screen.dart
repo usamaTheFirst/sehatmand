@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sehatmand/providers/excercise_provider.dart';
+import 'package:sehatmand/providers/user-attributes-provider.dart';
 
 class PastExercisesScreen extends StatelessWidget {
   const PastExercisesScreen({Key? key}) : super(key: key);
@@ -26,14 +27,53 @@ class PastExercisesScreen extends StatelessWidget {
                 Text("Want Some Diet Recommendation?",
                     style: TextStyle(fontSize: 20)),
                 MaterialButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    final res = await Provider.of<UserAttributesProvider>(
+                            context,
+                            listen: false)
+                        .getWeightGainRecommendation()
+                        .whenComplete(() {});
+                    print(res);
+                    print(res["bmi_message"]);
+                    final message = res["bmi_message"];
+                    final suggestions = res["suggestions"].join("\n");
+
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(message),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text("Food Recommendations"),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(suggestions),
+                      ],
+                    );
+
                     showDialog(
                         context: context,
                         builder: (context) {
                           return AlertDialog(
-                            title: Text("Diet Recommendation"),
-                            content: Text(
-                                "Protien: 1.5g\n\nCarbohydrates: 1.5g\n\nFat: 1.5g"),
+                            title: Text("Weight Gain "),
+                            content: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(message),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text("Food Recommendations"),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(suggestions),
+                              ],
+                            ),
                             actions: [
                               FlatButton(
                                 child: Text("Close"),
@@ -55,14 +95,36 @@ class PastExercisesScreen extends StatelessWidget {
                   color: Colors.red,
                 ),
                 MaterialButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    final res = await Provider.of<UserAttributesProvider>(
+                            context,
+                            listen: false)
+                        .getWeightLossRecommendation();
+                    print(res);
+                    print(res["bmi_message"]);
+                    final message = res["bmi_message"];
+                    final suggestions = res["suggestions"].join("\n");
+
                     showDialog(
                         context: context,
                         builder: (context) {
                           return AlertDialog(
-                            title: Text("Diet Recommendation"),
-                            content: Text(
-                                "Salad: 1.5g\n\nCarrot: 1.5g\n\nTomato: 1.5g"),
+                            title: Text("Weight loss "),
+                            content: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(message),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text("Food Recommendations"),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                Text(suggestions),
+                              ],
+                            ),
                             actions: [
                               FlatButton(
                                 child: Text("Close"),
