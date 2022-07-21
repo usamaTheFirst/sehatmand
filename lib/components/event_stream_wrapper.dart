@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sehatmand/widgets/indicators.dart';
 
@@ -8,58 +7,50 @@ typedef ItemBuilder<T> = Widget Function(
   DocumentSnapshot doc,
 );
 
-class StreamBuilderWrapper extends StatelessWidget {
+class EventStreamWrapper extends StatelessWidget {
   final Stream<dynamic> stream;
   final ItemBuilder<DocumentSnapshot> itemBuilder;
   final Axis scrollDirection;
   final bool shrinkWrap;
   final ScrollPhysics physics;
   final EdgeInsets padding;
-  final Query? query;
 
-  const StreamBuilderWrapper({
+  const EventStreamWrapper({
     Key? key,
     required this.stream,
     required this.itemBuilder,
     this.scrollDirection = Axis.vertical,
     this.shrinkWrap = false,
-    this.query,
     this.physics = const ClampingScrollPhysics(),
     this.padding = const EdgeInsets.only(bottom: 2.0, left: 2.0),
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: stream as Stream<QuerySnapshot<Object?>>?,
-      builder: (context, snapshot) {
-        // print("###########################");
-        // print(snapshot.hasData);
+    return StreamBuilder(
+      stream: stream,
+      builder: (context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.hasData) {
-          var list = snapshot.data?.docs.toList();
-          // var list = snapshot.data.;
-          return list!.length == 0
-              ? Padding(
-                  padding: const EdgeInsets.only(top: 100.0),
-                  child: Container(
-                    height: 60.0,
-                    width: 100.0,
-                    child: Center(
-                      child: Text('No Posts'),
+          var list = snapshot.data.docs.toList();
+          return list.length == 0
+              ? Container(
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 250.0),
+                      child: Text('No Recent Events'),
                     ),
                   ),
                 )
               : ListView.builder(
                   padding: padding,
                   scrollDirection: scrollDirection,
-                  itemCount: list!.length,
+                  itemCount: list.length,
                   shrinkWrap: shrinkWrap,
                   physics: physics,
                   itemBuilder: (BuildContext context, int index) {
                     return itemBuilder(context, list[index]);
                   },
                 );
-
         } else {
           return circularProgress(context);
         }

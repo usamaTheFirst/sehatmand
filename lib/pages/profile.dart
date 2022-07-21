@@ -3,8 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons_null_safety/flutter_icons_null_safety.dart';
-import 'package:sehatmand/auth/register/register.dart';
-import 'package:sehatmand/components/stream_builder_wrapper.dart';
 import 'package:sehatmand/components/stream_grid_wrapper.dart';
 import 'package:sehatmand/main.dart';
 import 'package:sehatmand/models/post.dart';
@@ -140,18 +138,18 @@ class _ProfileState extends State<Profile> {
                                             maxLines: null,
                                           ),
                                         ),
-                                        Container(
-                                          width: 130.0,
-                                          child: Text(
-                                            user.country as String,
-                                            style: TextStyle(
-                                              fontSize: 12.0,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ),
+                                        // Container(
+                                        //   width: 130.0,
+                                        //   child: Text(
+                                        //     user.country as String,
+                                        //     style: TextStyle(
+                                        //       fontSize: 12.0,
+                                        //       fontWeight: FontWeight.w600,
+                                        //     ),
+                                        //     maxLines: 1,
+                                        //     overflow: TextOverflow.ellipsis,
+                                        //   ),
+                                        // ),
                                         SizedBox(width: 10.0),
                                         Column(
                                           mainAxisSize: MainAxisSize.min,
@@ -332,6 +330,7 @@ class _ProfileState extends State<Profile> {
           )
         ],
       ),
+      floatingActionButton: buildFAB(),
     );
   }
 
@@ -606,4 +605,34 @@ class _ProfileState extends State<Profile> {
       },
     );
   }
+
+  buildFAB(){
+    bool isMe = widget.profileId == FirebaseAuth.instance.currentUser!.uid;
+    if(!isMe) {
+      return FloatingActionButton.extended(
+        onPressed: () {
+          addEvent();
+        },
+        // child: Icon(Icons.add),
+        label: Text('Invite for workout'),
+      );
+    }
+  }
+
+  addEvent() async {
+    DocumentSnapshot doc = await usersRef.doc(currentUserId()).get();
+    users = UserModel.fromJson(doc.data() as Map<String, dynamic>);
+
+    //updates the events list for the user
+    eventRef
+        .doc(widget.profileId)
+        .collection('events')
+        .doc(currentUserId())
+        .set({
+      "ownerId": users.id,
+      "username": users.username,
+      "timestamp": timestamp,
+    });
+  }
+
 }

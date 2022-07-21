@@ -170,18 +170,18 @@ class _FormScreenState extends State<FormScreen> {
                     InputDecoration(hintText: 'Enter info about you'),
                   ),
                   SizedBox(height: 10),
-                  FormBuilderTextField(
-                    name: 'country',
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your country';
-                      }
-                      return null;
-                    },
-                    keyboardType: TextInputType.text,
-                    decoration:
-                    InputDecoration(hintText: 'Enter your country'),
-                  ),
+                  // FormBuilderTextField(
+                  //   name: 'country',
+                  //   validator: (value) {
+                  //     if (value == null || value.isEmpty) {
+                  //       return 'Please enter your country';
+                  //     }
+                  //     return null;
+                  //   },
+                  //   keyboardType: TextInputType.text,
+                  //   decoration:
+                  //   InputDecoration(hintText: 'Enter your country'),
+                  // ),
                   SizedBox(
                     height: 25,
                   ),
@@ -209,7 +209,7 @@ class _FormScreenState extends State<FormScreen> {
                             FirebaseFirestore.instance;
                         AuthService auth = AuthService();
                         await auth.saveUserToFirestore(_formKey.currentState?.value['username'], FirebaseAuth.instance.currentUser as User,
-                            FirebaseAuth.instance.currentUser!.email.toString(), _formKey.currentState?.value['country']);
+                            FirebaseAuth.instance.currentUser!.email.toString());
                         await _firestore
                             .collection('users')
                             .doc(id)

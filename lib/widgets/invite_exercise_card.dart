@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import '../models/event.dart';
 
 class InvitationCard extends StatelessWidget {
-  const InvitationCard({Key? key}) : super(key: key);
+  final EventModel event;
+
+  const InvitationCard({Key? key, required this.event}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +23,7 @@ class InvitationCard extends StatelessWidget {
             SizedBox(
               height: 40,
               child: Text(
-                'Usama Invited you for a workout',
+                '${event.username} Invited you for a workout',
                 style: TextStyle(
                   fontSize: 20,
                   // fontWeight: FontWeight.bold,

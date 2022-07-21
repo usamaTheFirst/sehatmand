@@ -144,42 +144,44 @@ class _CreatePostState extends State<CreatePost> {
                   focusedBorder: UnderlineInputBorder(),
                 ),
                 maxLines: null,
-                onChanged: (val) => viewModel.setDescription(val),
+                onChanged: (val) => {viewModel.setDescription(val),
+                  viewModel.setLocation("")
+                },
               ),
               SizedBox(height: 20.0),
-              Text(
-                'Location'.toUpperCase(),
-                style: TextStyle(
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              ListTile(
-                contentPadding: EdgeInsets.all(0.0),
-                title: Container(
-                  width: 250.0,
-                  child: TextFormField(
-                    controller: viewModel.locationTEC,
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(0.0),
-                      hintText: 'United States,Los Angeles!',
-                      focusedBorder: UnderlineInputBorder(),
-                    ),
-                    maxLines: null,
-                    onChanged: (val) => viewModel.setLocation(val),
-                  ),
-                ),
-                // trailing: IconButton(
-                //   tooltip: "Use your current location",
-                //   icon: Icon(
-                //     CupertinoIcons.map_pin_ellipse,
-                //     size: 25.0,
-                //   ),
-                //   iconSize: 30.0,
-                //   color: Theme.of(context).accentColor,
-                //   onPressed: () => viewModel.getLocation(),
-                // ),
-              ),
+              // Text(
+              //   'Location'.toUpperCase(),
+              //   style: TextStyle(
+              //     fontSize: 15.0,
+              //     fontWeight: FontWeight.w600,
+              //   ),
+              // ),
+              // ListTile(
+              //   contentPadding: EdgeInsets.all(0.0),
+              //   title: Container(
+              //     width: 250.0,
+              //     child: TextFormField(
+              //       controller: viewModel.locationTEC,
+              //       decoration: InputDecoration(
+              //         contentPadding: EdgeInsets.all(0.0),
+              //         hintText: 'United States,Los Angeles!',
+              //         focusedBorder: UnderlineInputBorder(),
+              //       ),
+              //       maxLines: null,
+              //       onChanged: (val) => viewModel.setLocation(val),
+              //     ),
+              //   ),
+              //   // trailing: IconButton(
+              //   //   tooltip: "Use your current location",
+              //   //   icon: Icon(
+              //   //     CupertinoIcons.map_pin_ellipse,
+              //   //     size: 25.0,
+              //   //   ),
+              //   //   iconSize: 30.0,
+              //   //   color: Theme.of(context).accentColor,
+              //   //   onPressed: () => viewModel.getLocation(),
+              //   // ),
+              // ),
             ],
           ),
         ),

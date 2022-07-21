@@ -20,7 +20,7 @@ class AuthService {
       password: '$password',
     );
     if (res.user != null) {
-      await saveUserToFirestore(name, res.user as User, email, country);
+      await saveUserToFirestore(name, res.user as User, email, country: country);
       return true;
     } else {
       return false;
@@ -29,14 +29,14 @@ class AuthService {
 
 //this will save the details inputted by the user to firestore.
   saveUserToFirestore(
-      String uname, User user, String email, String country) async {
+      String uname, User user, String email, {String country=""}) async {
     await usersRef.doc(user.uid).set({
       'username': uname,
       'email': email,
       'time': Timestamp.now(),
       'id': user.uid,
       'bio': "",
-      'country': country,
+      'country': "",
       'photoUrl': user.photoURL ?? '',
 
       'Name': "",

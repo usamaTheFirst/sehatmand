@@ -117,9 +117,7 @@ class _TimelineState extends State<Timeline> {
               itemCount: post.length,
               itemBuilder: (context, index) {
                 internetChecker(context);
-                //TODO: I commented this old
                 PostModel posts = PostModel.fromJson(post[index].data() as Map<String, dynamic>);
-                // PostModel posts = PostModel.fromJson(json.decode(post[index].data().toString()));
                 return Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: UserPost(post: posts),

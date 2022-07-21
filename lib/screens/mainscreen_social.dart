@@ -8,6 +8,7 @@ import 'package:sehatmand/pages/profile.dart';
 import 'package:sehatmand/pages/search.dart';
 import 'package:sehatmand/pages/feeds.dart';
 import 'package:sehatmand/chats/recent_chats.dart';
+import '../pages/events.dart';
 
 class TabScreen extends StatefulWidget {
   @override
@@ -37,23 +38,29 @@ class _TabScreenState extends State<TabScreen> {
       'index': 2,
     },
     {
+      'title': 'Events',
+      'icon': Icons.event,
+      'page': Events(),
+      'index': 3,
+    },
+    {
       'title': 'Notification',
       'icon': Icons.notifications,
       'page': Activities(),
-      'index': 3,
+      'index': 4,
     },
     {
       'title': 'Profile',
       'icon': CupertinoIcons.person,
       'page': Profile(profileId: FirebaseAuth.instance.currentUser!.uid),
-      'index': 4,
+      'index': 5,
     },
   ];
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 4,
+      length: 5,
       child: Scaffold(
         appBar: AppBar(
           title: TabBar(
@@ -62,7 +69,7 @@ class _TabScreenState extends State<TabScreen> {
               Tab(icon: Icon(pages[1]['icon']),),
               Tab(icon: Icon(pages[2]['icon']),),
               Tab(icon: Icon(pages[3]['icon']),),
-              // Tab(icon: Icon(pages[4]['icon']),),
+              Tab(icon: Icon(pages[4]['icon']),),
             ],
           ),
         ),
@@ -74,7 +81,7 @@ class _TabScreenState extends State<TabScreen> {
             // FabContainer(page: pages[2]['page'], icon: Icons.add_circle),
             pages[2]['page'],
             pages[3]['page'],
-            // pages[4]['page'],
+            pages[4]['page'],
           ],
         ),
         // body: PageTransitionSwitcher(
