@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../models/event.dart';
+import '../utils/firebase.dart';
 
 class InvitationCard extends StatelessWidget {
   final EventModel event;
@@ -44,7 +47,16 @@ class InvitationCard extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     primary: Colors.green,
                   ),
-                  onPressed: () {},
+                  onPressed: () async {
+                    DocumentSnapshot? doc = await usersRef
+                    .doc(FirebaseAuth.instance.currentUser!.uid)
+                    .get();
+                    accept(
+                    uid: event.userId,
+                    name: doc.get('username'),
+                    photoUrl: doc.get('photoUrl')
+                  );
+              },
                   child: Text('Accept', style: TextStyle(color: Colors.white)),
                 ),
                 SizedBox(
@@ -54,7 +66,7 @@ class InvitationCard extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     primary: Colors.red,
                   ),
-                  onPressed: () {},
+                  onPressed: () {decline(event.userId);},
                   child: Text('Decline', style: TextStyle(color: Colors.white)),
                 ),
               ],
@@ -63,5 +75,34 @@ class InvitationCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  decline(uid) async {
+    eventRef
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection('events')
+        .doc(uid)
+        .get()
+        .then((doc) => {
+            if (doc.exists) {
+                doc.reference.delete(),
+            }
+        });
+  }
+
+  accept({uid, name, photoUrl}) async {
+    notificationRef
+        .doc(uid)
+        .collection('notifications')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .set({
+      "type": "eventAcc",
+      "ownerId": uid,
+      "username": name,
+      "userId": FirebaseAuth.instance.currentUser!.uid,
+      "userDp": photoUrl,
+      "timestamp": DateTime.now(),
+    });
+    decline(uid);
   }
 }

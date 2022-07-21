@@ -33,19 +33,29 @@ class _ActivityItemsState extends State<ActivityItems> {
         children: [
           ListTile(
             onTap: () {
-              // Navigator.of(context).push(CupertinoPageRoute(
-              //   builder: (_) => ViewActivityDetails(activity: widget.activity),
-              // ));
-              Navigator.push(
-                  context,
-                  CupertinoPageRoute(
-                    builder: (_) =>
-                        Profile(profileId: widget.activity.userId),
-                  ));
+              Navigator.of(context).push(CupertinoPageRoute(
+                builder: (_) => ViewActivityDetails(activity: widget.activity),
+              ));
+              // Navigator.push(
+              //     context,
+              //     CupertinoPageRoute(
+              //       builder: (_) =>
+              //           Profile(profileId: widget.activity.userId),
+              //     ));
             },
-            leading: CircleAvatar(
-              radius: 25.0,
-              backgroundImage: NetworkImage(widget.activity.userDp),
+            leading: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                context,
+                CupertinoPageRoute(
+                builder: (_) =>
+                Profile(profileId: widget.activity.userId),
+              ));
+              },
+              child: CircleAvatar(
+                radius: 25.0,
+                backgroundImage: NetworkImage(widget.activity.userDp),
+              ),
             ),
             title: RichText(
               overflow: TextOverflow.ellipsis,
@@ -94,7 +104,7 @@ class _ActivityItemsState extends State<ActivityItems> {
     notificationRef
         .doc(firebaseAuth.currentUser!.uid)
         .collection('notifications')
-        .doc(widget.activity.postId)
+        .doc(widget.activity.userId)
         .get()
         .then((doc) => {
               if (doc.exists)
@@ -117,6 +127,10 @@ class _ActivityItemsState extends State<ActivityItems> {
       return "liked your post";
     } else if (widget.activity.type == "follow") {
       return "is following you";
+    } else if (widget.activity.type == "eventReq") {
+      return "wants you to join for workout";
+    } else if (widget.activity.type == "eventAcc") {
+      return "will be with you for workout";
     } else if (widget.activity.type == "comment") {
       return "commented '${widget.activity.commentData}'";
     } else {

@@ -30,7 +30,7 @@ class _ViewActivityDetailsState extends State<ViewActivityDetails> {
       ),
       body: ListView(
         children: [
-          buildImage(context),
+          // buildImage(context),
           ListTile(
             contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
             leading: GestureDetector(
@@ -64,7 +64,8 @@ class _ViewActivityDetailsState extends State<ViewActivityDetails> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.0),
             child: Text(
-              widget.activity?.commentData ?? "",
+              // widget.activity?.commentData ?? "",
+              buildTextConfiguration(),
               style: TextStyle(fontWeight: FontWeight.w400),
             ),
           ),
@@ -94,4 +95,21 @@ class _ViewActivityDetailsState extends State<ViewActivityDetails> {
       ),
     );
   }
+
+  buildTextConfiguration() {
+    if (widget.activity.type == "like") {
+      return "liked your post";
+    } else if (widget.activity.type == "follow") {
+      return "is following you";
+    } else if (widget.activity.type == "eventReq") {
+      return "wants you to join for workout";
+    } else if (widget.activity.type == "eventAcc") {
+      return "will be with you for workout";
+    } else if (widget.activity.type == "comment") {
+      return "commented '${widget.activity.commentData}'";
+    } else {
+      return "Error: Unknown type '${widget.activity.type}'";
+    }
+  }
+
 }
