@@ -61,7 +61,7 @@ class ExerciseWidget extends StatelessWidget {
                     Spacer(),
                     FittedBox(
                       child: ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
                             final store = FirebaseFirestore.instance;
                             final uuid = FirebaseAuth.instance.currentUser?.uid;
                             store
@@ -72,6 +72,13 @@ class ExerciseWidget extends StatelessWidget {
                               'name': title,
                               'date': DateTime.now().toIso8601String(),
                               'calories': calories,
+                            });
+
+                            await FirebaseFirestore.instance
+                                .collection('calorie_tracker')
+                                .doc(uuid)
+                                .update({
+                              "calories": FieldValue.increment(-calories)
                             });
                           },
                           child: const Text("Done")),

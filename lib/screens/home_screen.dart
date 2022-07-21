@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sehatmand/models/exercises-list.dart';
+import 'package:sehatmand/models/food.dart';
 import 'package:sehatmand/widgets/bmi_widget.dart';
 import 'package:sehatmand/widgets/bmr_widget.dart';
 import 'package:sehatmand/widgets/exercise_widget.dart';
@@ -21,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          var idx = 0;
           showModalBottomSheet(
               context: context,
               builder: (context) {
@@ -47,31 +51,34 @@ class _HomeScreenState extends State<HomeScreen> {
                           backgroundColor: Colors.white,
                           itemExtent: 50,
                           onSelectedItemChanged: (index) {
-                            print(index);
+                            // print(index);
+                            setState(() {
+                              idx = index;
+                            });
                           },
                           children: [
-                            Text("Apple - 16cal"),
-                            Text("Banana - 13cal"),
-                            Text("Orange - 15cal"),
-                            Text("Mango - 17cal"),
-                            Text("Pineapple - 20cal"),
-                            Text("Strawberry - 18cal"),
-                            Text("Watermelon - 21cal"),
-                            Text("Beef - 100cal"),
-                            Text("Chicken - 80cal"),
-                            Text("Mutton - 70cal"),
-                            Text("Fish - 50cal"),
-                            Text("Egg - 10cal"),
-                            Text("Milk - 20cal"),
-                            Text("Cheese - 30cal"),
-                            Text("Yogurt - 40cal"),
-                            Text("Rice - 50cal"),
+                            ...food_list.map((e) {
+                              return Text("${e.name} - ${e.calories}cal");
+                            }).toList()
                           ],
                         ),
                       ),
                       ElevatedButton(
                         onPressed: () {
+                          print(idx);
+                          print(food_list[idx].name);
+                          print(food_list[idx].calories);
+
                           Navigator.of(context).pop();
+
+                          var id = FirebaseAuth.instance.currentUser?.uid;
+                          FirebaseFirestore.instance
+                              .collection('calorie_tracker')
+                              .doc(id)
+                              .update({
+                            "calories":
+                                FieldValue.increment(food_list[idx].calories)
+                          });
                         },
                         child: Text("Done"),
                       ),

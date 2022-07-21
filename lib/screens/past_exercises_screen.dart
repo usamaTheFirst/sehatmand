@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sehatmand/providers/excercise_provider.dart';
+import 'package:sehatmand/providers/user-attributes-provider.dart';
 
-class PastExercisesScreen extends StatelessWidget {
+class PastExercisesScreen extends StatefulWidget {
   const PastExercisesScreen({Key? key}) : super(key: key);
 
+  @override
+  State<PastExercisesScreen> createState() => _PastExercisesScreenState();
+}
+
+class _PastExercisesScreenState extends State<PastExercisesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,14 +32,15 @@ class PastExercisesScreen extends StatelessWidget {
                 Text("Want Some Diet Recommendation?",
                     style: TextStyle(fontSize: 20)),
                 MaterialButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    String? message, suggestions;
+                    var content;
                     showDialog(
                         context: context,
                         builder: (context) {
                           return AlertDialog(
-                            title: Text("Diet Recommendation"),
-                            content: Text(
-                                "Protien: 1.5g\n\nCarbohydrates: 1.5g\n\nFat: 1.5g"),
+                            title: Text("Weight Gain "),
+                            content: CircularProgressIndicator(),
                             actions: [
                               FlatButton(
                                 child: Text("Close"),
@@ -44,6 +51,48 @@ class PastExercisesScreen extends StatelessWidget {
                             ],
                           );
                         });
+
+                    Provider.of<UserAttributesProvider>(context, listen: false)
+                        .getWeightGainRecommendation()
+                        .then((res) {
+                      print(res);
+                      print(res["bmi_message"]);
+                      message = res["bmi_message"];
+                      suggestions = res["suggestions"].join("\n");
+                      content = Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(message!),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text("Food Recommendations"),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(suggestions!),
+                        ],
+                      );
+                      setState(() {});
+                      Navigator.pop(context);
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text("Weight Gain "),
+                              content: content,
+                              actions: [
+                                FlatButton(
+                                  child: Text("Close"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                )
+                              ],
+                            );
+                          });
+                    });
                   },
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
@@ -55,14 +104,15 @@ class PastExercisesScreen extends StatelessWidget {
                   color: Colors.red,
                 ),
                 MaterialButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    String? message, suggestions;
+                    var content;
                     showDialog(
                         context: context,
                         builder: (context) {
                           return AlertDialog(
-                            title: Text("Diet Recommendation"),
-                            content: Text(
-                                "Salad: 1.5g\n\nCarrot: 1.5g\n\nTomato: 1.5g"),
+                            title: Text("Weight Loss "),
+                            content: CircularProgressIndicator(),
                             actions: [
                               FlatButton(
                                 child: Text("Close"),
@@ -73,6 +123,48 @@ class PastExercisesScreen extends StatelessWidget {
                             ],
                           );
                         });
+
+                    Provider.of<UserAttributesProvider>(context, listen: false)
+                        .getWeightLossRecommendation()
+                        .then((res) {
+                      print(res);
+                      print(res["bmi_message"]);
+                      message = res["bmi_message"];
+                      suggestions = res["suggestions"].join("\n");
+                      content = Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(message!),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text("Food Recommendations"),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(suggestions!),
+                        ],
+                      );
+                      setState(() {});
+                      Navigator.pop(context);
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text("Weight Loss "),
+                              content: content,
+                              actions: [
+                                FlatButton(
+                                  child: Text("Close"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                )
+                              ],
+                            );
+                          });
+                    });
                   },
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),

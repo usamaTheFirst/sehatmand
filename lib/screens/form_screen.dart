@@ -214,10 +214,16 @@ class _FormScreenState extends State<FormScreen> {
                             FirebaseAuth.instance.currentUser as User,
                             FirebaseAuth.instance.currentUser!.email
                                 .toString());
+
                         await _firestore
                             .collection('users')
                             .doc(id)
                             .update(_formKey.currentState!.value);
+
+                        await _firestore
+                            .collection('calorie_tracker')
+                            .doc(id)
+                            .update({"calories": 100});
                         // Navigator.pushReplacementNamed(context, MainScreen.routeName);
                         Navigator.pushReplacementNamed(
                             context, ProfilePicture.routeName);

@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:http/http.dart' as http;
 
 class UserAttributesProvider extends ChangeNotifier {
   double? weight, height;
@@ -38,5 +41,31 @@ class UserAttributesProvider extends ChangeNotifier {
       //   });
       // }
     }
+  }
+
+  getWeightLossRecommendation() async {
+    if (weight == null || height == null || age == null) {
+      return "Hello";
+    }
+
+    var url = Uri.parse(
+        'http://usamafiaz1453.pythonanywhere.com/loss?age=${age?.ceil()}&weight=${weight?.ceil()}&height=${height?.ceil()}&veg=1');
+    final response = await http.get(url);
+    print(url);
+    print(response.body);
+    return jsonDecode(response.body);
+  }
+
+  Future<dynamic> getWeightGainRecommendation() async {
+    if (weight == null || height == null || age == null) {
+      return "Hello";
+    }
+
+    var url = Uri.parse(
+        'http://usamafiaz1453.pythonanywhere.com/gain?age=${age?.ceil()}&weight=${weight?.ceil()}&height=${height?.ceil()}&veg=1');
+    final response = await http.get(url);
+    print(url);
+    print(response.body);
+    return jsonDecode(response.body);
   }
 }
