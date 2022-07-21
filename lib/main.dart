@@ -2,21 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:sehatmand/auth/register/profile_pic.dart';
 import 'package:sehatmand/providers/excercise_provider.dart';
 import 'package:sehatmand/screens/auth-screen.dart';
 import 'package:sehatmand/screens/form_screen.dart';
 import 'package:sehatmand/screens/main-srcreen.dart';
-import 'package:sehatmand/screens/test_screen.dart';
 import 'package:sehatmand/utils/providers.dart';
-import 'package:sehatmand/view_models/auth/register_view_model.dart';
-import 'package:sehatmand/view_models/profile/edit_profile_view_model.dart';
-import 'package:sehatmand/view_models/user/user_view_model.dart';
-import 'package:sehatmand/widgets/exercise_widget.dart';
-import 'package:sehatmand/auth/register/profile_pic.dart';
-import 'package:sehatmand/widgets/invite_exercise_card.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,34 +31,7 @@ class MyApp extends StatefulWidget {
   State<MyApp> createState() => _MyAppState();
 }
 
-// Future<void> main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//   await Firebase.initializeApp();
-//   runApp(MultiProvider(
-//       providers: [
-//         ChangeNotifierProvider.value(value: FetchPreviousExcercise()),
-//         ...providers
-//       ],
-//       child: (MaterialApp(
-//         home: Scaffold(
-//           body: ListView(
-//             children: [InvitationCard(), InvitationCard()],
-//           ),
-//         ),
-//       ))));
-// }
-
-// class Test extends StatelessWidget {
-//   const Test({Key? key}) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(home: Scaffold(body: ListView(children: [])));
-//   }
-// }
-
 class _MyAppState extends State<MyApp> {
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -112,7 +80,7 @@ class _RerouterState extends State<Rerouter> {
       final id = FirebaseAuth.instance.currentUser!.uid;
       print("The id is>>>>>$id");
       DocumentSnapshot ds =
-      await FirebaseFirestore.instance.collection("users").doc(id).get();
+          await FirebaseFirestore.instance.collection("users").doc(id).get();
       setState(() {
         print(ds.data());
         isRegistered = ds.exists;
@@ -132,7 +100,7 @@ class _RerouterState extends State<Rerouter> {
             await checkIfRegisteredOrNot();
           });
 
-          if (isRegistered != null ) {
+          if (isRegistered != null) {
             print("isRegistered: $isRegistered");
             return isRegistered! ? MainScreen() : const FormScreen();
           } else {
