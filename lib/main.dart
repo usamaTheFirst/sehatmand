@@ -8,6 +8,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:sehatmand/auth/register/profile_pic.dart';
 import 'package:sehatmand/providers/excercise_provider.dart';
+import 'package:sehatmand/providers/user-attributes-provider.dart';
 import 'package:sehatmand/screens/auth-screen.dart';
 import 'package:sehatmand/screens/form_screen.dart';
 import 'package:sehatmand/screens/main-srcreen.dart';
@@ -20,6 +21,7 @@ Future<void> main() async {
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider.value(value: FetchPreviousExcercise()),
+    ChangeNotifierProvider.value(value: UserAttributesProvider()),
     ...providers
   ], child: (MyApp())));
 }
@@ -82,11 +84,21 @@ class _RerouterState extends State<Rerouter> {
       DocumentSnapshot ds =
           await FirebaseFirestore.instance.collection("users").doc(id).get();
       setState(() {
-        print(ds.data());
+        // print(ds.data());
         isRegistered = ds.exists;
+
         print("Is registered vlaue >>>>>>>> $isRegistered");
+
         isFirstTime = false;
       });
+
+      if (isRegistered == true) {
+        print("fetched data");
+        // await Provider.of<UserAttributesProvider>(context, listen: true)
+        //     .fetchUserAttributes();
+        print(
+            "fetched data is >>>>>>>>>> ${Provider.of<UserAttributesProvider>(context, listen: false).age}");
+      }
     }
   }
 

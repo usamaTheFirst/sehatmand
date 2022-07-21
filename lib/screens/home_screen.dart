@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:sehatmand/models/exercises-list.dart';
 import 'package:sehatmand/widgets/bmi_widget.dart';
 import 'package:sehatmand/widgets/bmr_widget.dart';
@@ -88,6 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             Container(
+              width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                 border: Border(
                   bottom: BorderSide(
@@ -102,22 +102,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CalorieWidget(),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      BMIWidget(
-                        height: 170,
-                        weight: 70,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      BMRWidget(
-                        height: 170,
-                        weight: 70,
-                        age: 12,
-                      ),
-                    ],
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Expanded(
+                          child: BMIWidget(),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Expanded(child: BMRWidget()),
+                      ],
+                    ),
                   ),
                   footCounter(),
                 ],

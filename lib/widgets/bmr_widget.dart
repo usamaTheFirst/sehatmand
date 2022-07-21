@@ -1,75 +1,115 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/user-attributes-provider.dart';
 
 class BMRWidget extends StatefulWidget {
-  BMRWidget(
-      {Key? key,
-      required this.height,
-      required this.weight,
-      required this.age}) {
-    _bmi = weight / pow(height / 100, 2);
-    if (_bmi >= 25) {
-      _bmiCategory = 'Overweight';
-    } else if (_bmi > 18.5) {
-      _bmiCategory = 'Healthy';
-    } else {
-      _bmiCategory = "underweight";
-    }
-  }
-
-  final double height, weight, age;
-  late final double _bmi;
-  late final String _bmiCategory;
+  BMRWidget({
+    Key? key,
+  });
 
   @override
   State<BMRWidget> createState() => _BMRWidgetState();
 }
 
 class _BMRWidgetState extends State<BMRWidget> {
-  @override
-  void initState() {
-    // TODO: implement initState
+  double? height, weight;
+  int? age;
+  double? _bmr;
+  String? _bmiCategory;
+  bool firstTime = false;
 
-    super.initState();
+  @override
+  Future<void> didChangeDependencies() async {
+    await Provider.of<UserAttributesProvider>(
+      context,
+      listen: firstTime,
+    ).fetchUserAttributes();
+
+    age = Provider.of<UserAttributesProvider>(context, listen: false).age;
+    weight = Provider.of<UserAttributesProvider>(context, listen: false).weight;
+    height = Provider.of<UserAttributesProvider>(context, listen: false).height;
+
+    print("Printing age, weight, height: $age, $weight, $height");
+    print("age is >>>>>>>>>> $age");
+    print("weight is >>>>>>>>>> $weight");
+    print("height is >>>>>>>>>> $height");
+
+    _bmr = 88.362 + (13.397 * weight!) + (4.799 * height!) - (5.677 * age!);
+
+    _bmiCategory =
+        "Your body needs ${(_bmr! * 1.375).toStringAsFixed(2)} calories";
+    if (age != null && weight != null && height != null) {
+      {
+        setState(() {
+          firstTime = false;
+        });
+      }
+    }
+    super.didChangeDependencies();
   }
+
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //
+  //   // print("Inside BMRWidget initState");
+  //   // print('age: $age, weight: $weight, height: $height');
+  //
+  //   //BMR = 88.362 + (13.397 x weight in kg) + (4.799 x height in cm) – (5.677 x age in years)
+  //
+  //
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
+    print("building BMR");
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(6),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.secondary,
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Text(
-            'BMR',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Text(
-            // '${widget._bmi.toStringAsFixed(1)}',
-            "67.4",
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Text(
-            '${widget._bmiCategory}',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              // color: Theme.of(context).colorScheme.secondary
-            ),
-          ),
-        ],
+      child: Text(
+        _bmiCategory.toString(),
+        overflow: TextOverflow.visible,
+        softWrap: true,
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        ),
       ),
+      // child: Column(
+      //   mainAxisSize: MainAxisSize.min,
+      //   children: <Widget>[
+      //     Text(
+      //       'BMR',
+      //       style: TextStyle(
+      //         fontSize: 16,
+      //         fontWeight: FontWeight.bold,
+      //       ),
+      //     ),
+      //     Text(
+      //       // '${widget._bmi.toStringAsFixed(1)}',
+      //       "67.4",
+      //       style: TextStyle(
+      //         fontSize: 16,
+      //         fontWeight: FontWeight.bold,
+      //       ),
+      //     ),
+      //     Text(
+      //       '${widget._bmiCategory}',
+      //       style: TextStyle(
+      //         fontSize: 16,
+      //         fontWeight: FontWeight.bold,
+      //         // color: Theme.of(context).colorScheme.secondary
+      //       ),
+      //     ),
+      //   ],
+      // ),
     );
   }
 }

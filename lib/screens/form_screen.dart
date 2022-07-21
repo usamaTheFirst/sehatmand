@@ -81,8 +81,7 @@ class _FormScreenState extends State<FormScreen> {
                       }
                       return null;
                     },
-                    decoration: InputDecoration(
-                        hintText: 'Enter username'),
+                    decoration: InputDecoration(hintText: 'Enter username'),
                   ),
                   SizedBox(height: 10),
                   FormBuilderTextField(
@@ -94,6 +93,8 @@ class _FormScreenState extends State<FormScreen> {
                         return 'Please enter a valid height';
                       } else if (double.parse(value) < 0) {
                         return 'Height must be positive';
+                      } else if (double.parse(value) > 300) {
+                        return 'Height must be less than 200';
                       }
                       return null;
                     },
@@ -160,14 +161,14 @@ class _FormScreenState extends State<FormScreen> {
                   FormBuilderTextField(
                     name: 'bio',
                     validator: (value) {
-                      if (value == null || value.isEmpty) {
+                      if (value == null || value.toString().trim().isEmpty) {
                         return 'Please enter your bio';
                       }
                       return null;
                     },
                     keyboardType: TextInputType.text,
                     decoration:
-                    InputDecoration(hintText: 'Enter info about you'),
+                        InputDecoration(hintText: 'Enter info about you'),
                   ),
                   SizedBox(height: 10),
                   FormBuilderTextField(
@@ -179,8 +180,7 @@ class _FormScreenState extends State<FormScreen> {
                       return null;
                     },
                     keyboardType: TextInputType.text,
-                    decoration:
-                    InputDecoration(hintText: 'Enter your country'),
+                    decoration: InputDecoration(hintText: 'Enter your country'),
                   ),
                   SizedBox(
                     height: 25,
@@ -208,8 +208,11 @@ class _FormScreenState extends State<FormScreen> {
                         final FirebaseFirestore _firestore =
                             FirebaseFirestore.instance;
                         AuthService auth = AuthService();
-                        await auth.saveUserToFirestore(_formKey.currentState?.value['username'], FirebaseAuth.instance.currentUser as User,
-                            FirebaseAuth.instance.currentUser!.email.toString(), _formKey.currentState?.value['country']);
+                        await auth.saveUserToFirestore(
+                            _formKey.currentState?.value['username'],
+                            FirebaseAuth.instance.currentUser as User,
+                            FirebaseAuth.instance.currentUser!.email.toString(),
+                            _formKey.currentState?.value['country']);
                         await _firestore
                             .collection('users')
                             .doc(id)
@@ -222,7 +225,8 @@ class _FormScreenState extends State<FormScreen> {
                         //   ),
                         // );
                         // Navigator.pushReplacementNamed(context, MainScreen.routeName);
-                        Navigator.pushReplacementNamed(context, ProfilePicture.routeName);
+                        Navigator.pushReplacementNamed(
+                            context, ProfilePicture.routeName);
                       } else {
                         print("validation failed");
                       }
