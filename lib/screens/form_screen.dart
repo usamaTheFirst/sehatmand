@@ -209,14 +209,18 @@ class _FormScreenState extends State<FormScreen> {
                         final FirebaseFirestore _firestore =
                             FirebaseFirestore.instance;
                         AuthService auth = AuthService();
-                        await auth.saveUserToFirestore(_formKey.currentState?.value['username'], FirebaseAuth.instance.currentUser as User,
-                            FirebaseAuth.instance.currentUser!.email.toString());
+                        await auth.saveUserToFirestore(
+                            _formKey.currentState?.value['username'],
+                            FirebaseAuth.instance.currentUser as User,
+                            FirebaseAuth.instance.currentUser!.email
+                                .toString());
                         await _firestore
                             .collection('users')
                             .doc(id)
                             .update(_formKey.currentState!.value);
                         // Navigator.pushReplacementNamed(context, MainScreen.routeName);
                         Navigator.pushReplacementNamed(
+                            context, ProfilePicture.routeName);
                       } else {
                         print("validation failed");
                       }
