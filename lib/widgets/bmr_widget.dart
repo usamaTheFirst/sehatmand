@@ -39,8 +39,7 @@ class _BMRWidgetState extends State<BMRWidget> {
 
     _bmr = 88.362 + (13.397 * weight!) + (4.799 * height!) - (5.677 * age!);
 
-    _bmiCategory =
-        "Your body needs ${(_bmr! * 1.375).toStringAsFixed(2)} calories";
+    _bmiCategory = "Calories\nrequired\n${(_bmr! * 1.375).toStringAsFixed(2)}";
     if (age != null && weight != null && height != null) {
       {
         setState(() {
@@ -68,7 +67,7 @@ class _BMRWidgetState extends State<BMRWidget> {
   Widget build(BuildContext context) {
     print("building BMR");
     return Container(
-      padding: EdgeInsets.all(6),
+      padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.secondary,
         borderRadius: BorderRadius.circular(10),
@@ -78,7 +77,7 @@ class _BMRWidgetState extends State<BMRWidget> {
         overflow: TextOverflow.visible,
         softWrap: true,
         style: TextStyle(
-          fontSize: 16,
+          fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
       ),
