@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:sehatmand/utils/constants.dart';
+// import 'package:provider/provider.dart';
+// import 'package:sehatmand/utils/constants.dart';
 
 class Setting extends StatefulWidget {
   @override
@@ -38,7 +38,7 @@ class _SettingState extends State<Setting> {
                   fontWeight: FontWeight.w900,
                 ),
               ),
-              subtitle: Text("A Fully Functional Social Media Application Made by Tayyib and Usama"),
+              subtitle: Text("A Fully Functional Health based Social Media Application Made by Tayyib and Usama"),
               trailing: Icon(Icons.error)
             ),
             Divider(),

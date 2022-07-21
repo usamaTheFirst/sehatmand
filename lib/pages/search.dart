@@ -42,7 +42,9 @@ class _SearchState extends State<Search> {
 
   search(String query) {
     if (query == "") {
-      filteredUsers = users;
+      setState(() {
+        filteredUsers = users;
+      });
     } else {
       List userSearch = users.where((userSnap) {
         Map user = userSnap.data() as Map<dynamic,dynamic>;
@@ -81,9 +83,10 @@ class _SearchState extends State<Search> {
       children: [
         Container(
           height: 35.0,
-          width: MediaQuery.of(context).size.width - 100,
+          width: MediaQuery.of(context).size.width -40,
+          alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: Colors.black26,
+            color: Colors.black12,
             borderRadius: BorderRadius.circular(20.0),
           ),
           child: Padding(
@@ -105,8 +108,9 @@ class _SearchState extends State<Search> {
                   suffixIcon: GestureDetector(
                     onTap: () {
                       searchController.clear();
+                      search("");
                     },
-                    child: Icon(Feather.x, size: 12.0, color: Colors.black),
+                    child: Icon(Feather.x, size: 12.0, color: Colors.white),
                   ),
                   contentPadding: EdgeInsets.only(bottom: 10.0, left: 10.0),
                   border: InputBorder.none,

@@ -171,17 +171,18 @@ class _FormScreenState extends State<FormScreen> {
                         InputDecoration(hintText: 'Enter info about you'),
                   ),
                   SizedBox(height: 10),
-                  FormBuilderTextField(
-                    name: 'country',
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your country';
-                      }
-                      return null;
-                    },
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(hintText: 'Enter your country'),
-                  ),
+                  // FormBuilderTextField(
+                  //   name: 'country',
+                  //   validator: (value) {
+                  //     if (value == null || value.isEmpty) {
+                  //       return 'Please enter your country';
+                  //     }
+                  //     return null;
+                  //   },
+                  //   keyboardType: TextInputType.text,
+                  //   decoration:
+                  //   InputDecoration(hintText: 'Enter your country'),
+                  // ),
                   SizedBox(
                     height: 25,
                   ),
@@ -208,25 +209,14 @@ class _FormScreenState extends State<FormScreen> {
                         final FirebaseFirestore _firestore =
                             FirebaseFirestore.instance;
                         AuthService auth = AuthService();
-                        await auth.saveUserToFirestore(
-                            _formKey.currentState?.value['username'],
-                            FirebaseAuth.instance.currentUser as User,
-                            FirebaseAuth.instance.currentUser!.email.toString(),
-                            _formKey.currentState?.value['country']);
+                        await auth.saveUserToFirestore(_formKey.currentState?.value['username'], FirebaseAuth.instance.currentUser as User,
+                            FirebaseAuth.instance.currentUser!.email.toString());
                         await _firestore
                             .collection('users')
                             .doc(id)
                             .update(_formKey.currentState!.value);
-                        // print("####################");
-                        // print(_formKey.currentState?.value['username']);
-                        // Navigator.of(context).pushReplacement(
-                        //   CupertinoPageRoute(
-                        //     builder: (_) => ProfilePicture(),
-                        //   ),
-                        // );
                         // Navigator.pushReplacementNamed(context, MainScreen.routeName);
                         Navigator.pushReplacementNamed(
-                            context, ProfilePicture.routeName);
                       } else {
                         print("validation failed");
                       }

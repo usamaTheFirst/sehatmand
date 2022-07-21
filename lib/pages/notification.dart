@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:sehatmand/components/notification_stream_wrapper.dart';
 import 'package:sehatmand/models/notification.dart';
 import 'package:sehatmand/utils/firebase.dart';
-import 'package:sehatmand/widgets/invite_exercise_card.dart';
 import 'package:sehatmand/widgets/notification_items.dart';
 
 class Activities extends StatefulWidget {
@@ -43,14 +42,7 @@ class _ActivitiesState extends State<Activities> {
       ),
       body: ListView(
         children: [
-          // getActivities(),
-          InvitationCard(),
-          InvitationCard(),
-          InvitationCard(),
-          InvitationCard(),
-          InvitationCard(),
-          InvitationCard(),
-          InvitationCard(),
+          getActivities(),
         ],
       ),
     );

@@ -125,13 +125,14 @@ class _ConversationState extends State<Conversation> {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        IconButton(
-                          icon: Icon(
-                            CupertinoIcons.photo_on_rectangle,
-                            color: Theme.of(context).accentColor,
-                          ),
-                          onPressed: () => showPhotoOptions(viewModel, user),
-                        ),
+                        //TODO: Making send image option (in progress)
+                        // IconButton(
+                        //   icon: Icon(
+                        //     CupertinoIcons.photo_on_rectangle,
+                        //     color: Theme.of(context).accentColor,
+                        //   ),
+                        //   onPressed: () => showPhotoOptions(viewModel, user),
+                        // ),
                         Flexible(
                           child: TextField(
                             controller: messageController,
@@ -263,35 +264,35 @@ class _ConversationState extends State<Conversation> {
     );
   }
 
-  showPhotoOptions(ConversationViewModel viewModel, var user) {
-    showModalBottomSheet(
-      context: context,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(10.0),
-        ),
-      ),
-      builder: (context) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ListTile(
-              title: Text("Camera"),
-              onTap: () {
-                sendMessage(viewModel, user, imageType: 0, isImage: true);
-              },
-            ),
-            ListTile(
-              title: Text("Gallery"),
-              onTap: () {
-                sendMessage(viewModel, user, imageType: 1, isImage: true);
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+  // showPhotoOptions(ConversationViewModel viewModel, var user) {
+  //   showModalBottomSheet(
+  //     context: context,
+  //     shape: RoundedRectangleBorder(
+  //       borderRadius: BorderRadius.all(
+  //         Radius.circular(10.0),
+  //       ),
+  //     ),
+  //     builder: (context) {
+  //       return Column(
+  //         mainAxisSize: MainAxisSize.min,
+  //         children: <Widget>[
+  //           ListTile(
+  //             title: Text("Camera"),
+  //             onTap: () {
+  //               sendMessage(viewModel, user, imageType: 0, isImage: true);
+  //             },
+  //           ),
+  //           ListTile(
+  //             title: Text("Gallery"),
+  //             onTap: () {
+  //               sendMessage(viewModel, user, imageType: 1, isImage: true);
+  //             },
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 
   sendMessage(ConversationViewModel viewModel, var user,
       {bool isImage = false, int? imageType}) async {
