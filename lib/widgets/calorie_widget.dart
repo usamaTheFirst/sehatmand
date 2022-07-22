@@ -40,7 +40,7 @@ class CalorieWidget extends StatelessWidget {
                           showLabels: false,
                           pointers: <GaugePointer>[
                             RangePointer(
-                              value: calorie,
+                              value: double.parse(calorie.toString()),
                               width: 0.1,
                               sizeUnit: GaugeSizeUnit.factor,
                               gradient: const SweepGradient(colors: <Color>[
@@ -52,7 +52,7 @@ class CalorieWidget extends StatelessWidget {
                               ]),
                             ),
                             MarkerPointer(
-                                value: calorie,
+                                value: double.parse(calorie.toString()),
                                 markerHeight: 20,
                                 markerWidth: 20,
                                 enableDragging: true,

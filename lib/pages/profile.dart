@@ -14,6 +14,7 @@ import 'package:sehatmand/utils/firebase.dart';
 import 'package:sehatmand/widgets/post_tiles.dart';
 import 'package:sehatmand/widgets/posts_view.dart';
 
+
 class Profile extends StatefulWidget {
   final profileId;
 
@@ -31,6 +32,7 @@ class _ProfileState extends State<Profile> {
   int followingCount = 0;
   bool isToggle = true;
   bool isFollowing = false;
+  bool isInvited = false;
   late UserModel users;
   final DateTime timestamp = DateTime.now();
   ScrollController controller = ScrollController();
@@ -43,6 +45,7 @@ class _ProfileState extends State<Profile> {
   void initState() {
     super.initState();
     checkIfFollowing();
+    alreadyInvited();
   }
 
   checkIfFollowing() async {
@@ -53,6 +56,17 @@ class _ProfileState extends State<Profile> {
         .get();
     setState(() {
       isFollowing = doc.exists;
+    });
+  }
+
+  alreadyInvited() async {
+    DocumentSnapshot doc = await eventRef
+        .doc(widget.profileId)
+        .collection('events')
+        .doc(currentUserId())
+        .get();
+    setState(() {
+      isInvited = doc.exists;
     });
   }
 
@@ -611,12 +625,20 @@ class _ProfileState extends State<Profile> {
     if(!isMe) {
       return FloatingActionButton.extended(
         onPressed: () {
-          addEvent();
+          manageEvent();
+          setState(() {
+            isInvited = !isInvited;
+          });
+          print("alreadyInvited(): $isInvited");
         },
         // child: Icon(Icons.add),
-        label: Text('Invite for workout'),
+        label: isInvited?Text('Already invited'):Text('Invite for workout'),
       );
     }
+  }
+
+  manageEvent(){
+    isInvited?deleteEvent():addEvent();
   }
 
   addEvent() async {
@@ -631,7 +653,49 @@ class _ProfileState extends State<Profile> {
         .set({
       "ownerId": users.id,
       "username": users.username,
+      "userDp": users.photoUrl,
       "timestamp": timestamp,
+    });
+
+    //send user notification
+    notificationRef
+        .doc(widget.profileId)
+        .collection('notifications')
+        .doc(currentUserId())
+        .set({
+      "type": "eventReq",
+      "ownerId": widget.profileId,
+      "username": users.username,
+      "userId": users.id,
+      "userDp": users.photoUrl,
+      "timestamp": timestamp,
+    });
+
+    // ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("User Invited for event")));
+  }
+
+  deleteEvent() async {
+    eventRef
+        .doc(widget.profileId)
+        .collection('events')
+        .doc(currentUserId())
+        .get()
+        .then((doc) => {
+      if (doc.exists) {
+        doc.reference.delete(),
+      }
+    });
+
+    //delete notification
+    notificationRef
+        .doc(widget.profileId)
+        .collection('notifications')
+        .doc(currentUserId())
+        .get()
+        .then((doc) {
+      if (doc.exists && doc.get('type') == "eventReq") {
+        doc.reference.delete();
+      }
     });
   }
 
