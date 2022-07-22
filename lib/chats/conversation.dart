@@ -53,7 +53,8 @@ class _ConversationState extends State<Conversation> {
   }
 
   setTyping(typing) {
-    UserViewModel viewModel = Provider.of<UserViewModel>(context);
+    UserViewModel viewModel =
+        Provider.of<UserViewModel>(context, listen: false);
     viewModel.setUser();
     var user = Provider.of<UserViewModel>(context, listen: true).user;
     Provider.of<ConversationViewModel>(context, listen: false)
@@ -62,7 +63,8 @@ class _ConversationState extends State<Conversation> {
 
   @override
   Widget build(BuildContext context) {
-    UserViewModel viewModel = Provider.of<UserViewModel>(context);
+    UserViewModel viewModel =
+        Provider.of<UserViewModel>(context, listen: false);
     viewModel.setUser();
     var user = Provider.of<UserViewModel>(context, listen: true).user;
     return Consumer<ConversationViewModel>(
@@ -90,7 +92,8 @@ class _ConversationState extends State<Conversation> {
               Flexible(
                 child: StreamBuilder(
                   stream: messageListStream(widget.chatId),
-                  builder: (context, AsyncSnapshot<QuerySnapshot<Object?>> snapshot) {
+                  builder: (context,
+                      AsyncSnapshot<QuerySnapshot<Object?>> snapshot) {
                     if (snapshot.hasData) {
                       List messages = snapshot.data!.docs;
                       viewModel.setReadCount(
@@ -148,8 +151,10 @@ class _ConversationState extends State<Conversation> {
                               border: InputBorder.none,
                               hintText: "Type your message",
                               hintStyle: TextStyle(
-                                color:
-                                    Theme.of(context).textTheme.headline6!.color,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .headline6!
+                                    .color,
                               ),
                             ),
                             maxLines: null,
@@ -199,7 +204,8 @@ class _ConversationState extends State<Conversation> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           DocumentSnapshot documentSnapshot = snapshot.data as DocumentSnapshot;
-          UserModel user = UserModel.fromJson(documentSnapshot.data() as Map<String, dynamic>);
+          UserModel user = UserModel.fromJson(
+              documentSnapshot.data() as Map<String, dynamic>);
           return InkWell(
             child: Row(
               children: <Widget>[

@@ -12,7 +12,8 @@ class Chats extends StatelessWidget {
   Widget build(BuildContext context) {
     UserViewModel viewModel =
         Provider.of<UserViewModel>(context, listen: false);
-    viewModel.setUser();
+    // viewModel.setUser();
+
     return Scaffold(
       appBar: AppBar(
         // leading: InkWell(
@@ -36,7 +37,8 @@ class Chats extends StatelessWidget {
                   DocumentSnapshot chatListSnapshot = chatList[index];
                   return StreamBuilder(
                     stream: messageListStream(chatListSnapshot.id),
-                    builder: (context, AsyncSnapshot<QuerySnapshot<Object?>> snapshot) {
+                    builder: (context,
+                        AsyncSnapshot<QuerySnapshot<Object?>> snapshot) {
                       if (snapshot.hasData) {
                         List messages = snapshot.data!.docs;
                         Message message = Message.fromJson(

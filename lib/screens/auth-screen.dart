@@ -46,6 +46,7 @@ class _AuthScreenState extends State<AuthScreen> {
 
   bool loader = false;
   final _auth = FirebaseAuth.instance;
+
   void _submitAuthForm(
       {required String email,
       required String password,
@@ -65,9 +66,10 @@ class _AuthScreenState extends State<AuthScreen> {
           password: password,
         );
       }
-      setState(() {
-        loader = false;
-      });
+      if (mounted)
+        setState(() {
+          loader = false;
+        });
     } on FirebaseAuthException catch (error) {
       var message = 'An error occurred please check your credentials';
       // print(message);
@@ -82,5 +84,10 @@ class _AuthScreenState extends State<AuthScreen> {
         });
       }
     }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

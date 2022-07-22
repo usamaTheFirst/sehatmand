@@ -93,8 +93,8 @@ class _footCounterState extends State<footCounter> {
   @override
   @mustCallSuper
   void dispose() async {
+    super.dispose();
     SharedPreferences _pref = await SharedPreferences.getInstance();
     _pref.setInt("steps", steps);
-    super.dispose();
   }
 }
