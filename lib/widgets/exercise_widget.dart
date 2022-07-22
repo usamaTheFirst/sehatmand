@@ -9,13 +9,15 @@ class ExerciseWidget extends StatelessWidget {
       required this.title,
       required this.description,
       required this.image,
-      required this.calories})
+      required this.calories,
+      required this.points})
       : super(key: key);
   bool done = false;
   final String title;
   final String description;
   final String image;
   final double calories;
+  final double points;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -80,6 +82,12 @@ class ExerciseWidget extends StatelessWidget {
                                 .update({
                               "calories": FieldValue.increment(-calories)
                             });
+
+                            await FirebaseFirestore.instance
+                                .collection('points')
+                                .doc(uuid)
+                                .update(
+                                    {"points": FieldValue.increment(points)});
                           },
                           child: const Text("Done")),
                     ),

@@ -224,6 +224,11 @@ class _FormScreenState extends State<FormScreen> {
                             .collection('calorie_tracker')
                             .doc(id)
                             .update({"calories": 100});
+
+                        await _firestore
+                            .collection('points')
+                            .doc(id)
+                            .update({"points": 0});
                         // Navigator.pushReplacementNamed(context, MainScreen.routeName);
                         Navigator.pushReplacementNamed(
                             context, ProfilePicture.routeName);
