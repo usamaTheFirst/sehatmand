@@ -41,6 +41,7 @@ class _MyAppState extends State<MyApp> {
       title: 'SehatMand',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+          accentColor: Colors.deepPurpleAccent,
           scaffoldBackgroundColor: Color(0xFF222831),
           inputDecorationTheme: InputDecorationTheme(
             enabledBorder: OutlineInputBorder(

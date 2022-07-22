@@ -42,7 +42,7 @@ class _CreatePostState extends State<CreatePost> {
                 Navigator.pop(context);
               },
             ),
-            title: Text('FlutterSocial'.toUpperCase()),
+            title: Text('SehatMand'.toUpperCase()),
             centerTitle: true,
             actions: [
               GestureDetector(
@@ -58,7 +58,7 @@ class _CreatePostState extends State<CreatePost> {
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 15.0,
-                      color: Theme.of(context).accentColor,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
                 ),
@@ -73,7 +73,8 @@ class _CreatePostState extends State<CreatePost> {
                 stream: usersRef.doc(currentUserId()).snapshots(),
                 builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
                   if (snapshot.hasData) {
-                    UserModel user = UserModel.fromJson(snapshot.data!.data() as Map<String, dynamic>);
+                    UserModel user = UserModel.fromJson(
+                        snapshot.data!.data() as Map<String, dynamic>);
                     return ListTile(
                       leading: CircleAvatar(
                         radius: 25.0,
@@ -92,7 +93,10 @@ class _CreatePostState extends State<CreatePost> {
                 },
               ),
               InkWell(
-                onTap: () => {print("upload button"), showImageChoices(context, viewModel)},
+                onTap: () => {
+                  print("upload button"),
+                  showImageChoices(context, viewModel)
+                },
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.width - 30,
@@ -102,7 +106,7 @@ class _CreatePostState extends State<CreatePost> {
                       Radius.circular(5.0),
                     ),
                     border: Border.all(
-                      color: Theme.of(context).accentColor,
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
                   child: viewModel.imgLink != null
@@ -117,7 +121,7 @@ class _CreatePostState extends State<CreatePost> {
                               child: Text(
                                 'Upload a Photo',
                                 style: TextStyle(
-                                  color: Theme.of(context).accentColor,
+                                  color: Theme.of(context).colorScheme.primary,
                                 ),
                               ),
                             )
@@ -144,9 +148,8 @@ class _CreatePostState extends State<CreatePost> {
                   focusedBorder: UnderlineInputBorder(),
                 ),
                 maxLines: null,
-                onChanged: (val) => {viewModel.setDescription(val),
-                  viewModel.setLocation("")
-                },
+                onChanged: (val) =>
+                    {viewModel.setDescription(val), viewModel.setLocation("")},
               ),
               SizedBox(height: 20.0),
               // Text(

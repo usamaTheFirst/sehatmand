@@ -49,7 +49,7 @@ class UserAttributesProvider extends ChangeNotifier {
     }
 
     var url = Uri.parse(
-        'http://usamafiaz1453.pythonanywhere.com/loss?age=${age?.ceil()}&weight=${weight?.ceil()}&height=${height?.ceil()}&veg=1');
+        'http://usamafiaz1453.pythonanywhere.com/loss?age=${age?.ceil()}&weight=${weight?.ceil()}&height=${height?.ceil()}');
     final response = await http.get(url);
     print(url);
     print(response.body);
@@ -62,7 +62,7 @@ class UserAttributesProvider extends ChangeNotifier {
     }
 
     var url = Uri.parse(
-        'http://usamafiaz1453.pythonanywhere.com/gain?age=${age?.ceil()}&weight=${weight?.ceil()}&height=${height?.ceil()}&veg=1');
+        'http://usamafiaz1453.pythonanywhere.com/gain?age=${age?.ceil()}&weight=${weight?.ceil()}&height=${height?.ceil()}');
     final response = await http.get(url);
     print(url);
     print(response.body);

@@ -59,20 +59,22 @@ class _PastExercisesScreenState extends State<PastExercisesScreen> {
                       print(res["bmi_message"]);
                       message = res["bmi_message"];
                       suggestions = res["suggestions"].join("\n");
-                      content = Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(message!),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text("Food Recommendations"),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(suggestions!),
-                        ],
+                      content = SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(message!),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text("Food Recommendations"),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(suggestions!),
+                          ],
+                        ),
                       );
                       setState(() {});
                       Navigator.pop(context);
@@ -131,20 +133,22 @@ class _PastExercisesScreenState extends State<PastExercisesScreen> {
                       print(res["bmi_message"]);
                       message = res["bmi_message"];
                       suggestions = res["suggestions"].join("\n");
-                      content = Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(message!),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text("Food Recommendations"),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Text(suggestions!),
-                        ],
+                      content = SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(message!),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text("Food Recommendations"),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(suggestions!),
+                          ],
+                        ),
                       );
                       setState(() {});
                       Navigator.pop(context);

@@ -64,12 +64,23 @@ class _TabScreenState extends State<TabScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: TabBar(
+            indicatorColor: Theme.of(context).colorScheme.primary,
             tabs: [
-              Tab(icon: Icon(pages[0]['icon']),),
-              Tab(icon: Icon(pages[1]['icon']),),
-              Tab(icon: Icon(pages[2]['icon']),),
-              Tab(icon: Icon(pages[3]['icon']),),
-              Tab(icon: Icon(pages[4]['icon']),),
+              Tab(
+                icon: Icon(pages[0]['icon']),
+              ),
+              Tab(
+                icon: Icon(pages[1]['icon']),
+              ),
+              Tab(
+                icon: Icon(pages[2]['icon']),
+              ),
+              Tab(
+                icon: Icon(pages[3]['icon']),
+              ),
+              Tab(
+                icon: Icon(pages[4]['icon']),
+              ),
             ],
           ),
         ),
