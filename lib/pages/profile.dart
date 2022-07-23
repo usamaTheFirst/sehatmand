@@ -14,7 +14,6 @@ import 'package:sehatmand/utils/firebase.dart';
 import 'package:sehatmand/widgets/post_tiles.dart';
 import 'package:sehatmand/widgets/posts_view.dart';
 
-
 class Profile extends StatefulWidget {
   final profileId;
 
@@ -75,7 +74,7 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Your Profile'),
+        title: const Text('Your Profile'),
         actions: [
           widget.profileId == FirebaseAuth.instance.currentUser!.uid
               ? Center(
@@ -84,9 +83,10 @@ class _ProfileState extends State<Profile> {
                     child: GestureDetector(
                       onTap: () {
                         FirebaseAuth.instance.signOut();
-                        Navigator.of(context).pushNamedAndRemoveUntil(Rerouter.routeName, (route) => false);
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            Rerouter.routeName, (route) => false);
                       },
-                      child: Text(
+                      child: const Text(
                         'Log Out',
                         style: TextStyle(
                             fontWeight: FontWeight.w900, fontSize: 15.0),
@@ -127,14 +127,14 @@ class _ProfileState extends State<Profile> {
                                 radius: 40.0,
                               ),
                             ),
-                            SizedBox(width: 20.0),
+                            const SizedBox(width: 20.0),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(height: 32.0),
                                 Row(
                                   children: [
-                                    Visibility(
+                                    const Visibility(
                                       visible: false,
                                       child: SizedBox(width: 10.0),
                                     ),
@@ -146,25 +146,13 @@ class _ProfileState extends State<Profile> {
                                           width: 130.0,
                                           child: Text(
                                             user.username as String,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontSize: 15.0,
                                                 fontWeight: FontWeight.w900),
                                             maxLines: null,
                                           ),
                                         ),
-                                        // Container(
-                                        //   width: 130.0,
-                                        //   child: Text(
-                                        //     user.country as String,
-                                        //     style: TextStyle(
-                                        //       fontSize: 12.0,
-                                        //       fontWeight: FontWeight.w600,
-                                        //     ),
-                                        //     maxLines: 1,
-                                        //     overflow: TextOverflow.ellipsis,
-                                        //   ),
-                                        // ),
-                                        SizedBox(width: 10.0),
+                                        const SizedBox(width: 10.0),
                                         Column(
                                           mainAxisSize: MainAxisSize.min,
                                           crossAxisAlignment:
@@ -172,7 +160,7 @@ class _ProfileState extends State<Profile> {
                                           children: [
                                             Text(
                                               user.email,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 // color: Color(0xff4D4D4D),
                                                 fontSize: 10.0,
                                               ),
@@ -195,7 +183,7 @@ class _ProfileState extends State<Profile> {
                                                 Icon(Feather.settings,
                                                     color: Theme.of(context)
                                                         .accentColor),
-                                                Text(
+                                                const Text(
                                                   'settings',
                                                   style:
                                                       TextStyle(fontSize: 11.5),
@@ -218,7 +206,7 @@ class _ProfileState extends State<Profile> {
                                   width: 200,
                                   child: Text(
                                     user.bio as String,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                       //    color: Color(0xff4D4D4D),
                                       fontSize: 10.0,
                                       fontWeight: FontWeight.w600,
@@ -227,7 +215,7 @@ class _ProfileState extends State<Profile> {
                                   ),
                                 ),
                         ),
-                        SizedBox(height: 10.0),
+                        const SizedBox(height: 10.0),
                         Container(
                           height: 50.0,
                           child: Padding(
@@ -331,7 +319,9 @@ class _ProfileState extends State<Profile> {
                             style: TextStyle(fontWeight: FontWeight.w900),
                           ),
                           // Spacer(),
-                          SizedBox(height: 40,)
+                          SizedBox(
+                            height: 40,
+                          )
                           // buildIcons(),
                         ],
                       ),
@@ -375,15 +365,15 @@ class _ProfileState extends State<Profile> {
       children: <Widget>[
         Text(
           count.toString(),
-          style: TextStyle(
+          style: const TextStyle(
               fontSize: 16.0,
               fontWeight: FontWeight.w900,
               fontFamily: 'Ubuntu-Regular'),
         ),
-        SizedBox(height: 3.0),
+        const SizedBox(height: 3.0),
         Text(
           label,
-          style: TextStyle(
+          style: const TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.w400,
               fontFamily: 'Ubuntu-Regular'),
@@ -620,9 +610,9 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-  buildFAB(){
+  buildFAB() {
     bool isMe = widget.profileId == FirebaseAuth.instance.currentUser!.uid;
-    if(!isMe) {
+    if (!isMe) {
       return FloatingActionButton.extended(
         onPressed: () {
           manageEvent();
@@ -632,13 +622,13 @@ class _ProfileState extends State<Profile> {
           print("alreadyInvited(): $isInvited");
         },
         // child: Icon(Icons.add),
-        label: isInvited?Text('Already invited'):Text('Invite for workout'),
+        label: isInvited ? Text('Already invited') : Text('Invite for workout'),
       );
     }
   }
 
-  manageEvent(){
-    isInvited?deleteEvent():addEvent();
+  manageEvent() {
+    isInvited ? deleteEvent() : addEvent();
   }
 
   addEvent() async {
@@ -681,10 +671,11 @@ class _ProfileState extends State<Profile> {
         .doc(currentUserId())
         .get()
         .then((doc) => {
-      if (doc.exists) {
-        doc.reference.delete(),
-      }
-    });
+              if (doc.exists)
+                {
+                  doc.reference.delete(),
+                }
+            });
 
     //delete notification
     notificationRef
@@ -698,5 +689,4 @@ class _ProfileState extends State<Profile> {
       }
     });
   }
-
 }

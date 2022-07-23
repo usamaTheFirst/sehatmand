@@ -77,7 +77,7 @@ class _ConversationState extends State<Conversation> {
               // Navigator.pop(context);
               Navigator.of(context).pop();
             },
-            child: Icon(
+            child: const Icon(
               Icons.keyboard_backspace,
             ),
           ),

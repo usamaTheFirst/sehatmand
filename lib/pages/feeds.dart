@@ -46,12 +46,12 @@ class _TimelineState extends State<Timeline> {
     QuerySnapshot querySnapshot;
     if (lastDocument == null) {
       querySnapshot = await postRef
-          .orderBy('timestamp', descending: false)
+          .orderBy('timestamp', descending: true)
           .limit(documentLimit)
           .get();
     } else {
       querySnapshot = await postRef
-          .orderBy('timestamp', descending: false)
+          .orderBy('timestamp', descending: true)
           .startAfterDocument(lastDocument!)
           .limit(documentLimit)
           .get();
@@ -92,39 +92,42 @@ class _TimelineState extends State<Timeline> {
         ),
         centerTitle: true,
         // actions: [
-          // IconButton(
-          //   icon: Icon(
-          //     CupertinoIcons.chat_bubble_2_fill,
-          //     size: 30.0,
-          //     color: Theme.of(context).accentColor,
-          //   ),
-          //   onPressed: () {
-          //     Navigator.push(
-          //       context,
-          //       CupertinoPageRoute(
-          //         builder: (_) => Chats(),
-          //       ),
-          //     );
-          //   },
-          // ),
-          // SizedBox(width: 20.0),
+        // IconButton(
+        //   icon: Icon(
+        //     CupertinoIcons.chat_bubble_2_fill,
+        //     size: 30.0,
+        //     color: Theme.of(context).accentColor,
+        //   ),
+        //   onPressed: () {
+        //     Navigator.push(
+        //       context,
+        //       CupertinoPageRoute(
+        //         builder: (_) => Chats(),
+        //       ),
+        //     );
+        //   },
+        // ),
+        // SizedBox(width: 20.0),
         // ],
       ),
       body: isLoading
           ? circularProgress(context)
           : ListView.builder(
+              // reverse: true,
               controller: _scrollController,
               itemCount: post.length,
               itemBuilder: (context, index) {
                 internetChecker(context);
-                PostModel posts = PostModel.fromJson(post[index].data() as Map<String, dynamic>);
+                PostModel posts = PostModel.fromJson(
+                    post[index].data() as Map<String, dynamic>);
                 return Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: UserPost(post: posts),
                 );
               },
             ),
-      floatingActionButton: new FabContainer(page: Text("nes"), icon:  CupertinoIcons.add),
+      floatingActionButton:
+          new FabContainer(page: Text("nes"), icon: CupertinoIcons.add),
     );
   }
 

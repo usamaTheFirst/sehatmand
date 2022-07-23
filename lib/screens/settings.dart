@@ -21,7 +21,7 @@ class _SettingState extends State<Setting> {
         ),
         backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0.0,
-        title: Text(
+        title: const Text(
           "Settings",
           style: TextStyle(),
         ),
@@ -30,36 +30,18 @@ class _SettingState extends State<Setting> {
       body: Padding(
         padding: EdgeInsets.all(10.0),
         child: ListView(
-          children: <Widget>[
-             ListTile(
-              title: Text(
-                "About",
-                style: TextStyle(
-                  fontWeight: FontWeight.w900,
+          children: const <Widget>[
+            ListTile(
+                title: Text(
+                  "About",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
-              ),
-              subtitle: Text("A Fully Functional Health based Social Media Application Made by Tayyib and Usama"),
-              trailing: Icon(Icons.error)
-            ),
+                subtitle: Text(
+                    "A Fully Functional Health based Social Media Application Made by Usama Fayyaz and Tayyib"),
+                trailing: Icon(Icons.error)),
             Divider(),
-            // ListTile(
-            //   title: Text(
-            //     "Dark Mode",
-            //     style: TextStyle(
-            //       fontWeight: FontWeight.w900,
-            //     ),
-            //   ),
-            //   subtitle: Text("Use the dark mode"),
-            //   trailing: Consumer<ThemeNotifier>(
-            //     builder: (context, notifier, child) => CupertinoSwitch(
-            //       onChanged: (val) {
-            //         notifier.toggleTheme();
-            //       },
-            //       value: notifier.dark,
-            //       activeColor: Theme.of(context).accentColor,
-            //     ),
-            //   ),
-            // ),
           ],
         ),
       ),
