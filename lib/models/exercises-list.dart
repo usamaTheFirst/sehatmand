@@ -2,7 +2,7 @@ import '../widgets/exercise_widget.dart';
 
 final exercises_list = [
   ExerciseWidget(
-    title: "Running",
+    title: "1 KM Running",
     image:
         "https://images.everydayhealth.com/images/how-to-start-working-out-again-derailed-from-covid-1440x810.jpg",
     description:
@@ -11,7 +11,7 @@ final exercises_list = [
     points: 40,
   ),
   ExerciseWidget(
-    title: "Push Up",
+    title: " 15 Push Up",
     image:
         "https://thumbs.dreamstime.com/b/man-character-doing-push-up-flat-vector-illustration-isolated-different-layers-man-character-doing-push-up-flat-vector-236370303.jpg",
     description:
@@ -20,7 +20,7 @@ final exercises_list = [
     points: 30,
   ),
   ExerciseWidget(
-    title: "Sit Ups",
+    title: "15 Sit Ups",
     image:
         "https://previews.123rf.com/images/jjesadaphorn/jjesadaphorn1611/jjesadaphorn161100023/69245421-fat-or-obesity-man-trying-to-do-sit-ups-in-very-difficult-way-with-help-from-personel-trainer-vector.jpg",
     description:
@@ -29,7 +29,7 @@ final exercises_list = [
     points: 25,
   ),
   ExerciseWidget(
-    title: "Squats",
+    title: "15 Squats",
     image:
         "https://previews.123rf.com/images/artinspiring/artinspiring1903/artinspiring190300562/124305430-man-making-lunges-doing-sport-exercises-in-gym-leg-workout-muscle-building-healthy-and-active-lifest.jpg",
     description:
@@ -38,7 +38,7 @@ final exercises_list = [
     points: 43,
   ),
   ExerciseWidget(
-    title: "Planks",
+    title: "1 Min Planks",
     image:
         "https://previews.123rf.com/images/sabelskaya/sabelskaya1707/sabelskaya170700115/81477215-young-man-doing-push-ups-sport-exercises-training-in-gym-cartoon-vector-illustration-isolated-on-whi.jpg",
     description:
@@ -47,7 +47,7 @@ final exercises_list = [
     points: 50,
   ),
   ExerciseWidget(
-    title: "Cycling",
+    title: "30 Min Cycling",
     image:
         "https://previews.123rf.com/images/ms10/ms101608/ms10160800004/61287351-cycling-abstract-geometrical-road-cyclist-on-his-bike-abstract-polygonal-cyclist.jpg",
     description:

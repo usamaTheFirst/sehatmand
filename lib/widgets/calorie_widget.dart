@@ -43,7 +43,7 @@ class _CalorieWidgetState extends State<CalorieWidget> {
                     thickness: 0.1,
                     thicknessUnit: GaugeSizeUnit.factor,
                   ),
-                  maximum: 1000,
+                  maximum: 3000,
                   showLabels: false,
                   pointers: <GaugePointer>[
                     RangePointer(
@@ -51,7 +51,7 @@ class _CalorieWidgetState extends State<CalorieWidget> {
                       width: 0.1,
                       sizeUnit: GaugeSizeUnit.factor,
                       gradient: const SweepGradient(
-                          colors: <Color>[Color(0xFFCC2B5E), Color(0xFF753A88)],
+                          colors: <Color>[Colors.red, Colors.green],
                           stops: <double>[0.25, 0.75]),
                     ),
                     MarkerPointer(
@@ -93,7 +93,7 @@ class _CalorieWidgetState extends State<CalorieWidget> {
         .snapshots()
         .listen((event) {
       setState(() {
-        calorie = event.get('calories');
+        calorie = event.get('calories').floor();
       });
     });
   }

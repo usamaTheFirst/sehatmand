@@ -55,7 +55,7 @@ class ExerciseWidget extends StatelessWidget {
                       child: Text(
                         title,
                         style: TextStyle(
-                            fontSize: 22,
+                            fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: Theme.of(context).colorScheme.primary),
                       ),
