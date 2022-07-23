@@ -133,6 +133,8 @@ class _ProfileState extends State<Profile> {
                               children: [
                                 SizedBox(height: 32.0),
                                 Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     const Visibility(
                                       visible: false,
@@ -152,23 +154,17 @@ class _ProfileState extends State<Profile> {
                                             maxLines: null,
                                           ),
                                         ),
-                                        const SizedBox(width: 10.0),
-                                        Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              user.email,
-                                              style: const TextStyle(
-                                                // color: Color(0xff4D4D4D),
-                                                fontSize: 10.0,
-                                              ),
-                                            ),
-                                          ],
+                                        const SizedBox(width: 13.0),
+                                        Text(
+                                          user.email,
+                                          style: const TextStyle(
+                                            // color: Color(0xff4D4D4D),
+                                            fontSize: 10.0,
+                                          ),
                                         ),
                                       ],
                                     ),
+                                    const SizedBox(width: 10.0),
                                     widget.profileId == currentUserId()
                                         ? InkWell(
                                             onTap: () {
@@ -191,7 +187,9 @@ class _ProfileState extends State<Profile> {
                                               ],
                                             ),
                                           )
-                                        : buildLikeButton()
+                                        : buildLikeButton(),
+                                    // SizedBox(width: 10.0),
+                                    // getRank()
                                   ],
                                 ),
                               ],
@@ -295,7 +293,10 @@ class _ProfileState extends State<Profile> {
                             ),
                           ),
                         ),
-                        buildProfileButton(user),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [buildProfileButton(user), getRank()],
+                        ),
                       ],
                     );
                   }
@@ -360,6 +361,50 @@ class _ProfileState extends State<Profile> {
     }
   }
 
+  getRank() {
+    return Container(
+      height: 40,
+      width: 100,
+      alignment: Alignment.center,
+      // padding: EdgeInsets.only(top: 5, bottom: 5, right: 5, left: 5),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Colors.purple,
+            Colors.pinkAccent,
+          ],
+        ),
+      ),
+      child: StreamBuilder(
+        stream: pointsRef.doc(widget.profileId).snapshots(),
+        builder:
+            (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+          if (snapshot.hasData) {
+            var rank = snapshot.data?.get('points').floor() ~/ 100;
+            return Text(
+              "Rank: $rank",
+              style: TextStyle(
+                fontSize: 15.0,
+                fontWeight: FontWeight.bold,
+              ),
+            );
+          } else {
+            return Text(
+              '0',
+              style: TextStyle(
+                fontSize: 10.0,
+                fontWeight: FontWeight.bold,
+              ),
+            );
+          }
+        },
+      ),
+    );
+  }
+
   buildCount(String label, int count) {
     return Column(
       children: <Widget>[
@@ -418,7 +463,7 @@ class _ProfileState extends State<Profile> {
         onTap: function as void Function()?,
         child: Container(
           height: 40.0,
-          width: 200.0,
+          width: 150.0,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5.0),
             gradient: LinearGradient(
