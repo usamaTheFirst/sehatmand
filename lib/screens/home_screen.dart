@@ -6,7 +6,7 @@ import 'package:sehatmand/models/exercises-list.dart';
 import 'package:sehatmand/models/food.dart';
 import 'package:sehatmand/widgets/bmi_widget.dart';
 import 'package:sehatmand/widgets/bmr_widget.dart';
-import 'package:sehatmand/widgets/exercise_widget.dart';
+// import 'package:sehatmand/widgets/exercise_widget.dart';
 import 'package:sehatmand/widgets/foot_counter.dart';
 import 'package:sehatmand/widgets/points_widget.dart';
 
