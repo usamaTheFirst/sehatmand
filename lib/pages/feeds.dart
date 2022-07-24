@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:sehatmand/chats/recent_chats.dart';
+// import 'package:sehatmand/chats/recent_chats.dart';
 import 'package:sehatmand/models/post.dart';
 import 'package:sehatmand/utils/firebase.dart';
 import 'package:sehatmand/widgets/indicators.dart';

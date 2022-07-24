@@ -56,9 +56,7 @@ class _CommentsState extends State<Comments> {
                     child: buildFullPost(),
                   ),
                   Divider(thickness: 1.5),
-                  Flexible(
-                    child: buildComments(),
-                  )
+                  buildComments(),
                 ],
               ),
             ),
@@ -153,44 +151,46 @@ class _CommentsState extends State<Comments> {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.post.description,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w800,
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.post.description,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w800,
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 4.0),
-                  Row(
-                    children: [
-                      Text(
-                        timeago.format(widget.post.timestamp.toDate()),
-                        style: TextStyle(),
-                      ),
-                      SizedBox(width: 3.0),
-                      StreamBuilder(
-                        stream: likesRef
-                            .where('postId', isEqualTo: widget.post.postId)
-                            .snapshots(),
-                        builder:
-                            (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                          if (snapshot.hasData) {
-                            QuerySnapshot? snap = snapshot.data;
-                            List<DocumentSnapshot> docs = snap!.docs;
-                            return buildLikesCount(context, docs?.length ?? 0);
-                          } else {
-                            return buildLikesCount(context, 0);
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                ],
+                    SizedBox(height: 4.0),
+                    Row(
+                      children: [
+                        Text(
+                          timeago.format(widget.post.timestamp.toDate()),
+                          style: TextStyle(),
+                        ),
+                        SizedBox(width: 3.0),
+                        StreamBuilder(
+                          stream: likesRef
+                              .where('postId', isEqualTo: widget.post.postId)
+                              .snapshots(),
+                          builder:
+                              (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                            if (snapshot.hasData) {
+                              QuerySnapshot? snap = snapshot.data;
+                              List<DocumentSnapshot> docs = snap!.docs;
+                              return buildLikesCount(context, docs?.length ?? 0);
+                            } else {
+                              return buildLikesCount(context, 0);
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-              Spacer(),
+              // Spacer(),
               buildLikeButton(),
             ],
           ),

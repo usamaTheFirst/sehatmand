@@ -21,8 +21,8 @@ class _MainScreenState extends State<MainScreen> {
 
   List<Widget> tabItems = [
     HomeScreen(),
-    TabScreen(),
     PastExercisesScreen(),
+    TabScreen(),
     Profile(profileId: FirebaseAuth.instance.currentUser!.uid),
   ];
 
@@ -50,14 +50,14 @@ class _MainScreenState extends State<MainScreen> {
           FlashyTabBarItem(
             activeColor: Colors.white,
             inactiveColor: Colors.white.withOpacity(0.7),
-            icon: Icon(Icons.people),
-            title: Text('Friends'),
+            icon: Icon(Icons.trending_up),
+            title: Text('Progress'),
           ),
           FlashyTabBarItem(
             activeColor: Colors.white,
             inactiveColor: Colors.white.withOpacity(0.7),
-            icon: Icon(Icons.trending_up),
-            title: Text('Progress'),
+            icon: Icon(Icons.people),
+            title: Text('Friends'),
           ),
           FlashyTabBarItem(
             activeColor: Colors.white,
