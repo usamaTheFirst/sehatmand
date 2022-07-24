@@ -39,7 +39,7 @@ class _SettingState extends State<Setting> {
                   ),
                 ),
                 subtitle: Text(
-                    "A Fully Functional Health based Social Media Application Made by Usama Fayyaz and Muhammad Tayyib Irfan"),
+                    "A Fully Functional Health based Social Media Application developed by Muhammad Tayyib Irfan and Usama"),
                 trailing: Icon(Icons.error)),
             Divider(),
           ],

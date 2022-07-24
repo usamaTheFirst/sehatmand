@@ -205,6 +205,15 @@ class _FormScreenState extends State<FormScreen> {
                       if (_formKey.currentState!.validate()) {
                         print(_formKey.currentState?.value);
 
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: Text("Processing.."),
+                                content: CircularProgressIndicator(),
+                              );
+                            });
+
                         final id = await FirebaseAuth.instance.currentUser?.uid;
                         final FirebaseFirestore _firestore =
                             FirebaseFirestore.instance;
@@ -230,6 +239,7 @@ class _FormScreenState extends State<FormScreen> {
                             .doc(id)
                             .set({"points": 0});
                         // Navigator.pushReplacementNamed(context, MainScreen.routeName);
+                        Navigator.of(context).pop();
                         Navigator.pushReplacementNamed(
                             context, ProfilePicture.routeName);
                       } else {
