@@ -106,15 +106,18 @@ class _CommentsState extends State<Comments> {
                           maxLines: null,
                         ),
                         trailing: GestureDetector(
-                          onTap: () async {
-                            await services.uploadComment(
-                              currentUserId(),
-                              commentsTEC.text,
-                              widget.post.postId,
-                              widget.post.ownerId,
-                              widget.post.mediaUrl,
-                            );
-                            commentsTEC.clear();
+                          onTap: () {
+                            if(commentsTEC.text.isNotEmpty) {
+                              services.uploadComment(
+                                currentUserId(),
+                                commentsTEC.text,
+                                widget.post.postId,
+                                widget.post.ownerId,
+                                widget.post.mediaUrl,
+                              );
+
+                              commentsTEC.clear();
+                            }
                           },
                           child: Padding(
                             padding: const EdgeInsets.only(right: 10.0),
