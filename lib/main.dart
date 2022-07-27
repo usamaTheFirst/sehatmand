@@ -10,6 +10,7 @@ import 'package:sehatmand/auth/register/profile_pic.dart';
 import 'package:sehatmand/providers/excercise_provider.dart';
 import 'package:sehatmand/providers/user-attributes-provider.dart';
 import 'package:sehatmand/screens/auth-screen.dart';
+import 'package:sehatmand/screens/forgot_password.dart';
 import 'package:sehatmand/screens/form_screen.dart';
 import 'package:sehatmand/screens/main-srcreen.dart';
 import 'package:sehatmand/utils/providers.dart';
@@ -62,6 +63,7 @@ class _MyAppState extends State<MyApp> {
         ProfilePicture.routeName: (context) => ProfilePicture(),
         AuthScreen.routeName: (context) => AuthScreen(),
         Rerouter.routeName: (context) => Rerouter(),
+        ForgotPasswordScreen.routeName: (context) => ForgotPasswordScreen(),
       },
     );
   }

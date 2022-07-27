@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sehatmand/screens/forgot_password.dart';
 
 class AuthForm extends StatefulWidget {
   AuthForm({Key? key, required this.submitAuthForm, required this.loader})
@@ -134,7 +135,14 @@ class _AuthFormState extends State<AuthForm> {
                     child: Text(signinMode
                         ? "Create a new account"
                         : 'I already have an account'),
-                  )
+                  ),
+                if (signinMode)
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed(ForgotPasswordScreen.routeName);
+                      },
+                      child: const Text('Reset Password'))
               ],
             ),
           ),
