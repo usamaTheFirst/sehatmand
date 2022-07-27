@@ -122,9 +122,9 @@ class _FormScreenState extends State<FormScreen> {
                         InputDecoration(hintText: 'Enter your weight in kg'),
                   ),
                   SizedBox(height: 10),
-                  FormBuilderDateRangePicker(
+                  FormBuilderDateTimePicker(
                     name: 'dob',
-                    firstDate: DateTime(1970),
+                    initialDate: DateTime(2002),
                     lastDate: DateTime(2004),
                     validator: (value) {
                       if (value == null) {
