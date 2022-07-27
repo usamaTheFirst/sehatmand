@@ -91,8 +91,8 @@ class _FormScreenState extends State<FormScreen> {
                         return 'Please enter your height';
                       } else if (double.tryParse(value) == null) {
                         return 'Please enter a valid height';
-                      } else if (double.parse(value) < 0) {
-                        return 'Height must be positive';
+                      } else if (double.parse(value) < 122) {
+                        return 'Please enter a valid height';
                       } else if (double.parse(value) > 300) {
                         return 'Height must be less than 200';
                       }
@@ -122,8 +122,10 @@ class _FormScreenState extends State<FormScreen> {
                         InputDecoration(hintText: 'Enter your weight in kg'),
                   ),
                   SizedBox(height: 10),
-                  FormBuilderDateTimePicker(
+                  FormBuilderDateRangePicker(
                     name: 'dob',
+                    firstDate: DateTime(1970),
+                    lastDate: DateTime(2004),
                     validator: (value) {
                       if (value == null) {
                         return 'Please enter your date of birth';
@@ -131,7 +133,7 @@ class _FormScreenState extends State<FormScreen> {
                       return null;
                     },
                     format: DateFormat("dd-MM-yyyy"),
-                    inputType: InputType.date,
+                    // inputType: InputType.date,
                     decoration:
                         InputDecoration(hintText: 'Enter your date of birth'),
                   ),
